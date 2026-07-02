@@ -210,7 +210,7 @@
     <input id="newTick" placeholder="Add ticker  e.g. NVDA" maxlength="10"
       onkeydown="if(event.key==='Enter')addTicker()">
     <button onclick="addTicker()">+ Add</button>
-    <span class="msg" id="addMsg">Custom tickers get live prices &amp; join the tape (saved on this device). Analysis cards stay expert-rated.</span>
+    <span class="msg" id="addMsg">Instant: live price + tape (saved on this device). For a full rated window on the public site, <a href="https://github.com/royarad-dev/ra-markets/edit/main/tickers.json" target="_blank" rel="noopener" style="color:var(--blue)">add it to tickers.json</a> — rated on the next hourly update.</span>
   </div>
   <div class="legend" id="filters">
     <button class="on" data-f="all">All</button>
@@ -301,17 +301,27 @@ function renderCustomCards(){
   const grid=document.getElementById('cards');
   Object.entries(Q).forEach(([s,q])=>{
     if(!q.custom)return;
+    const rm=q.repo?'':`<button class="rm" onclick="removeTicker('${s}')" title="Remove">✕</button>`;
+    const badge=q.repo?'RATING SOON':'UNRATED';
+    const why=q.repo?'In the rating queue — gets a full RA checklist window on the next hourly update.'
+                    :'Live price only (this device). For a permanent rated window, use the tickers.json link above.';
     grid.insertAdjacentHTML('beforeend',
     `<div class="card custom" data-f="all" data-sym="${s}" style="--sig:#64748b">
-      <button class="rm" onclick="removeTicker('${s}')" title="Remove">✕</button>
-      <div class="chead"><div><div class="tick">${s}</div><div class="name">Added by you</div>
+      ${rm}
+      <div class="chead"><div><div class="tick">${s}</div><div class="name">${q.repo?'Queued for rating':'Added by you'}</div>
       <div class="prc" data-psym="${s}">${q.p?'$'+fmt(q.p):'…'}</div></div>
-      <span class="badge">UNRATED</span></div>
+      <span class="badge">${badge}</span></div>
       <div class="score-row"><div class="ring" style="--p:0"><b>—</b></div>
-      <div class="why">Live price only — no checklist analysis yet. Ask RA to rate it in the next update.</div></div>
+      <div class="why">${why}</div></div>
     </div>`);
   });
 }
+/* repo-level watchlist: tickers.json "extra" symbols join the tape now and get rated windows on the next scheduled run */
+fetch('tickers.json?v='+Date.now()).then(r=>r.json()).then(t=>{
+  let added=false;
+  (t.extra||[]).forEach(s=>{ if(!Q[s]){Q[s]={n:s,p:0,c:null,custom:true,repo:true};added=true;} });
+  if(added){renderTape();renderCustomCards();refreshQuotes();}
+}).catch(()=>{});
 /* ============ TICKER TAPE ============ */
 function renderTape(){
   const items=Object.entries(Q).map(([s,q])=>{
