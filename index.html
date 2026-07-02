@@ -317,11 +317,7 @@ function renderCustomCards(){
   });
 }
 /* repo-level watchlist: tickers.json "extra" symbols join the tape now and get rated windows on the next scheduled run */
-fetch('tickers.json?v='+Date.now()).then(r=>r.json()).then(t=>{
-  let added=false;
-  (t.extra||[]).forEach(s=>{ if(!Q[s]){Q[s]={n:s,p:0,c:null,custom:true,repo:true};added=true;} });
-  if(added){renderTape();renderCustomCards();refreshQuotes();}
-}).catch(()=>{});
+refreshRepoList().then(()=>refreshQuotes());
 /* ============ TICKER TAPE ============ */
 function renderTape(){
   const items=Object.entries(Q).map(([s,q])=>{
@@ -363,12 +359,34 @@ async function refreshQuotes(){
   }
   return any;
 }
+/* full-page version check: if the hourly analysis task deployed a new build, reload to show it */
+let PAGE_SNAPSHOT=null;
+async function fetchSelf(){const r=await fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;return r.text();}
+fetchSelf().then(t=>PAGE_SNAPSHOT=t).catch(()=>{});
+async function checkNewVersion(){
+  try{
+    const t=await fetchSelf();
+    if(PAGE_SNAPSHOT&&t!==PAGE_SNAPSHOT){location.reload();return true;}
+    PAGE_SNAPSHOT=PAGE_SNAPSHOT||t;
+  }catch(e){}
+  return false;
+}
+function refreshRepoList(){
+  return fetch('tickers.json?v='+Date.now()).then(r=>r.json()).then(t=>{
+    let added=false;
+    (t.extra||[]).forEach(s=>{ if(!Q[s]){Q[s]={n:s,p:0,c:null,custom:true,repo:true};added=true;} });
+    if(added){renderTape();renderCustomCards();}
+  }).catch(()=>{});
+}
 async function manualRefresh(){
   const btn=document.getElementById('refreshBtn');
   btn.classList.add('spin');
-  await Promise.allSettled([refreshQuotes(true), refreshNews()]);
+  /* refresh EVERYTHING: repo watchlist, prices, headlines — then reload if a newer analysis build was deployed */
+  await Promise.allSettled([refreshRepoList(), refreshQuotes(true), refreshNews()]);
+  await checkNewVersion();
   btn.classList.remove('spin');
 }
+setInterval(checkNewVersion, 15*60*1000);   /* auto-pick-up new analysis builds every 15 min */
 refreshQuotes();
 setInterval(refreshQuotes, 15*60*1000);   /* prices: every 15 minutes */
 
