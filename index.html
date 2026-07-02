@@ -172,9 +172,9 @@
   </svg>
   <div class="brand">
     <h1>RA <span>MARKETS</span></h1>
-    <div class="sub" id="stamp">Roy Arad · Signal Desk · Thursday, July 2, 2026</div>
+    <div class="sub" id="stamp">Roy Arad · Signal Desk · Thursday, July 2, 2026 · Midday Edition</div>
   </div>
-  <div class="live" id="liveBadge" style="margin-left:auto"><span class="pulse"></span><span id="liveTxt">SNAPSHOT · JUL 1 CLOSE</span></div>
+  <div class="live" id="liveBadge" style="margin-left:auto"><span class="pulse"></span><span id="liveTxt">SNAPSHOT · JUL 2 MIDDAY</span></div>
   <button class="refresh" id="refreshBtn" onclick="manualRefresh()" title="Refresh prices now">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
       <path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/>
@@ -183,21 +183,21 @@
 </header>
 
 <div class="mood">
-  <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--hold)">CAUTIOUS</div>
-    <div class="sub">Indexes near highs, but Mag-7 shed $2.3T this year — money is rotating</div>
-    <div class="bar"><i style="width:55%;background:var(--hold)"></i></div></div>
-  <div class="m"><div class="lbl">AI Mega-caps</div><div class="val" style="color:var(--buy)">STRONG</div>
-    <div class="sub">META +8.8%, PLTR +7.8% yesterday as money exits chips</div>
-    <div class="bar"><i style="width:76%;background:var(--buy)"></i></div></div>
+  <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--hold)">SPLIT</div>
+    <div class="sub">Dow up, Nasdaq slips — soft jobs killed rate-hike fear but woke growth fear</div>
+    <div class="bar"><i style="width:52%;background:var(--hold)"></i></div></div>
+  <div class="m"><div class="lbl">AI Mega-caps</div><div class="val" style="color:var(--hold)">ROTATING</div>
+    <div class="sub">AAPL +3.9%, PLTR +3.5% while META gives back 4% of its cloud pop</div>
+    <div class="bar"><i style="width:58%;background:var(--hold)"></i></div></div>
   <div class="m"><div class="lbl">Chip Stocks</div><div class="val" style="color:var(--avoid)">WEAK</div>
-    <div class="sub">Micron −10.6%, Intel −9% · Burry shorting NVDA &amp; chip ETF</div>
-    <div class="bar"><i style="width:28%;background:var(--avoid)"></i></div></div>
-  <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--avoid)">FEAR</div>
-    <div class="sub">BTC −20% in June · fear index 12/100 · ETF money leaving</div>
-    <div class="bar"><i style="width:15%;background:var(--avoid)"></i></div></div>
-  <div class="m"><div class="lbl">Jobs Report ✓ Out</div><div class="val" style="color:var(--buy)">COOL — RELIEF</div>
-    <div class="sub">57K vs 115K expected → rate-hike fear fades, stocks rallying (Dow +0.5%)</div>
-    <div class="bar"><i style="width:68%;background:var(--buy)"></i></div></div>
+    <div class="sub">Chip ETF −3%: Teradyne &amp; KLA −8%, Micron −3.4% · NVDA can't hold $200</div>
+    <div class="bar"><i style="width:24%;background:var(--avoid)"></i></div></div>
+  <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--hold)">BOUNCING</div>
+    <div class="sub">BTC +4% to $61K, ETH +8% — relief pop, but ETF money is still leaving</div>
+    <div class="bar"><i style="width:35%;background:var(--hold)"></i></div></div>
+  <div class="m"><div class="lbl">Tesla Q2 ✓ Out</div><div class="val" style="color:var(--avoid)">BEAT, SOLD</div>
+    <div class="sub">480K deliveries vs 406K expected (+25%) — stock still fell ~8% on margin fear</div>
+    <div class="bar"><i style="width:40%;background:var(--avoid)"></i></div></div>
 </div>
 
 <div class="tabs">
@@ -239,9 +239,9 @@
 </div>
 
 <footer>
-  <b>RA Markets</b> · built July 2, 2026 for Roy Arad. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = July 1 close snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
+  <b>RA Markets</b> · built July 2, 2026 for Roy Arad. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = July 2 midday snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
   <br>Sources: <a href="https://finance.yahoo.com">Yahoo Finance front page</a> ·
-  <a href="https://www.cnbc.com/2026/07/01/meta-stock-cloud-ai-compute.html">CNBC</a> ·
+  <a href="https://www.cnbc.com/2026/07/02/tesla-tsla-q2-2026-vehicle-delivery-production.html">CNBC</a> ·
   <a href="https://stockanalysis.com">stockanalysis.com</a> ·
   <a href="https://insight.factset.com/total-nonfarm-payrolls-for-june-2026-are-projected-to-rise-by-100000">FactSet</a> ·
   <a href="https://capital.com/en-int/learn/ipo/spacex-ipo">SpaceX IPO data</a> ·
@@ -251,27 +251,27 @@
 </div>
 
 <script>
-/* ============ QUOTE DATA (fallback = Jul 1, 2026 close) ============ */
+/* ============ QUOTE DATA (fallback = Jul 2, 2026 midday) ============ */
 const Q={
-  "^GSPC":{n:"S&P 500",p:7354.02,c:-0.05},
-  "^DJI":{n:"DOW",p:51876.11,c:-0.09},
-  "^IXIC":{n:"NASDAQ",p:25297.62,c:-0.24},
-  AAPL:{n:"Apple",p:294.38,c:1.73},
-  GOOGL:{n:"Alphabet A",p:357.77,c:0.39},
-  GOOG:{n:"Alphabet C",p:357.77,c:0.39},
-  TSLA:{n:"Tesla",p:425.30,c:1.12},
-  SPCX:{n:"SpaceX",p:153.00,c:null},
-  TKO:{n:"TKO Group",p:188.40,c:null},
-  "BTC-USD":{n:"Bitcoin",p:60175,c:0.93},
-  "ETH-USD":{n:"Ethereum",p:1578.99,c:0.69},
-  META:{n:"Meta",p:612.91,c:8.81},
-  SN:{n:"SharkNinja",p:110.40,c:null},
+  "^GSPC":{n:"S&P 500",p:7478.00,c:-0.08},
+  "^DJI":{n:"DOW",p:52442.98,c:0.24},
+  "^IXIC":{n:"NASDAQ",p:26175.55,c:-0.15},
+  AAPL:{n:"Apple",p:305.88,c:3.91},
+  GOOGL:{n:"Alphabet A",p:355.55,c:-0.65},
+  GOOG:{n:"Alphabet C",p:355.55,c:-0.65},
+  TSLA:{n:"Tesla",p:392.13,c:-7.80},
+  SPCX:{n:"SpaceX",p:157.49,c:-0.03},
+  TKO:{n:"TKO Group",p:197.49,c:-2.44},
+  "BTC-USD":{n:"Bitcoin",p:61000,c:4.0},
+  "ETH-USD":{n:"Ethereum",p:1688,c:7.9},
+  META:{n:"Meta",p:586.16,c:-4.36},
+  SN:{n:"SharkNinja",p:141.42,c:null},
   LLY:{n:"Eli Lilly",p:1191.74,c:-0.64},
-  MCD:{n:"McDonald's",p:284.00,c:null},
-  AMZN:{n:"Amazon",p:265.00,c:null},
-  PLTR:{n:"Palantir",p:125.73,c:7.77},
-  NVDA:{n:"Nvidia",p:192.53,c:-1.64},
-  "GC=F":{n:"Gold",p:4096.30,c:1.20}
+  MCD:{n:"McDonald's",p:274.50,c:1.88},
+  AMZN:{n:"Amazon",p:245.44,c:1.55},
+  PLTR:{n:"Palantir",p:130.16,c:3.52},
+  NVDA:{n:"Nvidia",p:194.10,c:-1.76},
+  "GC=F":{n:"Gold",p:4110.29,c:1.96}
 };
 const fmt=(v)=> v>=1000? v.toLocaleString('en-US',{maximumFractionDigits:0}) : v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
@@ -477,57 +477,57 @@ setInterval(refreshNews, 15*60*1000);   /* headlines: every 15 minutes */
 /* ============ SIGNAL CARDS ============ */
 const SIG={buy:{c:'var(--buy)',l:'BUY'},hold:{c:'var(--hold)',l:'HOLD'},avoid:{c:'var(--avoid)',l:'AVOID'},wait:{c:'var(--wait)',l:'WAIT'}};
 const CARDS=[
-{t:"META",q:"META",n:"Meta Platforms",sig:"buy",score:88,
- why:"<b>Cheapest AI giant, new business just announced.</b> Growing 33%, only ~19x earnings, and 'Meta Compute' (selling spare AI power) sent it up 8.8%. Wall St target: $828 (+35%).",
- kpis:["Growth <b>+33%</b>","Fwd P/E <b>18.8x</b>","Target <b>$828 (+35%)</b>","Rating <b>Strong Buy</b>"],
- chk:["✅ <b>Business:</b> 3.5B users, ad duopoly, now a cloud seller too","✅ <b>Growth:</b> fastest since 2021","✅ <b>Valuation:</b> cheapest AI mega-cap + 35% analyst upside","⚠️ <b>Risk:</b> $125–145B AI spend — watch cash flow at Jul 29 earnings"]},
+{t:"META",q:"META",n:"Meta Platforms",sig:"buy",score:86,
+ why:"<b>Cheapest AI giant — now with a second business.</b> 'Meta Compute' popped the stock 9%, then it gave back 4% as analysts modeled cloud's lower margins. Still ~19x forward earnings with a $828 Wall St target (+41%).",
+ kpis:["Growth <b>+26%</b>","Fwd P/E <b>18.8x</b>","Target <b>$828 (+41%)</b>","Rating <b>Strong Buy</b>"],
+ chk:["✅ <b>Business:</b> 3.5B users, ad duopoly, now a cloud seller too","✅ <b>Growth:</b> fastest since 2021","✅ <b>Valuation:</b> cheapest AI mega-cap + 41% analyst upside","⚠️ <b>Risk:</b> cloud dilutes margins + $125–145B AI spend — Jul 29 earnings must show the math"]},
 {t:"GOOGL",q:"GOOGL",n:"Alphabet (also GOOG)",sig:"buy",score:82,
- why:"<b>Firing on every cylinder.</b> Revenue +22% (best since 2022), Cloud +63% with $460B backlog. Strong Buy consensus, target $433 (+21%).",
- kpis:["Growth <b>+22%</b>","Cloud <b>+63%</b>","Target <b>$433 (+21%)</b>","Rating <b>Strong Buy</b>"],
- chk:["✅ <b>Business:</b> Search + YouTube + Cloud + Waymo scaling","✅ <b>Profit:</b> net income +81% in Q1","⚠️ <b>Risk:</b> $180–190B AI capex shrinking free cash","ℹ️ GOOGL (voting) and GOOG (non-voting) = same company; buy the cheaper one"]},
+ why:"<b>Firing on every cylinder, paying old fines.</b> Revenue +22% (best since 2022), Cloud +63% — and the EU just made its €4.1B Android fine final (≈3% of one year's profit). Strong Buy, target $427 (+20%).",
+ kpis:["Growth <b>+22%</b>","Cloud <b>+63%</b>","Target <b>$427 (+20%)</b>","Rating <b>Strong Buy</b>"],
+ chk:["✅ <b>Business:</b> Search + YouTube + Cloud + Waymo scaling","✅ <b>Profit:</b> net income +44% ttm","⚠️ <b>Risk:</b> regulators emboldened (EU fine upheld, $1.9B Klarna award) + $180–190B AI capex","ℹ️ GOOGL (voting) and GOOG (non-voting) = same company; buy the cheaper one"]},
 {t:"LLY",q:"LLY",n:"Eli Lilly",sig:"buy",score:80,
- why:"<b>Weight-loss money printer with a fresh catalyst.</b> Revenue +56%, and Medicare now covers its obesity drugs ($50 copay, started July 1) — a massive new market. Caveat: stock is AT all-time highs; targets haven't caught up.",
- kpis:["Growth <b>+56%</b>","PEG <b>1.4</b>","$1,192 · near ATH","Medicare <b>catalyst ✅</b>"],
- chk:["✅ <b>Business:</b> obesity-drug duopoly with Novo","✅ <b>Growth:</b> guidance raised to $82–85B","✅ <b>Catalyst:</b> Medicare GLP-1 coverage opens seniors market","⚠️ <b>Valuation:</b> consensus target only +2% — analysts chasing the stock up"]},
-{t:"SN",q:"SN",n:"SharkNinja",sig:"buy",score:76,
- why:"<b>Cheap growth nobody talks about.</b> 12 straight double-digit quarters, raised forecast, ~18x earnings. Analysts see 20–35% upside.",
- kpis:["Growth <b>+15.6%</b>","P/E <b>~18x</b>","Target <b>$133–149</b>","Rating <b>Strong Buy</b>"],
- chk:["✅ <b>Growth:</b> raised guidance in a weak consumer market","✅ <b>Valuation:</b> cheapest growth-adjusted name here after META","⚠️ <b>Risk:</b> tariffs squeezing margins","⚠️ <b>Moat:</b> depends on constant new hit products"]},
+ why:"<b>Weight-loss money printer with a fresh catalyst.</b> Revenue +47%, and Medicare now covers its obesity drugs ($50 copay, started July 1) — a massive new market. Caveat: stock is AT all-time highs; targets haven't caught up.",
+ kpis:["Growth <b>+47%</b>","Fwd P/E <b>32x</b>","$1,192 · near ATH","Medicare <b>catalyst ✅</b>"],
+ chk:["✅ <b>Business:</b> obesity-drug duopoly with Novo","✅ <b>Growth:</b> analysts pounding the table into Aug 6 earnings","✅ <b>Catalyst:</b> Medicare GLP-1 coverage opens seniors market","⚠️ <b>Valuation:</b> consensus target only +2% — analysts chasing the stock up"]},
 {t:"TKO",q:"TKO",n:"TKO (UFC + WWE)",sig:"buy",score:74,
- why:"<b>Growth that's already signed.</b> Locked-in TV deals (Paramount $7.7B, Netflix, ESPN) drove revenue +26%. Target $220 (+17%).",
- kpis:["Growth <b>+26%</b>","Target <b>$220 (+17%)</b>","Rating <b>Strong Buy</b>","+$1B buyback"],
- chk:["✅ <b>Business:</b> monopoly-grade live sports content","✅ <b>Growth:</b> media-rights step-ups are contractual","⚠️ <b>Valuation:</b> rich on P/E (~54x), fair on cash flow","⚠️ <b>Risk:</b> governance quirks, Saudi concentration"]},
+ why:"<b>Growth that's already signed.</b> Locked-in TV deals (Paramount, Netflix, ESPN) plus a completed $800M accelerated buyback. At ~$197 after a 2% dip, consensus target is $234 (+19%).",
+ kpis:["Media rights <b>contractual</b>","Target <b>$234 (+19%)</b>","Rating <b>Buy</b>","$800M buyback <b>done</b>"],
+ chk:["✅ <b>Business:</b> monopoly-grade live sports content","✅ <b>Growth:</b> media-rights step-ups are contractual","⚠️ <b>Valuation:</b> rich on P/E (~43x fwd), fair on cash flow","⚠️ <b>Risk:</b> governance quirks, Saudi concentration"]},
+{t:"SN",q:"SN",n:"SharkNinja",sig:"hold",score:62,
+ why:"<b>The market caught on — no longer cheap.</b> 12 straight double-digit quarters and raised guidance, but the stock ran to a record ~$141: now ~28x earnings with a consensus target of $149 (+6%). Great company, full price.",
+ kpis:["Growth <b>+15.6%</b>","P/E <b>~28x</b>","Target <b>$149 (+6%)</b>","Near 52-wk high"],
+ chk:["✅ <b>Growth:</b> raised FY26 guidance in a weak consumer market","❌ <b>Valuation:</b> upside below the 10% bar — the 'cheap growth' thesis played out","⚠️ <b>Risk:</b> tariffs squeezing margins","Verdict: hold the winner; add on pullbacks, not at highs"]},
 {t:"AAPL",q:"AAPL",n:"Apple",sig:"hold",score:62,
- why:"<b>Great business, full price.</b> Best March quarter ever (+17%), five new iPhones coming — but at $294, analyst target is only +7%, and the memory-chip shortage is squeezing its costs.",
- kpis:["Growth <b>+17%</b>","Fwd P/E <b>32x</b>","Target <b>$315 (+7%)</b>","PEG <b>2.7 ❌</b>"],
+ why:"<b>Great business, full price — now with a demand story.</b> Jumped 3.9% to ~$306 on plans for five new iPhones through 2027 (foldable output doubled to 10M). But the analyst target is $315 (+3%), and the memory shortage is inflating its costs.",
+ kpis:["Growth <b>+17%</b>","Fwd P/E <b>32x</b>","Target <b>$315 (+3%)</b>","PEG <b>2.7 ❌</b>"],
  chk:["✅ <b>Business:</b> best ecosystem in tech; 5 iPhones planned through 2027","✅ <b>Cash:</b> ~$101B/yr free cash flow","❌ <b>Valuation:</b> PEG 2.7, upside below 10% bar","⚠️ <b>Risk:</b> memory shortage → seeking blacklisted Chinese chip suppliers"]},
 {t:"AMZN",q:"AMZN",n:"Amazon",sig:"hold",score:58,
- why:"<b>AWS is on fire, cash is gone.</b> Cloud +28% (fastest in 4 years) — but free cash flow collapsed from $26B to $1.2B on ~$200B of AI spending.",
- kpis:["AWS <b>+28%</b>","Free cash <b>$1.2B ⚠️</b>","Capex <b>~$200B</b>","P/E <b>~35x</b>"],
- chk:["✅ <b>Business:</b> AWS re-accelerating, ads compounding","❌ <b>Cash flow:</b> nearly zero after AI capex","⚠️ <b>Valuation:</b> multiple rests on 2027-28 payback","Verdict: fine to hold; wait for spending to pay off before adding"]},
+ why:"<b>AWS is on fire, cash is gone.</b> Cloud +28% (fastest in 4 years) and $1B committed to embedded AI engineers — but free cash flow collapsed to $1.2B on ~$200B of AI spending. Target $313 (+27%).",
+ kpis:["AWS <b>+28%</b>","Free cash <b>$1.2B ⚠️</b>","Capex <b>~$200B</b>","Target <b>$313 (+27%)</b>"],
+ chk:["✅ <b>Business:</b> AWS re-accelerating, ads compounding","❌ <b>Cash flow:</b> nearly zero after AI capex","⚠️ <b>Watch:</b> Jefferies survey shows Azure widening its lead among CIOs","Verdict: fine to hold; wait for spending to pay off before adding"]},
 {t:"MCD",q:"MCD",n:"McDonald's",sig:"hold",score:60,
- why:"<b>Steady, not exciting.</b> Best quarter in 2 years (+9.4%), ~21x earnings, 2.7% dividend. Ballast — won't make your year or ruin it.",
- kpis:["Growth <b>+9.4%</b>","P/E <b>~21x</b>","Dividend <b>2.7%</b>"],
- chk:["✅ <b>Business:</b> royalty model, wins when consumers get cheap","✅ <b>Valuation:</b> below its 5-year average","⚠️ <b>Growth:</b> too slow for a growth checklist","Verdict: defensive hold"]},
+ why:"<b>The rotation found it.</b> Up 1.9% today as soft jobs data pushed money into defensives — bouncing off a 52-week low. ~20x forward earnings, 2.7% dividend, target $330 (+20%).",
+ kpis:["Growth <b>+9.4%</b>","Fwd P/E <b>~20x</b>","Dividend <b>2.7%</b>","Target <b>$330 (+20%)</b>"],
+ chk:["✅ <b>Business:</b> royalty model, wins when consumers get cheap","✅ <b>Valuation:</b> below its 5-year average, near 52-wk lows","⚠️ <b>Growth:</b> too slow for a growth checklist","Verdict: defensive hold — exactly what a growth-scare market buys"]},
 {t:"PLTR",q:"PLTR",n:"Palantir",sig:"hold",score:58,
- why:"<b>Best growth in software, hot-and-cold stock.</b> Revenue +85%, but shares are −35% this year on valuation fear. Jumped 7.8% yesterday on a Davidson upgrade ('grown into its valuation'); consensus target $183 (+45%).",
- kpis:["Growth <b>+85%</b>","Rule of 40: <b>145 🏆</b>","Fwd P/E <b>79x</b>","Target <b>$183 (+45%)</b>"],
- chk:["✅ <b>Growth:</b> best in software; guidance raised to +71%","✅ <b>Quality:</b> profitable, no debt, founder-led, new NVDA partnership","❌ <b>Valuation:</b> 79x forward — zero tolerance for slowdown","Verdict: own it small; the -35% YTD shows how fast the multiple bites"]},
-{t:"TSLA",q:"TSLA",n:"Tesla",sig:"avoid",score:34,
- why:"<b>Dream price, stalled reality.</b> At $425, it's ~197x earnings and the average analyst target ($421) is BELOW the price. Michael Burry just re-shorted it at $416. Q2 deliveries land this week — needs a big beat.",
- kpis:["Fwd P/E <b>197x ❌</b>","Target <b>$421 (−1%)</b>","Net income <b>−37%</b>","Burry <b>short @416</b>"],
- chk:["❌ <b>Growth:</b> 2025 revenue fell −2.9%; profit −47%","✅ <b>Bright spot:</b> China sales +24% in June, Europe recovering","❌ <b>Valuation:</b> priced like software, earns like an automaker","🎯 <b>Event:</b> Q2 deliveries this week — Street needs ~406K"]},
+ why:"<b>Best growth in software, hot-and-cold stock.</b> +3.5% more today on the D.A. Davidson upgrade to Buy ('grown into its valuation', PT $175) after Karp's anti-token manifesto rallied it 9%. Still −27% this year; consensus $183 (+41%).",
+ kpis:["Growth <b>+68%</b>","Rule of 40 <b>🏆</b>","Fwd P/E <b>79x</b>","Target <b>$183 (+41%)</b>"],
+ chk:["✅ <b>Growth:</b> best in software; profits up ~300% ttm","✅ <b>Quality:</b> profitable, no debt, founder-led, new NVDA partnership","❌ <b>Valuation:</b> 79x forward — zero tolerance for slowdown","Verdict: own it small; −27% YTD shows how fast the multiple bites"]},
+{t:"TSLA",q:"TSLA",n:"Tesla",sig:"avoid",score:36,
+ why:"<b>Blowout deliveries, shrinking upside.</b> Q2 was a monster — 480,126 deliveries vs ~406K expected (+25%, best Q2 ever) — and the stock still fell ~8% to $392. The beat leaned on price cuts; at ~196x forward earnings, Jul 22 margins are everything.",
+ kpis:["Q2 <b>480K (+25%) ✅</b>","Fwd P/E <b>196x ❌</b>","Target <b>$421 (+7%)</b>","Burry <b>short @416</b>"],
+ chk:["✅ <b>Demand:</b> beat by 74K; Europe recovered, China up 8 straight months","❌ <b>Margins:</b> beat likely bought with price cuts — profit −37% ttm","❌ <b>Valuation:</b> priced like software, earns like an automaker","🎯 <b>Event:</b> Jul 22 earnings — did volume cost the margin?"]},
 {t:"SPCX",q:"SPCX",n:"SpaceX",sig:"avoid",score:38,
- why:"<b>Amazing company, absurd price.</b> $1.8 TRILLION valuation = ~78x revenue for a company losing $5B/yr. Its 3-day slide just dragged the whole Nasdaq. Starlink is real; the price isn't.",
- kpis:["Mkt cap <b>~$1.8T</b>","P/Sales <b>~78x ❌</b>","Net loss <b>−$5B</b>","IPO $135 → ~$153"],
- chk:["✅ <b>Business:</b> launch monopoly + Starlink 10.3M subs (+50%/yr)","❌ <b>Profit:</b> Starship eats everything Starlink earns","❌ <b>Valuation:</b> most expensive large stock in America","🎯 <b>Wait for:</b> first earnings report + insider lockup expiry"]},
+ why:"<b>Amazing company, battleground stock.</b> Fell 7.8% on Musk's denial of the WSJ 'AI phone' report; a third of the float is now sold short. ~$2.1T at ~107x revenue with a $9.4B annual loss. Starlink is real; the price isn't.",
+ kpis:["Mkt cap <b>~$2.1T</b>","P/Sales <b>~107x ❌</b>","Net loss <b>−$9.4B</b>","Short interest <b>~⅓ float</b>"],
+ chk:["✅ <b>Business:</b> launch monopoly + Starlink revenue +33%/yr","❌ <b>Profit:</b> Starship eats everything Starlink earns","❌ <b>Valuation:</b> Daiwa starts at Neutral $175; Kailash calls it 'catastrophic'","🎯 <b>Wait for:</b> first earnings Aug 17 + insider lockup expiry"]},
 {t:"BTC",q:"BTC-USD",n:"Bitcoin",sig:"wait",score:45,
- why:"<b>Don't catch the knife yet.</b> −20% in June as $4.5B left the ETFs. The turn signal: several straight days of ETF inflows + holding $60K.",
- kpis:["June <b>−20%</b>","ETF flows <b>OUT ❌</b>","Support <b>$57.7K</b>","Fed <b>Jul 28–29</b>"],
- chk:["⚠️ <b>Trend:</b> big money rotating from crypto into AI stocks","⚠️ <b>Support:</b> $57.7K is the line — below it, air","🎯 <b>Buy signal:</b> first multi-day ETF inflow streak","✅ <b>Update:</b> cool jobs print removed the rate-hike pressure — flows are now the only thing to watch"]},
-{t:"ETH",q:"ETH-USD",n:"Ethereum",sig:"wait",score:30,
- why:"<b>Maximum fear, no catalyst.</b> Sentiment 12/100 (extreme fear) — historically near bottoms, but ETH follows Bitcoin. Wait for BTC to turn first.",
- kpis:["Fear index <b>12/100</b>","Flows <b>weakest major</b>","3-wk outflows <b>$712M</b>"],
+ why:"<b>Bounce, not a turn — yet.</b> +4% back above $61K after the soft jobs print, but Citi cut its target to $82K and ETF money is still leaving (~$3.3B out this year). The turn signal is unchanged: several straight days of ETF inflows.",
+ kpis:["Today <b>+4%</b>","ETF flows <b>OUT ❌</b>","Support <b>$57.7K held</b>","Citi target <b>$82K</b>"],
+ chk:["⚠️ <b>Trend:</b> big money rotated from crypto into AI stocks","✅ <b>Support:</b> $57.7K held — the line did its job","🎯 <b>Buy signal:</b> first multi-day ETF inflow streak","✅ <b>Update:</b> macro pressure lifted — flows are now the only thing to watch"]},
+{t:"ETH",q:"ETH-USD",n:"Ethereum",sig:"wait",score:32,
+ why:"<b>Biggest bounce, weakest hands.</b> +8% to ~$1,690 on the macro relief — off the lowest levels since April 2025. Citi cut its target to $2,240; flows remain the weakest of any major. ETH follows Bitcoin: wait for BTC's flow signal first.",
+ kpis:["Today <b>+8%</b>","Off multi-year lows","Citi target <b>$2,240</b>"],
  chk:["❌ <b>Flows:</b> weakest of any major crypto asset","⚠️ <b>Sentiment:</b> capitulation level — bottoms form here, slowly","🎯 <b>Buy signal:</b> BTC flows turn positive AND ETH/BTC stops falling","Verdict: the bounce trade — after the turn, not before"]}
 ];
 
@@ -564,38 +564,34 @@ renderCustomCards();
 
 /* ============ NEWS ============ */
 const NEWS=[
-{s:"Yahoo Finance · CNBC",h:"💥 The Mag-7 quietly lost $2.3 TRILLION this year",
- what:"While the S&P sits near highs, the Magnificent-7 as a group has erased $2.3T in value in 2026. Yesterday: chips crushed again (Micron −10.6%, Intel −9%) while META (+8.8%) and PLTR (+7.8%) soared.",
- means:"The index is fine; what's underneath changed. Money is leaving 'AI hardware' and buying 'AI monetizers.' Own the companies that USE compute profitably, not just the ones building it.",
- chips:[["bear","Chip stocks"],["bull","META"],["bull","PLTR"],["watch","Nvidia"]]},
-{s:"Bloomberg · CNBC",h:"🚀 Meta Compute: capex becomes a product",
- what:"Meta is building a cloud business to sell its spare AI computing power, competing with AWS/Azure/GCP. JPMorgan sees 'meaningful returns'; Jefferies calls the bears 'backward.' Neoclouds (CoreWeave, Nebius) sold off.",
- means:"Meta's $145B AI bill just turned from a cost into inventory. It was already the cheapest AI giant — now it has a second business model. Watch Jul 29 earnings for details.",
- chips:[["bull","META"],["bear","CoreWeave / small clouds"],["watch","AMZN, GOOGL response"]]},
-{s:"WSJ · Business Insider",h:"🐻 Michael Burry is back — shorting Tesla, Nvidia, Caterpillar",
- what:"The 'Big Short' investor disclosed new bets against TSLA (shorted at $416), NVDA, CAT, AMAT and the chip index, calling it the 'beginning of the end' for the AI hardware boom.",
- means:"One famous bear isn't a verdict — but his targets map exactly onto this dashboard's AVOID list. Tesla Q2 deliveries this week (Street: ~406K) are the immediate test.",
- chips:[["bear","TSLA"],["bear","Chip index"],["watch","TSLA deliveries this week"]]},
-{s:"CNBC · BLS",h:"📊 Jobs report came in COOL: 57K vs 115K expected — relief rally",
- what:"June payrolls rose just 57K (consensus ~115K); May was revised down to 129K. Unemployment actually dipped to 4.2%. Stocks rose (Dow +0.5%, S&P +0.4%) and the 2-year yield fell 5bps as rate-HIKE bets faded.",
- means:"The scary scenario (hot number → Fed hikes) is off the table for now. That's oxygen for expensive tech, small caps and crypto. The flip side: if hiring keeps slowing this fast, the story rotates from 'rate fear' to 'growth fear' — watch the next two reports.",
- chips:[["bull","High-P/E tech"],["bull","Small caps"],["bull","Crypto (pressure off)"],["watch","Growth-scare risk ahead"]]},
-{s:"Yahoo Finance · CNBC",h:"💊 Medicare now covers weight-loss drugs — LLY's new market",
- what:"Starting July 1, eligible seniors get Lilly's GLP-1 drugs (Zepbound, new pill Foundayo) for a $50/month copay under the Medicare Bridge program. LLY hit all-time highs; FDA also fast-tracked its new factories.",
- means:"A giant, previously locked customer base just opened. The catch for buyers of the stock: it's at record highs and analyst targets are only ~2% above — great company, momentum-priced.",
- chips:[["bull","LLY"],["bull","NVO"],["watch","Drug-pricing politics"]]},
-{s:"CNBC · Nikkei",h:"📱 Apple: five new iPhones, one big chip problem",
- what:"Apple plans 5 iPhone models through early 2027 (foldable production doubled to 10M units) — but the global memory shortage is forcing it to seek US approval to buy from blacklisted Chinese chipmakers, and prices are rising.",
- means:"Demand story improving, cost story worsening. That's why it's a HOLD: the product cycle is real, but memory inflation squeezes margins and the stock already trades at 32x.",
- chips:[["watch","AAPL"],["bull","Memory makers (MU)"],["bear","Device margins"]]},
-{s:"CoinDesk · CryptoTimes",h:"🩸 Crypto: extreme fear, no turn signal yet",
- what:"BTC ~$60K after −20% June ($4.5B ETF outflows); ETH ~$1,579 with sentiment at 12/100. Both bounced ~1% overnight.",
- means:"Institutions rotated crypto money into AI stocks. Extreme fear often marks bottoms, but the trigger to watch is mechanical: multiple straight days of ETF INflows. Until then — WAIT.",
- chips:[["bear","BTC/ETH short-term"],["watch","ETF flow reversal = the signal"]]},
-{s:"Yahoo Finance",h:"🛰 SpaceX: 401(k) savers are officially worried",
- what:"Yahoo's front page is running 'Worried about SpaceX's volatility? What 401(k) savers should do' — after SPCX's 3-day, ~$600B slide dragged the Nasdaq. Still above its $135 IPO price (~$153).",
- means:"When a $1.8T stock at 78x revenue lands in retirement accounts, its swings become everyone's problem. First earnings report + lockup expiry are the events that will set a real price.",
- chips:[["bear","SPCX at this price"],["watch","First earnings + lockup"]]}
+{s:"Tesla IR · CNBC · Reuters",h:"🚗 Tesla's blowout quarter — 480K deliveries, stock −8%",
+ what:"Tesla delivered 480,126 vehicles in Q2 — 74K above the ~406K expected, +25% vs last year, its best Q2 ever, ending two years of shrinking sales. Europe recovered on price cuts, China rose an 8th straight month, energy storage hit 13.5 GWh. The stock fell ~8% to ~$392 anyway.",
+ means:"The beat was bought with price cuts and record gas prices, so the market's question is margins, not volume. At ~196x forward earnings even a great quarter can't carry the price — the average analyst target ($421) is barely above the stock. July 22 earnings decide whether volume came at the cost of profit.",
+ chips:[["bull","Auto demand is real"],["bear","TSLA into earnings"],["watch","Jul 22 = margin verdict"]]},
+{s:"BLS · CNBC · Yahoo Finance",h:"📊 Jobs miss #2: 57K vs 113K — relief and worry at once",
+ what:"June payrolls rose just 57K vs ~113K expected; May was revised down to 129K. Unemployment still dipped to 4.2%. The Dow rose ~0.2%, the Nasdaq slipped, 2-year yields fell, and gold broke above $4,100 (+2%).",
+ means:"Rate-hike fear is dead — that's oxygen for expensive assets, and crypto and gold got it first. But two soft prints in a row starts a different story: growth fear. Money is already rotating into defensives (McDonald's +1.9% off its lows, healthcare at highs) while chips sold. Another weak report and 'Fed relief' becomes 'recession watch'.",
+ chips:[["bull","Gold & defensives"],["bull","Rate-sensitive assets"],["watch","Growth-scare rotation"]]},
+{s:"CNBC · Barron's · MarketWatch",h:"☁️ Meta gives back 4% — Wall Street prices the cloud's cost",
+ what:"A day after jumping 9% on the 'Meta Compute' cloud reveal, META fell ~4.4% to ~$586. Analysts cheered the strategy (Wells Fargo raised its target to $767; consensus $828, +41%) but flagged the catch: cloud is a structurally lower-margin business — and a SoftBank-funded rival emerged within 24 hours.",
+ means:"The thesis didn't change — the math did. Selling spare compute turns ~$145B of capex from a cost into inventory, but investors now must model Meta's fat ad margins drifting lower as cloud mixes in. It's still the cheapest AI mega-cap at ~19x forward. Jul 29 earnings: Zuckerberg has to put numbers on the cloud.",
+ chips:[["bull","META long-term"],["bear","CoreWeave / Nebius (−14–17%)"],["watch","Margin guidance Jul 29"]]},
+{s:"Reuters · CNBC",h:"⚖️ Google's €4.1B fine sticks — Europe's bill comes due",
+ what:"The EU's top court dismissed Google's final appeal of its record €4.1B ($4.7B) Android antitrust fine after 8 years. Same week: a Swedish court awarded Klarna's PriceRunner $1.9B and South Korea threatened $546M more. GOOGL slipped ~0.7%; Wells Fargo trimmed its target to $416, keeping Overweight.",
+ means:"Financially it's a rounding error — Alphabet earns ~$160B a year, so all three hits total under 5% of one year's profit. What matters is the signal: regulators are emboldened just as Google pushes into new ad turf (its home-listings rollout crushed Zillow). Fundamentals stay best-in-class: +22% growth, Cloud +63%. Regulatory noise on a structural winner.",
+ chips:[["bull","GOOGL dip (target +20%)"],["bear","Zillow / RE portals"],["watch","EU DMA follow-on cases"]]},
+{s:"CNBC · Barron's · TipRanks",h:"🔻 Chips can't find a floor — Nvidia starts financing its buyers",
+ what:"Semis fell again: the chip ETF −3%, Teradyne and KLA −8%, Micron −3.4%, Nvidia −1.8% and back below $200. Nvidia unveiled revenue-sharing deals — startups get compute now, Nvidia takes a slice of future profits. In Taiwan, prosecutors detained two Super Micro workers in a $2.5B chip-smuggling probe.",
+ means:"The hardware de-rating Burry bet on is playing out — money keeps exiting 'AI builders' for 'AI monetizers'. Nvidia financing its own customers is a growth lever AND a tell: when the vendor funds the demand, demand quality becomes the question. NVDA holding or losing $200 is the market's live vote on the whole trade.",
+ chips:[["bear","Chip stocks"],["watch","NVDA $200 line"],["bear","SMCI probe risk"]]},
+{s:"Fortune · CoinDesk · Citi",h:"₿ Crypto's relief pop: BTC +4%, ETH +8% — but Citi cut targets",
+ what:"Bitcoin jumped ~4% back above $61K and Ethereum ~8% to ~$1,690 after the soft jobs report killed rate-hike bets. Same week, Citi cut its 12-month BTC target to $82K (from $112K) and ETH to $2,240, and cut its ETF net-inflow assumption to zero. ETF outflows: ~$3.3B this year.",
+ means:"This is a macro bounce, not a flow reversal — short-covering plus 'no Fed hike' relief. The signal that ends the WAIT is unchanged and mechanical: several consecutive days of ETF INflows. Until big money returns, rallies are rented, not owned. $57.7K support held — that remains the line.",
+ chips:[["bull","Oversold bounce"],["watch","ETF inflow streak = the signal"],["bear","Rallies until flows turn"]]},
+{s:"WSJ · Reuters · Barron's",h:"🛰 SpaceX whiplash: phone rumor, Musk denial, ⅓ of float short",
+ what:"WSJ reported SpaceX showed investors a handset-like AI device; Musk called it 'utterly false' and SPCX fell 7.8% Wednesday (flat today near $157). Short sellers hold ~196M shares — roughly a third of tradable float. Daiwa started coverage Neutral ($175); research firm Kailash called the valuation 'catastrophic'.",
+ means:"When a denied rumor moves a ~$2T company 8%, the price runs on narrative, not cash flow (−$9.4B ttm loss). It's now a battleground stock: a third of the float short vs steady 401(k) inflows — squeezes can run both ways. First earnings, Aug 17, is the first collision with reality. Still above the $135 IPO price. Barely.",
+ chips:[["bear","SPCX at ~107x sales"],["watch","First earnings Aug 17"],["watch","Squeeze risk both ways"]]}
 ];
 const newsEl=document.getElementById('news');
 NEWS.forEach(n=>{
