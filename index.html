@@ -172,7 +172,7 @@
   </svg>
   <div class="brand">
     <h1>RA <span>MARKETS</span></h1>
-    <div class="sub" id="stamp">Roy Arad · Signal Desk · Monday, July 6, 2026 · pre-open refresh · U.S. markets REOPEN 9:30am ET after the July 4th break · Dow eyes 53,000 after +2% week · SpaceX Nasdaq-100 forced buying (~$4.3B) hits AFTER today's close, effective Jul 7 · Delta + PepsiCo open earnings · Fed minutes Wed</div>
+    <div class="sub" id="stamp">Roy Arad · Signal Desk · Monday, July 6, 2026 · pre-open refresh · U.S. markets REOPEN 9:30am ET after the July 3–4 holiday · Dow eyes 53,000 after a first-half-record +2% week · SpaceX Nasdaq-100 forced buying (~$4.3B) hits AFTER today's close, effective Jul 7 · Fed minutes Wed (first under Warsh) · PepsiCo Thu, Delta Fri · crypto extended its 'green-July' bounce over the weekend — BTC back near $62.8K</div>
   </div>
   <div class="live" id="liveBadge" style="margin-left:auto"><span class="pulse"></span><span id="liveTxt">PRE-OPEN · JUL 2 LAST CLOSE</span></div>
   <button class="refresh" id="refreshBtn" onclick="manualRefresh()" title="Refresh prices now">
@@ -196,8 +196,8 @@
     <div class="sub">AAPL +4.8% to $308.63 (Jul 2); META round-tripped to ~$586; GOOGL just joined the Dow — monetizers in, builders out</div>
     <div class="bar"><i style="width:52%;background:var(--hold)"></i></div></div>
   <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--buy)">GREEN JULY</div>
-    <div class="sub">BTC ~$61.9K (+2.5%) defending $60K; ETH ~$1,732 (+5.6%) leads. First spot-BTC-ETF inflow day in 2 months (~+$221M) snapped a 10-day bleed after June's record ~$4.1B of outflows</div>
-    <div class="bar"><i style="width:56%;background:var(--buy)"></i></div></div>
+    <div class="sub">BTC reclaimed ~$62.8K, extending the bounce over the weekend; ETH ~$1,756. Spot-BTC-ETF inflows ran positive a 2nd straight day (~+$224M Sat after +$221M Thu) — first back-to-back since May; spot-ETH ETFs snapped a 9-day outflow streak</div>
+    <div class="bar"><i style="width:60%;background:var(--buy)"></i></div></div>
 </div>
 
 <div class="tabs">
@@ -265,8 +265,8 @@ const Q={
   TSLA:{n:"Tesla",p:393.45,c:-7.49},
   SPCX:{n:"SpaceX",p:158.00,c:0.29},
   TKO:{n:"TKO Group",p:196.06,c:-3.15},
-  "BTC-USD":{n:"Bitcoin",p:61854,c:2.50},
-  "ETH-USD":{n:"Ethereum",p:1732,c:5.60},
+  "BTC-USD":{n:"Bitcoin",p:62778,c:1.49},
+  "ETH-USD":{n:"Ethereum",p:1756,c:1.39},
   META:{n:"Meta",p:586.16,c:-4.36},
   SN:{n:"SharkNinja",p:151.23,c:null},
   LLY:{n:"Eli Lilly",p:1191.74,c:-1.08},
@@ -525,12 +525,12 @@ const CARDS=[
  kpis:["Nasdaq-100 <b>eff. Jul 7</b>","Forced buy <b>~$4.3B today</b>","P/Sales <b>~107x ❌</b>","Net loss <b>−$9.4B</b>"],
  chk:["✅ <b>Business:</b> launch monopoly + Starlink revenue +33%/yr","⚙️ <b>Technical:</b> index inclusion forces ETF buying — a floor into Jul 7, then back to fundamentals","❌ <b>Valuation:</b> ~107x sales, −$9.4B loss; index membership doesn't fix that","🎯 <b>Wait for:</b> first earnings Aug 17 + insider lockup expiry"]},
 {t:"BTC",q:"BTC-USD",n:"Bitcoin",sig:"wait",score:48,
- why:"<b>Green-July bounce above $60K — and the first crack in the ETF bear case.</b> Extended the jobs-relief pop to ~$61.9K (+2.5%) into the holiday. New: spot BTC ETFs pulled in ~$221M — their strongest day in two months — snapping a 10-day outflow streak after a record −$4.5B June. One day isn't a trend, but it's the flow signal the tape has waited weeks for. Citi's cut target ($82K) stands.",
- kpis:["~$61.9K (+2.5%)","ETF flip <b>+$221M day ✅</b>","Support <b>$60K = weekend hold</b>","Citi target <b>$82K</b>"],
- chk:["⚠️ <b>Trend:</b> seasonal + jobs-relief pop; first BTC-ETF inflow day in 2 months hints at a flow turn — must persist to count","✅ <b>Support:</b> reclaimed $60K; that's the level to defend through the Iran funeral window","🎯 <b>Buy signal:</b> first multi-day BTC-ETF inflow streak","⚠️ <b>Weekend:</b> only live U.S. risk gauge while cash markets are closed Jul 3–6"]},
+ why:"<b>Green-July bounce holds above $60K — and the ETF bear case is cracking.</b> Reclaimed ~$62.8K over the holiday weekend, extending the jobs-relief pop. The flow story firmed: spot BTC ETFs logged a 2nd straight positive day (~+$224M Sat after +$221M Thu) — the first back-to-back inflows since May — snapping a 10-day, −$2.7B outflow streak that capped a record −$4.1B June. Two days is the start of a trend, not yet the trend. Citi's cut target ($82K) stands.",
+ kpis:["~$62.8K","ETF flip <b>2 green days ✅</b>","Support <b>$60K = weekend hold</b>","Citi target <b>$82K</b>"],
+ chk:["⚠️ <b>Trend:</b> seasonal + jobs-relief pop; back-to-back BTC-ETF inflow days now forming the flow turn — needs to survive full liquidity","✅ <b>Support:</b> reclaimed $60K and pushed to $62.8K; that's the level to defend","🎯 <b>Buy signal:</b> a 3rd+ inflow day confirms the first multi-day streak since May","⚠️ <b>Weekend:</b> was the only live U.S. risk gauge with cash markets closed Jul 3–4"]},
 {t:"ETH",q:"ETH-USD",n:"Ethereum",sig:"wait",score:36,
- why:"<b>Leading the bounce — the first real flow story of the week.</b> Up ~5.6% to ~$1,732, outrunning BTC as spot ETH ETFs out-gathered spot BTC ETFs two straight sessions. Still off the lowest levels since April 2025. StanChart sees $4K by year-end if ETH/BTC climbs to 0.04; Citi's near target is $2,240. ETH leads risk-on, but confirm with BTC's flow turn.",
- kpis:["~$1,732 (+5.6%)","ETH-ETF > BTC-ETF <b>2 days ✅</b>","Citi target <b>$2,240</b>","StanChart <b>$4K YE</b>"],
+ why:"<b>Still leading the bounce — the cleanest flow story in crypto.</b> Firmed to ~$1,756, outrunning BTC as spot ETH ETFs snapped a 9-day outflow streak with ~$44M in over two sessions (BlackRock's fund led). Still off the lowest levels since April 2025. StanChart sees $4K by year-end if ETH/BTC climbs to 0.04; Citi's near target is $2,240. ETH leads risk-on, but confirm with BTC's flow turn.",
+ kpis:["~$1,756","ETH-ETF streak snapped ✅","Citi target <b>$2,240</b>","StanChart <b>$4K YE</b>"],
  chk:["✅ <b>Flows:</b> first asset where ETF demand turned positive vs BTC","⚠️ <b>Sentiment:</b> still near capitulation — bottoms form here, slowly","🎯 <b>Buy signal:</b> ETH-ETF inflows persist AND ETH/BTC keeps rising off 0.028","Verdict: the cleanest long in crypto right now — but size small until BTC confirms"]}
 ];
 
@@ -567,16 +567,16 @@ renderCustomCards();
 
 /* ============ NEWS ============ */
 const NEWS=[
-{s:"CNBC · BLS · Reuters",h:"🪙 Soft jobs + Fed minutes Wednesday: the rate-cut relief trade is driving the reopen",
- what:"June payrolls came in at just +57K — well under consensus — with unemployment ticking up to 4.2% (released Jul 2), the softest print in months. Markets reopen into it with Sunday-night futures firm (Nasdaq-100 +0.98%, S&P +0.4%) and Wednesday's June FOMC minutes — the first full read on the Kevin Warsh-led Fed — as the week's marquee event.",
- means:"Signal vs. noise: a cooling labor market is exactly the fuel a record-high tape wants, because it hands the Warsh Fed cover to cut without an inflation scare — that, not earnings, is why the Dow is pressing 53,000. The second-order read is rotation: soft jobs pushed money out of cyclicals and chips into rate-sensitives and defensives (McDonald's bid off its lows is the tell). The minutes are the risk — any hint the cut path is slower than priced repricing the entire relief trade at once.",
- chips:[["bull","Rate-cut relief trade"],["watch","FOMC minutes Wed"],["bear","Hawkish surprise = repricing"]]},
+{s:"CNBC · BLS · Reuters",h:"🪙 Soft jobs meet the Warsh Fed: Wednesday's minutes are the week's real test",
+ what:"June payrolls landed at just +57K — well under consensus — with unemployment at 4.2% and ISM manufacturing still holding 53.3% (data released Jul 2). U.S. markets reopen after the Jul 3–4 holiday into Wednesday's 2pm ET June FOMC minutes: the first documented read on the Kevin Warsh-led Fed. OPEC+ and a NATO summit round out the calendar.",
+ means:"Signal vs. noise: a cooling-but-not-collapsing labor market is the fuel a record tape wants — it hands a new Fed room to ease without an inflation scare, and that, not earnings, is why the Dow is pressing 53,000. The second-order risk sits inside Wednesday's minutes: the market has never seen how a Warsh committee talks, and the tail nobody is pricing is language that keeps 2026 rate hikes on the table. Soft jobs already rotated money out of cyclicals and chips into rate-sensitives and defensives (McDonald's bid off its lows is the tell); hawkish minutes repriced that entire relief trade at once.",
+ chips:[["bull","Rate-cut relief trade"],["watch","Warsh minutes Wed 2pm"],["bear","Hawkish minutes = repricing"]]},
 {s:"CNBC · Nasdaq · J.P. Morgan",h:"🔔 SpaceX's index day: ~$4.3B of forced buying lands AFTER today's close",
  what:"SpaceX joins the Nasdaq-100 effective Tuesday, Jul 7, so QQQ and every NDX tracker must buy SPCX after today's close — J.P. Morgan pegs the mandated demand at ~$4.3B, with another ~$3B from Russell reweighting. SPCX qualified just 15 trading days after its IPO under Nasdaq's fast-track rule and sits near ~$158.",
  means:"Index-inclusion buying is price-insensitive by mandate — the one flow that shows up regardless of a ~107x-sales valuation — and it funds itself by forcing those same ETFs to trim a slice of everything else in the index (the Mag-7 are the involuntary funding source). Materiality: the bid is real for ~48 hours, but history says added names fade (−3.4% avg over five days) once the mechanical demand clears. Watch breadth — if the Nasdaq-100 sags while SPCX pops, that's the rebalance draining the rest of the tape.",
  chips:[["bull","SPCX into Jul 7"],["bear","Mag-7 as funding source"],["watch","Post-inclusion fade"]]},
 {s:"CNBC · FactSet · Delta IR",h:"📈 Earnings season opens: Delta + PepsiCo test a market priced for +24% growth",
- what:"Q2 reporting kicks off this week with Delta Air Lines and PepsiCo — the first hard read on consumer spending and corporate margins before the mega-cap wave later in July. Consensus has S&P 500 earnings growing over 24% year-on-year, a steep bar into a tape already at records.",
+ what:"Q2 reporting opens with PepsiCo (Thu Jul 9) and Delta Air Lines (Fri Jul 10) — the first hard read on consumer spending and corporate margins before the mega-cap wave later in July. Consensus has S&P 500 earnings growing over 24% year-on-year, a steep bar into a tape already at records.",
  means:"Signal vs. noise: at 53,000 on the Dow the market has pre-paid for a blowout, so the asymmetry is negative — beats are expected, misses get punished. Delta is the cleaner tell than Pepsi: airlines price discretionary demand in real time, so its guide either confirms the soft-jobs 'slowdown-but-not-recession' story or breaks it. Second-order: if early cyclicals guide down, the rotation out of chips accelerates into defensives and the rate-cut trade — not into 'value.'",
  chips:[["watch","Delta guide = consumer read"],["bear","Priced for +24% EPS"],["bull","Beats extend the melt-up"]]},
 {s:"CNBC · Reuters · X @jukan05",h:"💾 Chips rotate OUT just as SK Hynix's ~$29.7B ADR — biggest ever — hits ~Jul 10",
@@ -595,10 +595,10 @@ const NEWS=[
  what:"META ended the holiday week at ~$586 — a full round trip of the +8.8% cloud-reveal pop. The Street's verdict: right strategy (Wells Fargo PT $767, consensus ~$828), but cloud revenue is structurally lower-margin than ads, and the neoclouds Meta no longer needs — CoreWeave (−14%), Nebius (−17%) — stay broken.",
  means:"The round trip is the market accepting the thesis and repricing the mix: bullish for strategy, neutral for the multiple until proven. The second-order casualty is permanent — neoclouds just lost their biggest anchor tenant and gained it as a competitor. At ~19x forward, META is still the cheapest AI mega-cap; the Jul 29 print is where 'Meta Compute' has to show a revenue line and a capacity number instead of a narrative.",
  chips:[["bull","META long-term"],["bear","CoreWeave / Nebius"],["watch","Jul 29: numbers, not narrative"]]},
-{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ 'Green July' carries into the reopen: ETH leads, first BTC-ETF inflow in months",
- what:"Crypto held its bid through the holiday: Ether ~$1,732 (+5.6%) is outrunning Bitcoin ~$61,854 (+2.5%), which is defending the $60K line it fought over all week. The catalyst is flow, not just price — spot BTC ETFs pulled ~$221M, their strongest day in two months, snapping a 10-day outflow streak that capped June's record ~$4.1B of redemptions. ETH ETFs also stayed net-positive.",
- means:"This is the flow signal the complex has waited weeks for — necessary, not sufficient. June was BTC's worst ETF month on record; one +$221M print snapping a 10-day bleed only counts if it persists past the thin post-holiday sessions. The seasonal edge (red June → green July) and the rotation into lagged ETH both argue the low is in, but BTC holding $60K is the floor the whole rally stands on. StanChart's $4K ETH year-end call needs exactly this picture to hold.",
- chips:[["bull","BTC-ETF inflows turning"],["watch","Must persist post-holiday"],["bear","June's record ~$4.1B overhang"]]}
+{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ 'Green July' carries into the reopen: back-to-back BTC-ETF inflows, ETH streak snaps",
+ what:"Crypto extended its bid through the holiday weekend: Bitcoin reclaimed ~$62.8K and Ether firmed to ~$1,756, still the leader. The catalyst is flow — spot BTC ETFs logged a 2nd straight positive day (~+$224M Sat after +$221M Thu), the first back-to-back inflows since May, snapping a 10-day, −$2.7B outflow streak, while spot ETH ETFs ended a 9-day bleed with ~$44M in.",
+ means:"This is the flow turn the complex waited weeks for, now with a second data point — necessary, not yet sufficient. June was BTC's worst ETF month on record (−$4.1B, pushing 2026 cumulative flows negative), so two green days into thin post-holiday sessions still has to survive the return of full liquidity. The seasonal edge (red June → green July) and the rotation into lagged ETH argue the low is in; BTC holding $60K remains the floor the whole rally stands on. StanChart's $4K ETH year-end call needs exactly this picture to hold.",
+ chips:[["bull","BTC-ETF: 2 green days"],["watch","Must survive full liquidity"],["bear","June −$4.1B overhang"]]}
 ];
 const newsEl=document.getElementById('news');
 NEWS.forEach(n=>{
