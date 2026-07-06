@@ -65,6 +65,12 @@
   .hcard a:hover{color:var(--text)}
   .hcard time{display:block;color:var(--dim);font-size:.64rem;margin-top:2px}
   .hnote{font-size:.72rem;color:var(--dim);margin-top:8px}
+  /* index strip */
+  .idx-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin:16px 0 4px}
+  .idx{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:14px;padding:10px 14px}
+  .idx .il{color:var(--dim);font-size:.62rem;letter-spacing:.12em;font-weight:800;text-transform:uppercase}
+  .idx .iv{font-size:1.25rem;font-weight:800;margin-top:2px;font-variant-numeric:tabular-nums}
+  .idx .ic{font-size:.75rem;font-weight:700;margin-top:1px}
   /* top story banner */
   .topstory{position:relative;border:1px solid rgba(245,158,11,.55);border-radius:16px;padding:16px 20px;margin-bottom:14px;
     background:linear-gradient(135deg,rgba(245,158,11,.16),rgba(236,72,153,.08) 60%,transparent);overflow:hidden}
@@ -181,7 +187,7 @@
   </svg>
   <div class="brand">
     <h1>RA <span>MARKETS</span></h1>
-    <div class="sub" id="stamp">Roy Arad · Signal Desk · Monday, July 6, 2026 · 1:15pm ET intraday refresh · U.S. markets OPEN — the post-holiday AI rebound holds into the afternoon: Nasdaq +1.2% (~26,145) leads on a 2%+ chip pop (SMH was +2.4% pre-bell), S&amp;P +0.7% (~7,533), while the Dow round-trips a record — it tagged 53,000 for the first time EVER intraday, then handed the gains back to ~52,941 (roughly flat) as money rotates OUT of defensives INTO tech · Broadcom rips on the Apple custom-chip pact through 2031 (AAPL ~$314), Micron leads the memory read-through off Foxconn's record Q2 · NVDA still the black sheep (~$196, up just ~3% YTD) after SemiAnalysis flagged its Kyber NVL144 rack slipping to 2028 — Goldman says 'cheap, buy' · TSLA rebounds on the Miami robotaxi launch · Michael Burry stays short NVDA/TSLA/MU/SOXX/AMAT/CAT ('the beginning of the end'; warns of a 30%+ SOX drawdown) · SpaceX Nasdaq-100 forced buying (~$4.3B QQQ, up to ~$27B across NDX + Russell trackers) hits AFTER today's close, eff. Jul 7 · Samsung prelim Q2 (18x profit jump expected) + SpaceX inclusion Tue · Fed minutes Wed (first under Warsh) · PepsiCo Thu, Delta Fri · gold $4,164 (+0.9%), silver $62.55 (+2.4%), WTI $68.33 (−0.5%) on OPEC+'s 5th straight monthly hike (+188K bpd Aug) · crypto extends the weekend rally — BTC ~$62.7K (+0.2%), ETH ~$1,750</div>
+    <div class="sub" id="stamp">Roy Arad · Signal Desk · <span id="subDate"></span></div>
   </div>
   <div class="live" id="liveBadge" style="margin-left:auto"><span class="pulse"></span><span id="liveTxt">MARKET OPEN · LIVE TAPE</span></div>
   <button class="refresh" id="refreshBtn" onclick="manualRefresh()" title="Refresh prices now">
@@ -190,6 +196,8 @@
     </svg>REFRESH
   </button>
 </header>
+
+<div class="idx-strip" id="idxStrip"></div>
 
 <div class="mood">
   <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--buy)">RISK-ON</div>
@@ -344,8 +352,24 @@ function renderTape(){
     const px=q.p?('$'+fmt(q.p)):'…';
     return `<span class="ti"><span class="sym">${s.replace('-USD','').replace('^','').replace('=F','')}</span><span class="px">${px}</span><span class="chg ${cls}">${chg}</span></span>`;
   }).join('');
-  document.getElementById('tape').innerHTML=items+items; /* duplicated for seamless loop */
+  document.getElementById('tape').innerHTML=items+items;
+  renderIdx(); /* duplicated for seamless loop */
 }
+/* auto-date the header (never stale, never noisy) */
+document.getElementById('subDate').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+/* main indexes strip */
+if(!Q['^RUT'])Q['^RUT']={n:'Russell 2000',p:0,c:null};
+if(!Q['^VIX'])Q['^VIX']={n:'VIX',p:0,c:null};
+const IDX=[['^GSPC','S&P 500'],['^IXIC','Nasdaq'],['^DJI','Dow'],['^RUT','Russell 2K'],['^VIX','VIX'],['GC=F','Gold']];
+function renderIdx(){
+  const el=document.getElementById('idxStrip'); if(!el)return;
+  el.innerHTML=IDX.filter(([s])=>Q[s]).map(([s,l])=>{
+    const q=Q[s];const cls=q.c==null?'neu':(q.c>=0?'pos':'neg');
+    const chg=q.c==null?'—':(q.c>=0?'▲ +':'▼ ')+q.c.toFixed(2)+'%';
+    return `<div class="idx"><div class="il">${l}</div><div class="iv">${q.p?fmt(q.p):'…'}</div><div class="ic ${cls}">${chg}</div></div>`;
+  }).join('');
+}
+renderIdx();
 renderTape();
 
 /* ============ LIVE QUOTES (Yahoo Finance + CoinGecko) ============ */
