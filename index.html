@@ -201,20 +201,20 @@
 
 <div class="mood">
   <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--buy)">RISK-ON</div>
-    <div class="sub">Nasdaq +1.2% leads. Dow tags 53,000 — first ever — then fades flat. Defensives → AI rotation.</div>
-    <div class="bar"><i style="width:70%;background:var(--buy)"></i></div></div>
+    <div class="sub">Nasdaq +1.15% leads on chips. Dow −0.2% after tagging 53,000. VIX 16, calm tape.</div>
+    <div class="bar"><i style="width:68%;background:var(--buy)"></i></div></div>
   <div class="m"><div class="lbl">Index Event</div><div class="val" style="color:var(--wait)">SPCX DAY</div>
     <div class="sub">SpaceX joins the Nasdaq-100 Tuesday. ~$4.3B of forced QQQ buying lands after the close.</div>
     <div class="bar"><i style="width:62%;background:var(--wait)"></i></div></div>
   <div class="m"><div class="lbl">Chip Stocks</div><div class="val" style="color:var(--buy)">REBOUND ON</div>
-    <div class="sub">Broadcom +4.8% on the Apple pact, Micron +3.5%. NVDA still the laggard, −3% YTD.</div>
+    <div class="sub">SOX +4%. Broadcom +4% on the 2031 Apple pact, Micron +3.5%. NVDA laggard at +0.6%.</div>
     <div class="bar"><i style="width:70%;background:var(--buy)"></i></div></div>
   <div class="m"><div class="lbl">AI Mega-caps</div><div class="val" style="color:var(--buy)">BID</div>
-    <div class="sub">AAPL ~$314, TSLA +5% on Miami robotaxi, META ~$585. Monetizers back in favor.</div>
-    <div class="bar"><i style="width:60%;background:var(--buy)"></i></div></div>
-  <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--wait)">FIRMING</div>
-    <div class="sub">BTC ~$62.7K — first back-to-back ETF inflows since May. ETH ~$1,750; 166K ETH off Binance.</div>
-    <div class="bar"><i style="width:52%;background:var(--wait)"></i></div></div>
+    <div class="sub">AAPL ~$314 record zone, TSLA +1.4% robotaxi bounce, META ~$585. Monetizers favored.</div>
+    <div class="bar"><i style="width:58%;background:var(--buy)"></i></div></div>
+  <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--wait)">SOFTENING</div>
+    <div class="sub">BTC slips under $62K to ~$61.7K; July opens with a −$296M ETF day. ETH ~$1,738.</div>
+    <div class="bar"><i style="width:44%;background:var(--wait)"></i></div></div>
 </div>
 
 <div class="tabs">
@@ -257,7 +257,7 @@
 </div>
 
 <footer>
-  <b>RA Markets</b> · refreshed Monday, July 6, 2026 · 1:15pm ET (intraday) for Roy Arad. U.S. markets are open — equity fallback figures are July 6 early-afternoon marks until the live tape connects; crypto and gold are July 6 intraday. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
+  <b>RA Markets</b> · refreshed Monday, July 6, 2026 · 2:55pm ET (intraday) for Roy Arad. U.S. markets are open — equity fallback figures are July 6 afternoon marks until the live tape connects; crypto and gold are July 6 intraday. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
   <br>Sources: <a href="https://finance.yahoo.com">Yahoo Finance</a> ·
   <a href="https://fortune.com/2026/07/05/nvidia-supplier-hon-hai-foxconn-sales-earnings-report-ai-demand/">Fortune · Foxconn Q2</a> ·
   <a href="https://www.reuters.com/technology/broadcom-apple-extend-chip-partnership-through-2031-2026-07-06/">Reuters · Broadcom–Apple 2031</a> ·
@@ -279,25 +279,27 @@
 <script>
 /* ============ QUOTE DATA (equities fallback = Jul 6, 2026 ~12:10pm ET intraday; crypto/gold = Jul 6 intraday) ============ */
 const Q={
-  "^GSPC":{n:"S&P 500",p:7533.20,c:0.67},
-  "^DJI":{n:"DOW",p:52941.35,c:0.08},
-  "^IXIC":{n:"NASDAQ",p:26145.10,c:1.21},
-  AAPL:{n:"Apple",p:313.50,c:1.50},
+  "^GSPC":{n:"S&P 500",p:7523.57,c:0.54},
+  "^DJI":{n:"DOW",p:52783.88,c:-0.22},
+  "^IXIC":{n:"NASDAQ",p:26128.57,c:1.15},
+  "^RUT":{n:"Russell 2000",p:3010.16,c:0.47},
+  "^VIX":{n:"VIX",p:16.10,c:1.83},
+  AAPL:{n:"Apple",p:314.20,c:1.72},
   GOOGL:{n:"Alphabet A",p:356.00,c:0.27},
   GOOG:{n:"Alphabet C",p:356.00,c:0.27},
-  TSLA:{n:"Tesla",p:415.00,c:5.48},
+  TSLA:{n:"Tesla",p:399.00,c:1.41},
   SPCX:{n:"SpaceX",p:158.00,c:0.29},
   TKO:{n:"TKO Group",p:196.06,c:-3.15},
-  "BTC-USD":{n:"Bitcoin",p:62734,c:0.20},
-  "ETH-USD":{n:"Ethereum",p:1750,c:-0.85},
+  "BTC-USD":{n:"Bitcoin",p:61700,c:-1.63},
+  "ETH-USD":{n:"Ethereum",p:1738,c:-0.68},
   META:{n:"Meta",p:585.00,c:0.45},
   SN:{n:"SharkNinja",p:151.23,c:null},
   LLY:{n:"Eli Lilly",p:1197.87,c:0.51},
   MCD:{n:"McDonald's",p:272.45,c:1.12},
   AMZN:{n:"Amazon",p:242.67,c:-0.30},
   PLTR:{n:"Palantir",p:130.50,c:1.10},
-  NVDA:{n:"Nvidia",p:196.50,c:0.85},
-  "GC=F":{n:"Gold",p:4163.60,c:0.92}
+  NVDA:{n:"Nvidia",p:196.20,c:0.61},
+  "GC=F":{n:"Gold",p:4147.50,c:0.53}
 };
 const fmt=(v)=> v>=1000? v.toLocaleString('en-US',{maximumFractionDigits:0}) : v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
@@ -598,20 +600,20 @@ const CARDS=[
  kpis:["Growth <b>+68%</b>","Rule of 40 <b>🏆</b>","Fwd P/E <b>79x</b>","Target <b>$183 (+41%)</b>"],
  chk:["✅ <b>Growth:</b> best in software; profits up ~300% ttm","✅ <b>Quality:</b> profitable, no debt, founder-led, new NVDA partnership","❌ <b>Valuation:</b> 79x forward — zero tolerance for slowdown","Verdict: own it small; −27% YTD shows how fast the multiple bites"]},
 {t:"TSLA",q:"TSLA",n:"Tesla",sig:"avoid",score:36,
- why:"<b>Blowout deliveries, worst day in a year — now a robotaxi relief bounce.</b> Q2 hit a record 480,126 deliveries (+25%, 74K above consensus) yet the stock closed −7.5% at $393.45; today it's +5% to ~$415 on the Miami robotaxi launch (posted on X). At ~179x forward earnings, the Jul 22 margin line still decides everything.",
- kpis:["Q2 <b>480K (+25%) ✅</b>","Fwd P/E <b>~179x ❌</b>","Target <b>$423 (+3%)</b>","Robotaxi <b>Miami live</b>"],
+ why:"<b>Blowout deliveries, worst day in a year — now a modest robotaxi relief bounce.</b> Q2 hit a record 480,126 deliveries (+25%, 74K above consensus) yet the stock closed −7.5% at $393.45; today it's +1.4% to ~$399 on the Miami robotaxi launch (posted on X), off an intraday high near $438. At ~173x forward earnings, the Jul 22 margin line still decides everything.",
+ kpis:["Q2 <b>480K (+25%) ✅</b>","Fwd P/E <b>~173x ❌</b>","Target <b>$423 (+6%)</b>","Robotaxi <b>Miami live</b>"],
  chk:["✅ <b>Demand:</b> beat by 74K; new six-seat Model Y L; robotaxi now in Miami","❌ <b>Margins:</b> beat likely bought with price cuts — profit −37% ttm","⚠️ <b>Risk:</b> fatal FSD crash → manslaughter charge; Michael Burry disclosed a fresh TSLA short ('beginning of the end')","🎯 <b>Event:</b> Jul 22 earnings — did volume cost the margin?"]},
 {t:"SPCX",q:"SPCX",n:"SpaceX",sig:"avoid",score:40,
  why:"<b>Index day arrives — a mechanical bid, not a fundamental one.</b> SpaceX enters the Nasdaq-100 effective Tue Jul 7; QQQ and other trackers must buy ~$4.3B of SPCX today whether they like the ~$158 price or not. A real short-term floor — but the business is unchanged: ~$2.1T at ~107x revenue with a −$9.4B loss. History says added names fade (−3.4% avg over 5 days) once forced demand clears.",
  kpis:["Nasdaq-100 <b>eff. Jul 7</b>","Forced buy <b>~$4.3B today</b>","P/Sales <b>~107x ❌</b>","Net loss <b>−$9.4B</b>"],
  chk:["✅ <b>Business:</b> launch monopoly + Starlink revenue +33%/yr","⚙️ <b>Technical:</b> index inclusion forces ETF buying — a floor into Jul 7, then back to fundamentals","❌ <b>Valuation:</b> ~107x sales, −$9.4B loss; index membership doesn't fix that","🎯 <b>Wait for:</b> first earnings Aug 17 + insider lockup expiry"]},
-{t:"BTC",q:"BTC-USD",n:"Bitcoin",sig:"wait",score:48,
- why:"<b>Weekend rally holds as stocks reopen risk-on — and it's defending $60K.</b> After reclaiming ~$62.8K over the holiday, BTC is firm at ~$62.7K (+0.2%), keeping its bid even as the equity reopen pulled money into the AI trade. The flow turn still stands: spot BTC ETFs logged 2 straight inflow days (~+$224M Sat / +$221M Thu — first back-to-back since May) snapping a 10-day −$2.7B streak that capped a record −$4.1B June. Two days is the start of a trend, not yet the trend. Citi's cut target ($82K) stands.",
- kpis:["~$62.7K <b>(+0.2%)</b>","ETF flip <b>2 green days ✅</b>","Support <b>$60K holding</b>","Citi target <b>$82K</b>"],
- chk:["⚠️ <b>Trend:</b> seasonal + jobs-relief pop; back-to-back BTC-ETF inflow days now forming the flow turn — needs to survive full liquidity","✅ <b>Support:</b> reclaimed $60K and pushed to $62.8K; that's the level to defend","🎯 <b>Buy signal:</b> a 3rd+ inflow day confirms the first multi-day streak since May","⚠️ <b>Weekend:</b> was the only live U.S. risk gauge with cash markets closed Jul 3–4"]},
+{t:"BTC",q:"BTC-USD",n:"Bitcoin",sig:"wait",score:45,
+ why:"<b>The reopen fades the weekend rally — the flow turn is already on trial.</b> BTC opened ~$63.6K then slipped under $62K to ~$61.7K as the equity session pulled the marginal dollar into chips. Spot BTC ETFs opened July with a −$296M day, undercutting last week's fragile back-to-back inflows (~+$224M Sat / +$221M Thu, first since May) that had snapped a record −$4.1B June. Two green days did not survive contact with full liquidity. $60K is now the line. Citi target $82K.",
+ kpis:["~$61.7K <b>(−1.6%)</b>","ETF <b>−$296M day ❌</b>","Support <b>$60K on trial</b>","Citi target <b>$82K</b>"],
+ chk:["⚠️ <b>Trend:</b> weekend bid faded on the reopen; the two-day inflow turn already met a July outflow day","⚠️ <b>Support:</b> holding above $60K is the only thing keeping the rally structure intact","🎯 <b>Buy signal:</b> ETF flows must flip green again AND $60K has to hold on a daily close","⚠️ <b>Context:</b> June was BTC's worst ETF month on record at −$4.1B"]},
 {t:"ETH",q:"ETH-USD",n:"Ethereum",sig:"wait",score:37,
- why:"<b>Still leading the bounce — the cleanest flow story in crypto, now with a supply signal.</b> Firmed to ~$1,745, outrunning BTC as spot ETH ETFs snapped a 9-day outflow with ~$44M in over two sessions (BlackRock led). Two fresh catalysts: ~166K ETH left Binance Jul 5 (biggest exchange withdrawal since Mar '23 — classic accumulation tell) and Vitalik unveiled a 3–4yr 'Lean Ethereum' protocol overhaul. StanChart sees $4K YE if ETH/BTC climbs to 0.04; Citi near target $2,240.",
- kpis:["~$1,745","166K ETH off Binance ✅","Citi target <b>$2,240</b>","StanChart <b>$4K YE</b>"],
+ why:"<b>Holding up better than BTC — the cleaner flow story, but the reopen is testing it too.</b> Eased to ~$1,738 from a $1,784 open, still outrunning BTC on a relative basis after spot ETH ETFs snapped a 9-day outflow with ~$44M in (BlackRock led). Supply signal intact: ~166K ETH left Binance Jul 5 (biggest exchange withdrawal since Mar '23 — accumulation tell) and Vitalik unveiled a 3–4yr 'Lean Ethereum' overhaul. StanChart sees $4K YE if ETH/BTC climbs to 0.04; Citi near target $2,240.",
+ kpis:["~$1,738 <b>(−0.7%)</b>","166K ETH off Binance ✅","Citi target <b>$2,240</b>","StanChart <b>$4K YE</b>"],
  chk:["✅ <b>Flows:</b> first asset where ETF demand turned positive vs BTC","✅ <b>Supply:</b> record exchange outflow = coins moving to cold storage, not sale","⚠️ <b>Roadmap:</b> 'Lean Ethereum' is a 3–4yr story, not a 2026 catalyst","🎯 <b>Buy signal:</b> ETH-ETF inflows persist AND ETH/BTC keeps rising off 0.028"]}
 ];
 
@@ -669,17 +671,17 @@ const NEWS=[
  means:"Signal vs. noise: at 53,000 on the Dow the market has pre-paid for a blowout, so the asymmetry is negative — beats are expected, misses get punished. Delta is the cleaner tell than Pepsi: airlines price discretionary demand in real time, so its guide either confirms the soft-jobs 'slowdown-but-not-recession' story or breaks it. Second-order: if early cyclicals guide down, the rotation out of chips accelerates into defensives and the rate-cut trade — not into 'value.'",
  chips:[["watch","Delta guide = consumer read"],["bear","Priced for +24% EPS"],["bull","Beats extend the melt-up"]]},
 {s:"Reuters · Barron's · X (@Tesla_Robotaxi)",h:"🚗 Tesla bounces +4.3% — the robotaxi pivot buys a day, Jul 22 still owns the story",
- what:"After its worst day in nearly a year — a −7.5% Jul 2 close to $393.45 despite record Q2 deliveries of 480,126 (+25%, ~74K above consensus) — TSLA is rebounding +4.3% to ~$410 today. The proximate catalyst is autonomy optics: Tesla's Robotaxi account posted on X, 'What's up with Miami? Robotaxi now available in Miami,' pushing the driverless service into Waymo's turf. Tesla also capped employee AI spend at $200/week (effective today) and faces a manslaughter charge tied to a fatal FSD crash in Texas.",
+ what:"After its worst day in nearly a year — a −7.5% Jul 2 close to $393.45 despite record Q2 deliveries of 480,126 (+25%, ~74K above consensus) — TSLA is rebounding a more muted +1.4% to ~$399 today, well off an intraday spike near $438. The proximate catalyst is autonomy optics: Tesla's Robotaxi account posted on X, 'What's up with Miami? Robotaxi now available in Miami,' pushing the driverless service into Waymo's turf. Tesla also capped employee AI spend at $200/week (effective today) and faces a manslaughter charge tied to a fatal FSD crash in Texas.",
  means:"The bounce is a relief trade, not a re-rating: a single-city robotaxi expansion announced on X doesn't move the earnings model, and at ~179x forward earnings the only number that matters is Q2 automotive gross margin on Jul 22. The Miami launch is the deliberate pivot — get the market to price autonomy optionality instead of a shrinking-margin car business — but the Texas manslaughter case is a live reminder of the liability tail sitting under that same bet. Three delivery-day drops before today say the burden of proof is still on management.",
  chips:[["bear","TSLA into Jul 22"],["watch","Q2 auto gross margin"],["bull","Robotaxi optionality"]]},
 {s:"Reuters · Barron's · CNBC · Nikkei",h:"🍎 Broadcom locks in through 2031 — Apple breaks to a record just as it hits a 'hundred-year' memory flood",
  what:"Apple is up to ~$314 — a record-zone print — after Broadcom said it will develop and supply a range of custom ASIC silicon for Apple through 2031 (AVGO +4.8%), a vote of confidence in Apple's in-house AI-chip roadmap. It stacks on last week's Nikkei report of at least five new iPhones through early 2027 (foldable output doubled to 10M). The offsets: CEO Tim Cook calls the memory-price squeeze a 'hundred-year flood' forcing mid-cycle price hikes (MacBook Air to $1,299), and a Tata Electronics leak exposed unreleased iPhone 18 Pro documents.",
  means:"The Broadcom pact is the higher-quality signal than the iPhone count: it hard-wires Apple's silicon supply and its custom-AI ambitions to a proven ASIC partner for six years, and it's the same 'custom accelerators over merchant GPUs' theme pressuring Nvidia today — Apple sits on the winning side of it. But the stock is already AT its $315 consensus target (~1% upside), so the product and partnership news is largely priced; the swing factor is whether the memory-cost flood shows up in the Jul 30 margin line. The Tata leak is second-order but real — supply-chain security is now a competitive vulnerability, not an IT footnote.",
  chips:[["bull","Broadcom silicon pact"],["bear","Memory cost squeeze"],["watch","Jul 30 margins"]]},
-{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ 'Green July' carries into the reopen: BTC holds its weekend rally, ETH gets a supply signal",
- what:"Crypto is holding the holiday rally even as cash equities reopen risk-on: Bitcoin firmed to ~$62.7K (+0.2%), staying north of $60K, while Ether held ~$1,750. The flow backdrop is still constructive — spot BTC ETFs logged a 2nd straight positive day (~+$224M Sat after +$221M Thu), the first back-to-back inflows since May, snapping a 10-day −$2.7B outflow, while spot ETH ETFs ended a 9-day bleed with ~$44M in. Overnight: ~166K ETH (biggest since Mar '23) left Binance and Vitalik unveiled a multi-year 'Lean Ethereum' redesign.",
- means:"That it holds green with the AI trade back on is the tell: normally the reopen pulls the marginal risk dollar into semis and drains crypto's 'only game open' weekend bid — this time BTC kept its bid anyway. The flow turn the complex waited weeks for is still intact but now has to prove itself against full equity-session liquidity, not thin holiday tape. June was BTC's worst ETF month on record (−$4.1B, 2026 cumulative flows negative). The cleaner signal remains the ETH side: record exchange outflows say holders are moving coins to cold storage, not staging sales. BTC holding $60K is the floor the whole rally stands on; StanChart's $4K ETH year-end call needs exactly this picture to hold.",
- chips:[["bull","ETH supply squeeze"],["watch","Must survive full liquidity"],["bear","June −$4.1B overhang"]]}
+{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ Reopen fades the rally: BTC slips under $62K as July opens with another ETF outflow",
+ what:"The holiday rally lost its bid when cash equities reopened risk-on: Bitcoin opened ~$63.6K then slid under $62K to ~$61.7K (−1.6%), while Ether eased to ~$1,738 from a $1,784 open. The flow turn is already on trial — spot BTC ETFs opened July with a −$296M redemption day, undercutting last week's fragile back-to-back inflows (~+$224M Sat / +$221M Thu, first since May) that had snapped a record −$4.1B June. The one intact signal: ~166K ETH (biggest since Mar '23) left Binance Jul 5, and Vitalik unveiled a multi-year 'Lean Ethereum' redesign.",
+ means:"This is the reopen doing exactly what the weekend masked: the marginal risk dollar rotated into semis (SOX +4%) and drained crypto's 'only game open' bid the moment stocks came back. The flow turn the complex waited weeks for did not survive full-liquidity tape — a −$296M day is the tell that two green sessions were holiday thinness, not a trend. June was BTC's worst ETF month on record (−$4.1B). BTC holding $60K on a daily close is now the whole thesis; lose it and StanChart's $4K ETH year-end call goes with it. ETH's record exchange outflow is the lone constructive read — coins to cold storage, not sale.",
+ chips:[["bull","ETH supply squeeze"],["bear","July opens −$296M ETF"],["watch","$60K must hold on close"]]}
 ];
 const newsEl=document.getElementById('news');
 NEWS.forEach(n=>{
