@@ -8,7 +8,7 @@
   :root{
     --bg:#070a12; --card:#101623; --card2:#0c111c; --border:#1e2939; --border2:#2b3a52;
     --text:#f1f5fb; --dim:#8fa0b8;
-    --buy:#22c55e; --hold:#f59e0b; --avoid:#ef4444; --wait:#a78bfa; --blue:#3b82f6; --violet:#8b5cf6;
+    --buy:#22c55e; --hold:#f59e0b; --avoid:#ef4444; --wait:#aeb7c4; --blue:#3b82f6; --violet:#8b5cf6;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -227,7 +227,7 @@
     <input id="newTick" placeholder="Add ticker  e.g. NVDA" maxlength="10"
       onkeydown="if(event.key==='Enter')addTicker()">
     <button onclick="addTicker()">+ Add</button>
-    <span class="msg" id="addMsg">Instant: live price + tape (saved on this device). For a full rated window on the public site, <a href="https://github.com/royarad-dev/ra-markets/edit/main/tickers.json" target="_blank" rel="noopener" style="color:var(--blue)">add it to tickers.json</a> — rated on the next hourly update.</span>
+    <span class="msg" id="addMsg">Adds live price + tape instantly (this device). For the full rated window &amp; news decode, <a href="https://github.com/royarad-dev/ra-markets/edit/main/tickers.json" target="_blank" rel="noopener" style="color:var(--blue)">open the watchlist file</a> and put the symbol inside "extra": [&quot;XYZ&quot;] — I rate it on the next hourly run.</span>
   </div>
   <div class="legend" id="filters">
     <button class="on" data-f="all">All</button>
@@ -252,7 +252,7 @@
     <div class="hgrid" id="headlines"></div>
     <div class="hnote" id="hnote"></div>
   </div>
-  <div class="hsec"><h2>🧠 RA analysis — today's stories decoded</h2></div>
+  <div class="hsec"><h2>🧠 RA analysis — today's stories decoded <em id="analysisAt"></em></h2></div>
   <div class="news" id="news"></div>
 </div>
 
@@ -487,6 +487,11 @@ async function fetchFeed(url,count){
   }
   return null;
 }
+async function tickerNews(s){
+  const a=await fetchFeed(tickerFeed(s),3);
+  if(a&&a.length)return a;
+  return fetchFeed('https://news.google.com/rss/search?q='+encodeURIComponent(s.replace('-USD','')+' stock')+'&hl=en-US&gl=US&ceid=US:en',3);
+}
 const tickerFeed=s=>'https://feeds.finance.yahoo.com/rss/2.0/headline?s='+encodeURIComponent(s)+'&region=US&lang=en-US';
 function hItems(items){
   return items? items.map(it=>{
@@ -534,7 +539,7 @@ async function refreshNews(){
   const grid=document.getElementById('headlines'), note=document.getElementById('hnote');
   const [wireRes,tickRes]=await Promise.all([
     Promise.allSettled(WIRES.map(w=>fetchFeed(w.u,4))),
-    Promise.allSettled(NEWSLIST.map(s=>fetchFeed(tickerFeed(s),3)))
+    Promise.allSettled(NEWSLIST.map(s=>tickerNews(s)))
   ]);
   /* pool every fetched headline for the Top-Story engine */
   const pool=[];
@@ -649,6 +654,8 @@ updateCardPrices();
 renderCustomCards();
 
 /* ============ NEWS ============ */
+const ANALYSIS_AT='Jul 6, 2026 · 1:15pm ET';
+document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('analysisAt');if(e)e.textContent='· as of '+ANALYSIS_AT+' · re-analyzed hourly';});
 const NEWS=[
 {s:"Reuters · Barron's · CNBC · SemiAnalysis",h:"🤖 Chip rebound, round two: a Broadcom–Apple pact lights the fuse — but NVDA is the black sheep",
  what:"The semis snapped back hard: the PHLX Semiconductor Index (SOX) jumped 4.2% mid-morning after two losing sessions. Two catalysts stacked — Broadcom and Apple extended their custom-chip partnership through 2031 to develop and supply a range of Apple ASICs (AVGO +4.8% to ~$378), landing on top of Foxconn's record Q2 (revenue +39.8% y/y, June +52.1%); Micron rode the memory read-through +3.5% to ~$1,009. The tell inside the rally: Nvidia lagged, up just 0.6% to ~$196 — barely ~3% YTD versus AMD +171% and Micron +305% — after SemiAnalysis reported its next-gen Kyber NVL144 rack has slipped to 2028 on a circuit-board manufacturing snag. Goldman used the dip to reiterate Buy, calling NVDA 'cheap.'",
