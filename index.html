@@ -386,13 +386,16 @@ async function refreshQuotes(){
   const relays=[u=>'https://corsproxy.io/?url='+encodeURIComponent(u), u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u)];
   const syms=Object.keys(Q).filter(s=>s!=='BTC-USD'&&s!=='ETH-USD');
   const results=await Promise.allSettled(syms.map(async s=>{
-    const u='https://query1.finance.yahoo.com/v8/finance/chart/'+encodeURIComponent(s)+'?interval=1d&range=2d';
+    const u='https://query1.finance.yahoo.com/v8/finance/chart/'+encodeURIComponent(s)+'?interval=1d&range=5d';
     for(const relay of relays){
       try{
         const j=await tryJson(relay(u));
-        const m=j.chart&&j.chart.result&&j.chart.result[0]&&j.chart.result[0].meta;
+        const res0=j.chart&&j.chart.result&&j.chart.result[0];
+        const m=res0&&res0.meta;
         if(m&&m.regularMarketPrice){
-          const prev=m.chartPreviousClose||m.previousClose;
+          /* previous TRADING session close (holiday-proof): second-to-last daily close */
+          const closes=((res0.indicators&&res0.indicators.quote&&res0.indicators.quote[0]&&res0.indicators.quote[0].close)||[]).filter(x=>x!=null);
+          const prev=closes.length>=2?closes[closes.length-2]:(m.previousClose||m.chartPreviousClose);
           Q[s].p=m.regularMarketPrice;
           if(prev)Q[s].c=(m.regularMarketPrice-prev)/prev*100;
           return true;
