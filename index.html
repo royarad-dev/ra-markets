@@ -30,7 +30,7 @@
   .ti .chg{font-variant-numeric:tabular-nums;font-weight:700}
   .pos{color:var(--buy)} .neg{color:var(--avoid)} .neu{color:var(--hold)}
   /* ===== header ===== */
-  header{display:flex;align-items:center;gap:16px;padding:26px 0 6px;flex-wrap:wrap}
+  header{display:flex;align-items:center;gap:18px;padding:36px 0 10px;flex-wrap:wrap}
   .logo{width:64px;height:64px;flex:none;filter:drop-shadow(0 6px 22px rgba(99,102,241,.5))}
   .logo .trace{stroke-dasharray:90;stroke-dashoffset:90;animation:draw 3.2s ease-in-out infinite}
   .logo .tip{animation:blink 3.2s ease-in-out infinite}
@@ -66,8 +66,8 @@
   .hcard time{display:block;color:var(--dim);font-size:.64rem;margin-top:2px}
   .hnote{font-size:.72rem;color:var(--dim);margin-top:8px}
   /* index strip */
-  .idx-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin:16px 0 4px}
-  .idx{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:14px;padding:10px 14px}
+  .idx-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0 6px}
+  .idx{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:18px;padding:16px 20px}
   .idx .il{color:var(--dim);font-size:.62rem;letter-spacing:.12em;font-weight:800;text-transform:uppercase}
   .idx .iv{font-size:1.25rem;font-weight:800;margin-top:2px;font-variant-numeric:tabular-nums}
   .idx .ic{font-size:.75rem;font-weight:700;margin-top:1px}
@@ -90,13 +90,14 @@
   .live.on{color:var(--buy)}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 9px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
   /* ===== mood ===== */
-  .mood{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:20px 0 24px}
-  .m{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:16px;padding:14px 16px}
+  .mood{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;margin:28px 0 34px}
+  .m{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:20px;padding:22px;display:flex;flex-direction:column;min-height:200px}
   .m .lbl{color:var(--dim);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px;font-weight:700}
   .m .val{font-size:1.15rem;font-weight:800}
-  .m .sub{font-size:.72rem;color:var(--dim);margin-top:3px;line-height:1.4}
+  .m .sub{font-size:.75rem;color:var(--dim);margin-top:7px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   .bar{height:5px;border-radius:5px;background:#1c2635;margin-top:10px;overflow:hidden}
   .bar i{display:block;height:100%;border-radius:5px}
+  .m .bar{margin-top:auto}
   /* ===== tabs ===== */
   .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
   .tabs button{background:var(--card);color:var(--dim);border:1px solid var(--border);padding:11px 22px;border-radius:12px;
@@ -112,8 +113,7 @@
   .swatch{width:9px;height:9px;border-radius:50%}
   /* ===== cards ===== */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:14px}
-  .card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:18px;
-    padding:18px;position:relative;overflow:hidden;transition:transform .13s,border-color .13s}
+  .card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:20px;padding:22px;position:relative;overflow:hidden;transition:transform .13s,border-color .13s;display:flex;flex-direction:column}
   .card:hover{transform:translateY(-3px);border-color:var(--border2)}
   .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--sig)}
   .chead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
@@ -126,12 +126,12 @@
   .ring{--p:50;width:62px;height:62px;border-radius:50%;flex:none;display:grid;place-items:center;
     background:conic-gradient(var(--sig) calc(var(--p)*1%), #1c2635 0)}
   .ring b{width:48px;height:48px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:.92rem}
-  .why{font-size:.8rem;color:var(--dim);line-height:1.48}
+  .why{font-size:.8rem;color:var(--dim);line-height:1.6;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   .why b{color:var(--text)}
   .kpis{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
   .kpi{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:4px 9px;font-size:.69rem;color:var(--dim)}
   .kpi b{color:var(--text)}
-  details{margin-top:12px}
+  details{margin-top:auto;padding-top:14px}
   summary{cursor:pointer;font-size:.77rem;color:var(--blue);font-weight:700;list-style:none}
   summary::before{content:"▸ "} details[open] summary::before{content:"▾ "}
   .chk{margin-top:8px;font-size:.75rem;color:var(--dim);line-height:1.5}
@@ -143,7 +143,7 @@
   .ncard h3{font-size:.98rem;font-weight:800;margin-bottom:10px;line-height:1.35}
   .nrow{margin-bottom:10px}
   .nrow .t{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:3px;font-weight:800}
-  .nrow p{font-size:.81rem;line-height:1.5;color:#c5d1e2}
+  .nrow p{font-size:.81rem;line-height:1.6;color:#c5d1e2;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   .src{font-size:.66rem;color:var(--dim);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
   .sigchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
   .sc{font-size:.7rem;font-weight:800;padding:4px 11px;border-radius:999px}
@@ -201,19 +201,19 @@
 
 <div class="mood">
   <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--buy)">RISK-ON</div>
-    <div class="sub">Tech-led melt-up into the afternoon: Nasdaq +1.2% (~26,145) out front, S&amp;P +0.7% (~7,533), while the Dow tapped 53,000 for the first time EVER then gave it back to ~52,941 (flat) — classic rotation OUT of defensives INTO the AI trade. Gold $4,164 (+0.9%), silver $62.55 (+2.4%), VIX ~16. Last week: Dow closed at a record, best quarter since 2020 just booked</div>
+    <div class="sub">Nasdaq +1.2% leads. Dow tags 53,000 — first ever — then fades flat. Defensives → AI rotation.</div>
     <div class="bar"><i style="width:70%;background:var(--buy)"></i></div></div>
   <div class="m"><div class="lbl">Index Event</div><div class="val" style="color:var(--wait)">SPCX DAY</div>
-    <div class="sub">SpaceX joins Nasdaq-100 (eff. Tue Jul 7). J.P. Morgan pegs forced buying at ~$4.3B — QQQ &amp; trackers buy AFTER today's close, funded by trimming the rest of the index. Added names historically fade ~3.4% over 5 days</div>
+    <div class="sub">SpaceX joins the Nasdaq-100 Tuesday. ~$4.3B of forced QQQ buying lands after the close.</div>
     <div class="bar"><i style="width:62%;background:var(--wait)"></i></div></div>
   <div class="m"><div class="lbl">Chip Stocks</div><div class="val" style="color:var(--buy)">REBOUND ON</div>
-    <div class="sub">Semi rebound holds — Broadcom +4.8% (~$378) on the Apple 2031 pact, Micron +3.5% (~$1,009); Foxconn's record Q2 reopens the AI-demand door. But NVDA is the laggard (~$196, ~3% YTD) after SemiAnalysis flagged its Kyber NVL144 rack slipping to 2028; Goldman still says 'cheap, buy.' Samsung prelim Q2 (18x profit jump expected) Tue, SK Hynix ~$29.7B ADR ~Jul 10</div>
+    <div class="sub">Broadcom +4.8% on the Apple pact, Micron +3.5%. NVDA still the laggard, −3% YTD.</div>
     <div class="bar"><i style="width:70%;background:var(--buy)"></i></div></div>
   <div class="m"><div class="lbl">AI Mega-caps</div><div class="val" style="color:var(--buy)">BID</div>
-    <div class="sub">AAPL ~$314 on the Broadcom pact through 2031; META ~$585; TSLA +5% ~$415 on Miami robotaxi. GOOGL (now a Dow name) the quiet one — monetizers back in favor</div>
+    <div class="sub">AAPL ~$314, TSLA +5% on Miami robotaxi, META ~$585. Monetizers back in favor.</div>
     <div class="bar"><i style="width:60%;background:var(--buy)"></i></div></div>
   <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--wait)">FIRMING</div>
-    <div class="sub">BTC extends the weekend rally — ~$62.7K (+0.2%), holding above $60K even as stocks reopen risk-on; ETH ~$1,750. The flow turn is still intact: spot-BTC ETFs logged 2 straight inflow days (~+$224M Sat / +$221M Thu, first back-to-back since May) and ETH ETFs snapped a 9-day outflow. 166K ETH pulled off Binance (most since Mar '23); Vitalik unveils 'Lean Ethereum'</div>
+    <div class="sub">BTC ~$62.7K — first back-to-back ETF inflows since May. ETH ~$1,750; 166K ETH off Binance.</div>
     <div class="bar"><i style="width:52%;background:var(--wait)"></i></div></div>
 </div>
 
