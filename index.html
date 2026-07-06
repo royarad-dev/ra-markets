@@ -65,6 +65,15 @@
   .hcard a:hover{color:var(--text)}
   .hcard time{display:block;color:var(--dim);font-size:.64rem;margin-top:2px}
   .hnote{font-size:.72rem;color:var(--dim);margin-top:8px}
+  /* top story banner */
+  .topstory{position:relative;border:1px solid rgba(245,158,11,.55);border-radius:16px;padding:16px 20px;margin-bottom:14px;
+    background:linear-gradient(135deg,rgba(245,158,11,.16),rgba(236,72,153,.08) 60%,transparent);overflow:hidden}
+  .topstory .ts-tag{display:inline-flex;align-items:center;gap:7px;font-size:.68rem;font-weight:900;letter-spacing:.12em;
+    color:var(--hold);text-transform:uppercase;margin-bottom:8px}
+  .ts-dot{width:8px;height:8px;border-radius:50%;background:var(--hold);animation:pulse 2s infinite}
+  .topstory a{color:var(--text);text-decoration:none;font-size:1.05rem;font-weight:800;line-height:1.4;display:block}
+  .topstory a:hover{color:var(--hold)}
+  .topstory .ts-meta{color:var(--dim);font-size:.72rem;margin-top:7px;font-weight:600}
   .brand h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
   .brand h1 span{background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
   .brand .sub{color:var(--dim);font-size:.8rem;margin-top:3px}
@@ -231,6 +240,7 @@
   </div>
   <div class="hsec">
     <h2>📡 Live headlines <em id="hstamp"></em></h2>
+    <div id="topstory"></div>
     <div class="hgrid" id="headlines"></div>
     <div class="hnote" id="hnote"></div>
   </div>
@@ -457,12 +467,51 @@ function hItems(items){
     }).join('')
     : `<a>feed unavailable right now — try REFRESH</a>`;
 }
+/* Top-Story engine — scores every fresh headline like the signal cards score stocks:
+   recency (heaviest), market-impact keywords, board-ticker mentions, hard numbers, source weight */
+const HOT=['breaking','fed','rate hike','rate cut','rates','jobs','payroll','inflation','cpi','crash','plunge','plummet','surge','soar','record','all-time','tariff','earnings','guidance','deliveries','ipo','merger','acquisition','bankruptcy','halted','sec ','lawsuit','short sell','downgrade','upgrade','recall','probe'];
+function scoreStory(it,src){
+  let s=0;
+  const age=(Date.now()-new Date(it.d).getTime())/60000;
+  if(isNaN(age)) s-=5;
+  else if(age<=15) s+=30; else if(age<=60) s+=18; else if(age<=180) s+=8; else if(age<=720) s+=2;
+  const t=(it.t||'').toLowerCase();
+  HOT.forEach(k=>{ if(t.includes(k)) s+=6; });
+  Object.entries(Q).forEach(([sym,q])=>{
+    const base=sym.replace('-USD','').toLowerCase();
+    const name=(q.n||'').split(' ')[0].toLowerCase();
+    if((base.length>2&&t.includes(base))||(name.length>3&&t.includes(name))) s+=5;
+  });
+  if(/\d+(\.\d+)?%/.test(t)) s+=6;
+  if(src.includes('WSJ')) s+=4; else if(src.includes('CNBC')) s+=3;
+  return s;
+}
+function renderTopStory(pool){
+  const el=document.getElementById('topstory');
+  if(!pool.length){el.innerHTML='';return;}
+  pool.forEach(x=>x.score=scoreStory(x.it,x.src));
+  pool.sort((a,b)=>b.score-a.score);
+  const w=pool[0];
+  const age=(Date.now()-new Date(w.it.d).getTime())/60000;
+  const fresh=!isNaN(age)&&age<=15;
+  const ago=isNaN(age)?'':(age<1?'just now':age<60?Math.round(age)+'m ago':Math.round(age/60)+'h ago');
+  el.innerHTML=`<div class="topstory">
+    <div class="ts-tag"><span class="ts-dot"></span>${fresh?'\ud83d\udd25 Top story \u2014 last 15 min':'\ud83d\udd25 Top story right now'}</div>
+    <a href="${w.it.l}" target="_blank" rel="noopener">${w.it.t}</a>
+    <div class="ts-meta">${w.src}${ago?' \u00b7 '+ago:''} \u00b7 impact score ${w.score}</div>
+  </div>`;
+}
 async function refreshNews(){
   const grid=document.getElementById('headlines'), note=document.getElementById('hnote');
   const [wireRes,tickRes]=await Promise.all([
     Promise.allSettled(WIRES.map(w=>fetchFeed(w.u,4))),
     Promise.allSettled(NEWSLIST.map(s=>fetchFeed(tickerFeed(s),3)))
   ]);
+  /* pool every fetched headline for the Top-Story engine */
+  const pool=[];
+  WIRES.forEach((w,i)=>{const r=wireRes[i];if(r.status==='fulfilled'&&r.value)r.value.forEach(it=>pool.push({it,src:w.n}));});
+  NEWSLIST.forEach((s,i)=>{const r=tickRes[i];if(r.status==='fulfilled'&&r.value)r.value.forEach(it=>pool.push({it,src:s+' \u00b7 Yahoo'}));});
+  renderTopStory(pool);
   let html='', ok=0;
   WIRES.forEach((w,i)=>{
     const items=wireRes[i].status==='fulfilled'?wireRes[i].value:null;
