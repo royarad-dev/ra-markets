@@ -575,7 +575,7 @@ async function refreshNews(){
   note.textContent=ok? 'Wires: WSJ Markets · CNBC Top News · Yahoo Finance (official feeds). X.com offers no public feed — the hourly RA analysis covers notable X chatter instead.'
                      : 'Headlines couldn\'t load — some networks block the free relay this page uses. Prices are unaffected.';
 }
-refreshNews();
+refreshNews().then(()=>{ if(!document.querySelectorAll('#headlines .hcard').length) setTimeout(refreshNews,6000); });
 setInterval(refreshNews, 15*60*1000);   /* headlines: every 15 minutes */
 
 /* ============ SIGNAL CARDS ============ */
