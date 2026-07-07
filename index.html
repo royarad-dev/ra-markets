@@ -200,21 +200,21 @@
 <div class="idx-strip" id="idxStrip"></div>
 
 <div class="mood">
-  <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--hold)">MIXED</div>
-    <div class="sub">Dow record 53,056, but Nasdaq-100 futures −0.9% as the chip selloff spreads to Europe.</div>
-    <div class="bar"><i style="width:50%;background:var(--hold)"></i></div></div>
+  <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--buy)">RISK-ON</div>
+    <div class="sub">AI trade revives: Nasdaq futures +1.5%, S&P +0.5%; Dow holds record 53,056.</div>
+    <div class="bar"><i style="width:66%;background:var(--buy)"></i></div></div>
   <div class="m"><div class="lbl">Index Event</div><div class="val" style="color:var(--wait)">SPCX DAY</div>
     <div class="sub">SpaceX joins Nasdaq-100 at today's open; ~$4.3B forced QQQ buying, up to $27B across trackers.</div>
     <div class="bar"><i style="width:60%;background:var(--wait)"></i></div></div>
-  <div class="m"><div class="lbl">Asia Tape</div><div class="val" style="color:var(--avoid)">KOSPI −4.9%</div>
-    <div class="sub">Seoul closed −4.9%, Nikkei −2.1%; Europe tech −1.9% as AI-chip fear spreads.</div>
-    <div class="bar"><i style="width:26%;background:var(--avoid)"></i></div></div>
+  <div class="m"><div class="lbl">Chip Trade</div><div class="val" style="color:var(--buy)">REBOUND</div>
+    <div class="sub">Chips snap back: SMH +2.7%, Intel +3%, Nvidia &amp; Micron lead; Europe/Asia rout reverses.</div>
+    <div class="bar"><i style="width:70%;background:var(--buy)"></i></div></div>
   <div class="m"><div class="lbl">Fed Watch</div><div class="val" style="color:var(--hold)">MINUTES WED</div>
     <div class="sub">Warsh Fed's first June minutes Wed 2pm ET. Sept hike odds ~50%, down from 66%.</div>
     <div class="bar"><i style="width:52%;background:var(--hold)"></i></div></div>
-  <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--wait)">FLOW TURN</div>
-    <div class="sub">BTC ~$64K; spot ETF flipped +$47M after a record −$4.1B June. Fear index 23.</div>
-    <div class="bar"><i style="width:50%;background:var(--wait)"></i></div></div>
+  <div class="m"><div class="lbl">Havens</div><div class="val" style="color:var(--wait)">GOLD $4.2K</div>
+    <div class="sub">Gold rips +1.8% to ~$4,200; BTC ~$63.7K on +$47M ETF turn after record −$4.1B June.</div>
+    <div class="bar"><i style="width:58%;background:var(--wait)"></i></div></div>
 </div>
 
 <div class="tabs">
@@ -257,7 +257,7 @@
 </div>
 
 <footer>
-  <b>RA Markets</b> · refreshed Tuesday, July 7, 2026 · 5:10am ET (pre-market) for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 6 closing marks until the live tape connects; crypto and gold are early July 7. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
+  <b>RA Markets</b> · refreshed Tuesday, July 7, 2026 · 7:10am ET (pre-market) for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 6 closing marks until the live tape connects; crypto and gold are early July 7. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
   <br>Sources: <a href="https://finance.yahoo.com">Yahoo Finance</a> ·
   <a href="https://fortune.com/2026/07/05/nvidia-supplier-hon-hai-foxconn-sales-earnings-report-ai-demand/">Fortune · Foxconn Q2</a> ·
   <a href="https://www.reuters.com/technology/broadcom-apple-extend-chip-partnership-through-2031-2026-07-06/">Reuters · Broadcom–Apple 2031</a> ·
@@ -283,15 +283,15 @@ const Q={
   "^DJI":{n:"DOW",p:53055.91,c:0.29},
   "^IXIC":{n:"NASDAQ",p:26121.16,c:1.12},
   "^RUT":{n:"Russell 2000",p:3018.40,c:0.28},
-  "^VIX":{n:"VIX",p:15.80,c:-1.86},
+  "^VIX":{n:"VIX",p:15.81,c:-2.11},
   AAPL:{n:"Apple",p:316.50,c:1.30},
   GOOGL:{n:"Alphabet A",p:358.40,c:0.67},
   GOOG:{n:"Alphabet C",p:358.40,c:0.67},
   TSLA:{n:"Tesla",p:419.80,c:6.70},
-  SPCX:{n:"SpaceX",p:161.50,c:2.20},
+  SPCX:{n:"SpaceX",p:156.45,c:-3.43},
   TKO:{n:"TKO Group",p:196.50,c:0.22},
-  "BTC-USD":{n:"Bitcoin",p:64034,c:0.76},
-  "ETH-USD":{n:"Ethereum",p:1765,c:-0.40},
+  "BTC-USD":{n:"Bitcoin",p:63678,c:0.94},
+  "ETH-USD":{n:"Ethereum",p:1792,c:0.72},
   META:{n:"Meta",p:588.50,c:0.60},
   SN:{n:"SharkNinja",p:150.80,c:-0.28},
   LLY:{n:"Eli Lilly",p:1199.40,c:0.42},
@@ -300,7 +300,7 @@ const Q={
   PLTR:{n:"Palantir",p:132.20,c:1.30},
   NVDA:{n:"Nvidia",p:197.00,c:0.41},
   GRNY:{n:"Granny Shots ETF",p:27.96,c:1.42},
-  "GC=F":{n:"Gold",p:4162.00,c:0.35}
+  "GC=F":{n:"Gold",p:4200.00,c:1.80}
 };
 const fmt=(v)=> v>=1000? v.toLocaleString('en-US',{maximumFractionDigits:0}) : v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
@@ -659,17 +659,17 @@ updateCardPrices();
 renderCustomCards();
 
 /* ============ NEWS ============ */
-const ANALYSIS_AT='Jul 7, 2026 · 5:10am ET';
+const ANALYSIS_AT='Jul 7, 2026 · 7:10am ET';
 document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('analysisAt');if(e)e.textContent='· as of '+ANALYSIS_AT+' · re-analyzed hourly';});
 const NEWS=[
 {s:"CNBC · Nasdaq · J.P. Morgan · CoinDesk",h:"🔔 SpaceX's index day is here — ~$4.3B of forced buying, then history says it fades",
  what:"SpaceX officially joins the Nasdaq-100 before Tuesday's open. QQQ and NDX trackers must buy ~$4.3B of SPCX (up to ~$27B across all index and Russell funds), against a 3–5% float near ~$160.",
  means:"Index buying is price-insensitive — the one bid that ignores a ~107x-sales, −$9.4B-loss business. But added names fall −3.4% on average over five days once forced demand clears. Watch NDX breadth: the Mag-7 are the involuntary funding source.",
  chips:[["bull","SPCX forced bid"],["bear","Mag-7 funding source"],["watch","Post-inclusion fade"]]},
-{s:"CNBC · Bloomberg · Reuters",h:"🌏 Chip rout spreads: Kospi closes −4.9%, now hits European semis",
- what:"Asia's AI-chip selloff deepened Tuesday: Kospi closed −4.91%, Nikkei −2.12%, with Samsung and SK Hynix leading. It rolled into Europe at the open — Stoxx 600 Tech −1.9%, ASML/STMicro/Infineon −4%+, Soitec −10%.",
- means:"The reaction, not the print, is the signal: record AI-memory profit can't hold the stock. The 'disciplined hyperscaler capex' fear is now a two-continent unwind, and Nasdaq-100 futures −0.9% say it's coming for US semis at the open — while the Dow's defensives hold.",
- chips:[["bear","Asia+Europe chip unwind"],["bear","Hyperscaler capex fear"],["watch","US semi open −0.9%"]]},
+{s:"Yahoo Finance · CNBC · Schwab",h:"🔁 AI trade revives — chips snap back, SMH +2.7% as the late-June rout unwinds",
+ what:"Semis rebounded hard into Tuesday: the SMH chip ETF +2.7%, Intel +3% pre-market, Nvidia and Micron leading. Nasdaq-100 futures flipped to +1.5%, reversing last week's −19% Micron swoon and Monday's −4.9% Kospi.",
+ means:"The reaction flipped: the 'disciplined hyperscaler capex' fear that crushed memory is now bought as excess positioning, not a demand break. But the AI Big-10 are 41% of the S&P — a dot-com echo — so watch whether breadth confirms or the Mag-7 simply re-absorb the bid.",
+ chips:[["bull","Chips / SMH rebound"],["bear","AI = 41% of S&P"],["watch","Breadth vs Mag-7"]]},
 {s:"Reuters · Barron's · CNBC",h:"🍎 Broadcom–Apple lock in through 2031 — Apple hits a record as the SOX rebounds",
  what:"Apple printed a record ~$316 after Broadcom (+3.7%) extended its custom-ASIC pact through 2031, powering Apple's in-house AI-silicon roadmap. The SOX snapped back ~4% off two losing sessions; Foxconn's record Q2 (+39.8% y/y) added fuel.",
  means:"The deal is structural, not a pop: it hard-wires the 'custom silicon over merchant GPUs' theme pressuring Nvidia (+0.4%, ~3% YTD). But Apple already sits at its ~$315 target — the Jul 30 margin line, amid a memory-cost 'flood,' owns the next leg.",
