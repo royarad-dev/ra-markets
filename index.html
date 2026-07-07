@@ -200,20 +200,20 @@
 <div class="idx-strip" id="idxStrip"></div>
 
 <div class="mood">
-  <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--buy)">RISK-ON</div>
-    <div class="sub">Dow record 53,056. Nasdaq +1.1%, S&P 7,537. VIX ~16, calm tape into pre-market.</div>
-    <div class="bar"><i style="width:70%;background:var(--buy)"></i></div></div>
+  <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--hold)">MIXED</div>
+    <div class="sub">Dow record 53,056, but Nasdaq-100 futures −0.9% pre-market as Asia chips crack.</div>
+    <div class="bar"><i style="width:50%;background:var(--hold)"></i></div></div>
   <div class="m"><div class="lbl">Index Event</div><div class="val" style="color:var(--wait)">SPCX DAY</div>
-    <div class="sub">SpaceX enters the Nasdaq-100 today. ~$4.3B of forced QQQ buying lands after the close.</div>
+    <div class="sub">SpaceX joins Nasdaq-100 at today's open; ~$4.3B forced QQQ buying, ~1% weight.</div>
     <div class="bar"><i style="width:60%;background:var(--wait)"></i></div></div>
-  <div class="m"><div class="lbl">Asia Tape</div><div class="val" style="color:var(--avoid)">KOSPI −5%</div>
-    <div class="sub">Samsung −7.7% despite record profit; Korea tech drags Asia lower — 'sell the news.'</div>
-    <div class="bar"><i style="width:30%;background:var(--avoid)"></i></div></div>
+  <div class="m"><div class="lbl">Asia Tape</div><div class="val" style="color:var(--avoid)">KOSPI SIDECAR</div>
+    <div class="sub">Sell-curb tripped: Kospi −4.7%, Samsung −7.5%, SK Hynix −9% on AI-chip fear.</div>
+    <div class="bar"><i style="width:26%;background:var(--avoid)"></i></div></div>
   <div class="m"><div class="lbl">Fed Watch</div><div class="val" style="color:var(--hold)">MINUTES WED</div>
     <div class="sub">Warsh Fed's first June minutes Wed 2pm ET. Sept hike odds ~50%, down from 66%.</div>
     <div class="bar"><i style="width:52%;background:var(--hold)"></i></div></div>
   <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--wait)">SOFTENING</div>
-    <div class="sub">BTC fades to ~$62.5K, ETH ~$1,765; July ETFs open with a −$296M day.</div>
+    <div class="sub">BTC ~$62.5K, ETH ~$1,765; July ETFs opened −$296M after a record −$4.1B June.</div>
     <div class="bar"><i style="width:44%;background:var(--wait)"></i></div></div>
 </div>
 
@@ -257,7 +257,7 @@
 </div>
 
 <footer>
-  <b>RA Markets</b> · refreshed Tuesday, July 7, 2026 · 4:05am ET (pre-market) for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 6 closing marks until the live tape connects; crypto and gold are early July 7. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
+  <b>RA Markets</b> · refreshed Tuesday, July 7, 2026 · 4:12am ET (pre-market) for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 6 closing marks until the live tape connects; crypto and gold are early July 7. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
   <br>Sources: <a href="https://finance.yahoo.com">Yahoo Finance</a> ·
   <a href="https://fortune.com/2026/07/05/nvidia-supplier-hon-hai-foxconn-sales-earnings-report-ai-demand/">Fortune · Foxconn Q2</a> ·
   <a href="https://www.reuters.com/technology/broadcom-apple-extend-chip-partnership-through-2031-2026-07-06/">Reuters · Broadcom–Apple 2031</a> ·
@@ -659,17 +659,17 @@ updateCardPrices();
 renderCustomCards();
 
 /* ============ NEWS ============ */
-const ANALYSIS_AT='Jul 7, 2026 · 4:05am ET';
+const ANALYSIS_AT='Jul 7, 2026 · 4:12am ET';
 document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('analysisAt');if(e)e.textContent='· as of '+ANALYSIS_AT+' · re-analyzed hourly';});
 const NEWS=[
 {s:"CNBC · Nasdaq · J.P. Morgan · CoinDesk",h:"🔔 SpaceX's index day is here — ~$4.3B of forced buying, then history says it fades",
  what:"SpaceX officially joins the Nasdaq-100 before Tuesday's open. QQQ and NDX trackers must buy ~$4.3B of SPCX (up to ~$27B across all index and Russell funds), against a 3–5% float near ~$160.",
  means:"Index buying is price-insensitive — the one bid that ignores a ~107x-sales, −$9.4B-loss business. But added names fall −3.4% on average over five days once forced demand clears. Watch NDX breadth: the Mag-7 are the involuntary funding source.",
  chips:[["bull","SPCX forced bid"],["bear","Mag-7 funding source"],["watch","Post-inclusion fade"]]},
-{s:"CNBC · Reuters · Korea JoongAng",h:"🌏 Asia cracks: Kospi −5%, Samsung −7.7% despite a record-profit blowout",
- what:"Asian tech tumbled Tuesday — South Korea's Kospi led losses down ~5%, and Samsung fell 7.7% even after operating profit surged on AI-memory demand. A classic 'sell the news' after a parabolic Korean chip run.",
- means:"The reaction, not the print, is the signal: when record profit can't hold the stock, positioning is stretched. It's the reflexive-AI risk Burry flagged ('the beginning of the end') showing up first where the trade ran hottest — a caution flag for US chips.",
- chips:[["bear","Korea chip unwind"],["bear","AI positioning stretched"],["watch","US semi contagion"]]},
+{s:"CNBC · Bloomberg · Korea JoongAng",h:"🌏 Kospi trips its sell-side sidecar: −4.7%, Samsung −7.5%, SK Hynix −9%",
+ what:"Korea Exchange activated a sidecar sell-curb Tuesday morning after Kospi 200 futures fell 5.1%; the index sat ~−4.7% near 7,600. Samsung −7.5% and SK Hynix −9% led, with SMIC −11% in Hong Kong and Nikkei chip names (Kioxia −13%) dragging.",
+ means:"The reaction, not the print, is the signal: record AI-memory profit can't hold the stock, so positioning is stretched. The Meta-cloud 'disciplined hyperscaler capex' fear is hitting hardest where the trade ran hottest — a live contagion flag for US semis at Tuesday's open.",
+ chips:[["bear","Korea chip unwind"],["bear","Hyperscaler capex fear"],["watch","US semi contagion"]]},
 {s:"Reuters · Barron's · CNBC",h:"🍎 Broadcom–Apple lock in through 2031 — Apple hits a record as the SOX rebounds",
  what:"Apple printed a record ~$316 after Broadcom (+3.7%) extended its custom-ASIC pact through 2031, powering Apple's in-house AI-silicon roadmap. The SOX snapped back ~4% off two losing sessions; Foxconn's record Q2 (+39.8% y/y) added fuel.",
  means:"The deal is structural, not a pop: it hard-wires the 'custom silicon over merchant GPUs' theme pressuring Nvidia (+0.4%, ~3% YTD). But Apple already sits at its ~$315 target — the Jul 30 margin line, amid a memory-cost 'flood,' owns the next leg.",
