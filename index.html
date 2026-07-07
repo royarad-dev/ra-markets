@@ -212,8 +212,8 @@
   <div class="m"><div class="lbl">Fed Watch</div><div class="val" style="color:var(--hold)">MINUTES WED</div>
     <div class="sub">Warsh Fed's first June minutes Wed 2pm ET. Sept hike odds ~50%, down from 66%.</div>
     <div class="bar"><i style="width:52%;background:var(--hold)"></i></div></div>
-  <div class="m"><div class="lbl">Havens</div><div class="val" style="color:var(--wait)">GOLD $4.2K</div>
-    <div class="sub">Gold holds ~$4,200; BTC ~$64K but open interest fades — rally is short-squeeze, not conviction.</div>
+  <div class="m"><div class="lbl">Havens</div><div class="val" style="color:var(--wait)">GOLD $4.18K</div>
+    <div class="sub">Gold ~$4,180; BTC ~$63K slips at the open as open interest fades — squeeze, not conviction.</div>
     <div class="bar"><i style="width:56%;background:var(--wait)"></i></div></div>
 </div>
 
@@ -257,7 +257,7 @@
 </div>
 
 <footer>
-  <b>RA Markets</b> · refreshed Tuesday, July 7, 2026 · 8:10am ET (pre-market) for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 6 closing marks until the live tape connects; crypto and gold are early July 7. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
+  <b>RA Markets</b> · refreshed Tuesday, July 7, 2026 · 9:10am ET (pre-market) for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 6 closing marks until the live tape connects; crypto and gold are early July 7. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
   <br>Sources: <a href="https://finance.yahoo.com">Yahoo Finance</a> ·
   <a href="https://fortune.com/2026/07/05/nvidia-supplier-hon-hai-foxconn-sales-earnings-report-ai-demand/">Fortune · Foxconn Q2</a> ·
   <a href="https://www.reuters.com/technology/broadcom-apple-extend-chip-partnership-through-2031-2026-07-06/">Reuters · Broadcom–Apple 2031</a> ·
@@ -290,8 +290,8 @@ const Q={
   TSLA:{n:"Tesla",p:419.80,c:6.70},
   SPCX:{n:"SpaceX",p:163.75,c:1.08},
   TKO:{n:"TKO Group",p:196.50,c:0.22},
-  "BTC-USD":{n:"Bitcoin",p:64034,c:0.76},
-  "ETH-USD":{n:"Ethereum",p:1761,c:-1.30},
+  "BTC-USD":{n:"Bitcoin",p:63119,c:-0.85},
+  "ETH-USD":{n:"Ethereum",p:1776,c:0.20},
   META:{n:"Meta",p:588.50,c:0.60},
   SN:{n:"SharkNinja",p:150.80,c:-0.28},
   LLY:{n:"Eli Lilly",p:1199.40,c:0.42},
@@ -300,7 +300,7 @@ const Q={
   PLTR:{n:"Palantir",p:132.20,c:1.30},
   NVDA:{n:"Nvidia",p:197.00,c:0.41},
   GRNY:{n:"Granny Shots ETF",p:27.96,c:1.42},
-  "GC=F":{n:"Gold",p:4200.00,c:1.80}
+  "GC=F":{n:"Gold",p:4180.00,c:0.20}
 };
 const fmt=(v)=> v>=1000? v.toLocaleString('en-US',{maximumFractionDigits:0}) : v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
@@ -618,12 +618,12 @@ const CARDS=[
  kpis:["Nasdaq-100 <b>eff. Jul 7</b>","Forced buy <b>~$4.3B today</b>","P/Sales <b>~107x ❌</b>","Net loss <b>−$9.4B</b>"],
  chk:["✅ <b>Business:</b> launch monopoly + Starlink revenue +33%/yr","⚙️ <b>Technical:</b> index inclusion forces ETF buying — a floor into Jul 7, then back to fundamentals","❌ <b>Valuation:</b> ~107x sales, −$9.4B loss; index membership doesn't fix that","🎯 <b>Wait for:</b> first earnings Aug 17 + insider lockup expiry"]},
 {t:"BTC",q:"BTC-USD",n:"Bitcoin",sig:"wait",score:48,
- why:"<b>Flows flip green just as June capitulated.</b> BTC recovered to ~$64K (+0.8%) after spot ETFs logged +$46.6M — building on Jul 2's +$222M that snapped a 10-day, −$2.7B streak. June was a record −$4.1B outflow month. Fear & Greed still 23 (extreme fear). Two builds are not yet a trend; $60K on a daily close remains the whole thesis. Citi target $82K.",
- kpis:["~$64K <b>(+0.8%)</b>","ETF <b>+$46.6M ✅</b>","Support <b>$60K holds</b>","Citi target <b>$82K</b>"],
+ why:"<b>Bounce loses steam as the open leans risk-off.</b> BTC slipped to ~$63.1K (−0.9%) after opening +0.7%, even as spot ETFs logged +$46.6M — building on Jul 2's +$222M that snapped a 10-day, −$2.7B streak. June was a record −$4.1B outflow month. Fear & Greed still 23 (extreme fear). $60K on a daily close remains the whole thesis. Citi target $82K.",
+ kpis:["~$63.1K <b>(−0.9%)</b>","ETF <b>+$46.6M ✅</b>","Support <b>$60K holds</b>","Citi target <b>$82K</b>"],
  chk:["✅ <b>Flows:</b> spot ETFs turned +$46.6M, second net-inflow day after a −$2.7B, 10-day streak","⚠️ <b>Sentiment:</b> Fear & Greed at 23 — extreme fear even on the bounce","🎯 <b>Buy signal:</b> ETF inflows must persist AND $60K has to hold on a daily close","⚠️ <b>Context:</b> June was BTC's worst ETF month on record at −$4.1B"]},
 {t:"ETH",q:"ETH-USD",n:"Ethereum",sig:"wait",score:37,
- why:"<b>Holding up better than BTC — the cleaner flow story, but the reopen is testing it too.</b> Eased to ~$1,738 from a $1,784 open, still outrunning BTC on a relative basis after spot ETH ETFs snapped a 9-day outflow with ~$44M in (BlackRock led). Supply signal intact: ~166K ETH left Binance Jul 5 (biggest exchange withdrawal since Mar '23 — accumulation tell) and Vitalik unveiled a 3–4yr 'Lean Ethereum' overhaul. StanChart sees $4K YE if ETH/BTC climbs to 0.04; Citi near target $2,240.",
- kpis:["~$1,738 <b>(−0.7%)</b>","166K ETH off Binance ✅","Citi target <b>$2,240</b>","StanChart <b>$4K YE</b>"],
+ why:"<b>Holding up better than BTC — the cleaner flow story, but the reopen is testing it too.</b> Near ~$1,776 (flat) after opening +0.8%, still outrunning BTC on a relative basis after spot ETH ETFs snapped a 9-day outflow with ~$44M in (BlackRock led). Supply signal intact: ~166K ETH left Binance Jul 5 (biggest exchange withdrawal since Mar '23 — accumulation tell) and Vitalik unveiled a 3–4yr 'Lean Ethereum' overhaul. StanChart sees $4K YE if ETH/BTC climbs to 0.04; Citi near target $2,240.",
+ kpis:["~$1,776 <b>(flat)</b>","166K ETH off Binance ✅","Citi target <b>$2,240</b>","StanChart <b>$4K YE</b>"],
  chk:["✅ <b>Flows:</b> first asset where ETF demand turned positive vs BTC","✅ <b>Supply:</b> record exchange outflow = coins moving to cold storage, not sale","⚠️ <b>Roadmap:</b> 'Lean Ethereum' is a 3–4yr story, not a 2026 catalyst","🎯 <b>Buy signal:</b> ETH-ETF inflows persist AND ETH/BTC keeps rising off 0.028"]}
 ];
 
@@ -659,7 +659,7 @@ updateCardPrices();
 renderCustomCards();
 
 /* ============ NEWS ============ */
-const ANALYSIS_AT='Jul 7, 2026 · 8:10am ET';
+const ANALYSIS_AT='Jul 7, 2026 · 9:10am ET';
 document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('analysisAt');if(e)e.textContent='· as of '+ANALYSIS_AT+' · re-analyzed hourly';});
 const NEWS=[
 {s:"CNBC · Nasdaq · J.P. Morgan · CoinDesk",h:"🔔 SpaceX's index day is here — ~$4.3B of forced buying, then history says it fades",
@@ -682,8 +682,8 @@ const NEWS=[
  what:"TSLA jumped ~6.7% Monday to ~$420, cheering record Q2 deliveries of 480,126 (+25%, ~74K above consensus) and a robotaxi expansion into Miami (posted on X). It reverses a −7.5% delivery-day drop on Jul 2.",
  means:"The rally prices autonomy optionality over a shrinking-margin car business — the deliberate pivot. But at ~180x forward earnings only Q2 automotive gross margin (Jul 22) matters, and a Texas manslaughter charge over a fatal FSD crash is a live liability tail.",
  chips:[["bull","Robotaxi optionality"],["bear","TSLA into Jul 22"],["watch","Q2 auto gross margin"]]},
-{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ Flows green but shallow: BTC stalls near $64K as open interest fades",
- what:"Bitcoin recovered to ~$64,000 (+0.8%) but stalled after tagging $64,500; Ether lagged near ~$1,760 (−1.3%). Spot BTC ETFs logged +$46.6M, building on Jul 2's +$222M that snapped a 10-day, −$2.7B streak after a record −$4.1B June.",
+{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ Flows green but shallow: BTC slips toward $63K as open interest fades",
+ what:"Bitcoin opened +0.7% then faded to ~$63.1K (−0.9%) by mid-morning; Ether held better near ~$1,776 (flat). Spot BTC ETFs logged +$46.6M, building on Jul 2's +$222M that snapped a 10-day, −$2.7B streak after a record −$4.1B June.",
  means:"Two builds are not a trend, and CoinDesk flags fading open interest plus ~$500M of shorts liquidated — July's bounce looks short-squeeze-driven, not fresh conviction. Fear & Greed still 23. ETH lags under ETF pressure. $60K on a daily close remains the whole thesis.",
  chips:[["bull","BTC ETF +$47M"],["bear","ETH ETF pressure"],["watch","$60K daily close"]]},
 {s:"CNBC · FactSet · Delta IR",h:"📈 Earnings season opens Thursday: Delta + PepsiCo test a market priced for +24%",
