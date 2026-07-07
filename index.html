@@ -201,19 +201,19 @@
 
 <div class="mood">
   <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--buy)">RISK-ON</div>
-    <div class="sub">Nasdaq +1.15% leads on chips. Dow −0.2% after tagging 53,000. VIX 16, calm tape.</div>
-    <div class="bar"><i style="width:68%;background:var(--buy)"></i></div></div>
-  <div class="m"><div class="lbl">Index Event</div><div class="val" style="color:var(--wait)">SPCX DAY</div>
-    <div class="sub">SpaceX joins the Nasdaq-100 Tuesday. ~$4.3B of forced QQQ buying lands after the close.</div>
-    <div class="bar"><i style="width:62%;background:var(--wait)"></i></div></div>
-  <div class="m"><div class="lbl">Chip Stocks</div><div class="val" style="color:var(--buy)">REBOUND ON</div>
-    <div class="sub">SOX +4%. Broadcom +4% on the 2031 Apple pact, Micron +3.5%. NVDA laggard at +0.6%.</div>
+    <div class="sub">Dow record 53,056. Nasdaq +1.1%, S&P 7,537. VIX ~16, calm tape into pre-market.</div>
     <div class="bar"><i style="width:70%;background:var(--buy)"></i></div></div>
-  <div class="m"><div class="lbl">AI Mega-caps</div><div class="val" style="color:var(--buy)">BID</div>
-    <div class="sub">AAPL ~$314 record zone, TSLA +1.4% robotaxi bounce, META ~$585. Monetizers favored.</div>
-    <div class="bar"><i style="width:58%;background:var(--buy)"></i></div></div>
+  <div class="m"><div class="lbl">Index Event</div><div class="val" style="color:var(--wait)">SPCX DAY</div>
+    <div class="sub">SpaceX enters the Nasdaq-100 today. ~$4.3B of forced QQQ buying lands after the close.</div>
+    <div class="bar"><i style="width:60%;background:var(--wait)"></i></div></div>
+  <div class="m"><div class="lbl">Asia Tape</div><div class="val" style="color:var(--avoid)">KOSPI −5%</div>
+    <div class="sub">Samsung −7.7% despite record profit; Korea tech drags Asia lower — 'sell the news.'</div>
+    <div class="bar"><i style="width:30%;background:var(--avoid)"></i></div></div>
+  <div class="m"><div class="lbl">Fed Watch</div><div class="val" style="color:var(--hold)">MINUTES WED</div>
+    <div class="sub">Warsh Fed's first June minutes Wed 2pm ET. Sept hike odds ~50%, down from 66%.</div>
+    <div class="bar"><i style="width:52%;background:var(--hold)"></i></div></div>
   <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--wait)">SOFTENING</div>
-    <div class="sub">BTC slips under $62K to ~$61.7K; July opens with a −$296M ETF day. ETH ~$1,738.</div>
+    <div class="sub">BTC fades to ~$62.5K, ETH ~$1,765; July ETFs open with a −$296M day.</div>
     <div class="bar"><i style="width:44%;background:var(--wait)"></i></div></div>
 </div>
 
@@ -257,7 +257,7 @@
 </div>
 
 <footer>
-  <b>RA Markets</b> · refreshed Monday, July 6, 2026 · 2:55pm ET (intraday) for Roy Arad. U.S. markets are open — equity fallback figures are July 6 afternoon marks until the live tape connects; crypto and gold are July 6 intraday. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
+  <b>RA Markets</b> · refreshed Tuesday, July 7, 2026 · 4:05am ET (pre-market) for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 6 closing marks until the live tape connects; crypto and gold are early July 7. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
   <br>Sources: <a href="https://finance.yahoo.com">Yahoo Finance</a> ·
   <a href="https://fortune.com/2026/07/05/nvidia-supplier-hon-hai-foxconn-sales-earnings-report-ai-demand/">Fortune · Foxconn Q2</a> ·
   <a href="https://www.reuters.com/technology/broadcom-apple-extend-chip-partnership-through-2031-2026-07-06/">Reuters · Broadcom–Apple 2031</a> ·
@@ -279,27 +279,28 @@
 <script>
 /* ============ QUOTE DATA (equities fallback = Jul 6, 2026 ~12:10pm ET intraday; crypto/gold = Jul 6 intraday) ============ */
 const Q={
-  "^GSPC":{n:"S&P 500",p:7523.57,c:0.54},
-  "^DJI":{n:"DOW",p:52783.88,c:-0.22},
-  "^IXIC":{n:"NASDAQ",p:26128.57,c:1.15},
-  "^RUT":{n:"Russell 2000",p:3010.16,c:0.47},
-  "^VIX":{n:"VIX",p:16.10,c:1.83},
-  AAPL:{n:"Apple",p:314.20,c:1.72},
-  GOOGL:{n:"Alphabet A",p:356.00,c:0.27},
-  GOOG:{n:"Alphabet C",p:356.00,c:0.27},
-  TSLA:{n:"Tesla",p:399.00,c:1.41},
-  SPCX:{n:"SpaceX",p:158.00,c:0.29},
-  TKO:{n:"TKO Group",p:196.06,c:-3.15},
-  "BTC-USD":{n:"Bitcoin",p:61700,c:-1.63},
-  "ETH-USD":{n:"Ethereum",p:1738,c:-0.68},
-  META:{n:"Meta",p:585.00,c:0.45},
-  SN:{n:"SharkNinja",p:151.23,c:null},
-  LLY:{n:"Eli Lilly",p:1197.87,c:0.51},
-  MCD:{n:"McDonald's",p:272.45,c:1.12},
-  AMZN:{n:"Amazon",p:242.67,c:-0.30},
-  PLTR:{n:"Palantir",p:130.50,c:1.10},
-  NVDA:{n:"Nvidia",p:196.20,c:0.61},
-  "GC=F":{n:"Gold",p:4147.50,c:0.53}
+  "^GSPC":{n:"S&P 500",p:7537.43,c:0.72},
+  "^DJI":{n:"DOW",p:53055.91,c:0.29},
+  "^IXIC":{n:"NASDAQ",p:26121.16,c:1.12},
+  "^RUT":{n:"Russell 2000",p:3018.40,c:0.28},
+  "^VIX":{n:"VIX",p:15.80,c:-1.86},
+  AAPL:{n:"Apple",p:316.50,c:1.30},
+  GOOGL:{n:"Alphabet A",p:358.40,c:0.67},
+  GOOG:{n:"Alphabet C",p:358.40,c:0.67},
+  TSLA:{n:"Tesla",p:419.80,c:6.70},
+  SPCX:{n:"SpaceX",p:161.50,c:2.20},
+  TKO:{n:"TKO Group",p:196.50,c:0.22},
+  "BTC-USD":{n:"Bitcoin",p:62500,c:-0.55},
+  "ETH-USD":{n:"Ethereum",p:1765,c:-0.40},
+  META:{n:"Meta",p:588.50,c:0.60},
+  SN:{n:"SharkNinja",p:150.80,c:-0.28},
+  LLY:{n:"Eli Lilly",p:1199.40,c:0.42},
+  MCD:{n:"McDonald's",p:273.80,c:0.50},
+  AMZN:{n:"Amazon",p:243.90,c:0.51},
+  PLTR:{n:"Palantir",p:132.20,c:1.30},
+  NVDA:{n:"Nvidia",p:197.00,c:0.41},
+  GRNY:{n:"Granny Shots ETF",p:27.96,c:1.42},
+  "GC=F":{n:"Gold",p:4162.00,c:0.35}
 };
 const fmt=(v)=> v>=1000? v.toLocaleString('en-US',{maximumFractionDigits:0}) : v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
@@ -604,9 +605,13 @@ const CARDS=[
  why:"<b>Best growth in software, hot-and-cold stock.</b> around ~$131, still riding last week's D.A. Davidson upgrade to Buy (PT $175 — 'customers will use Palantir to orchestrate AI models') and the NVIDIA sovereign-AI partnership. Still −26% this year; consensus $183 (+39%).",
  kpis:["Growth <b>+68%</b>","Rule of 40 <b>🏆</b>","Fwd P/E <b>79x</b>","Target <b>$183 (+41%)</b>"],
  chk:["✅ <b>Growth:</b> best in software; profits up ~300% ttm","✅ <b>Quality:</b> profitable, no debt, founder-led, new NVDA partnership","❌ <b>Valuation:</b> 79x forward — zero tolerance for slowdown","Verdict: own it small; −27% YTD shows how fast the multiple bites"]},
+{t:"GRNY",q:"GRNY",n:"Fundstrat Granny Shots ETF",sig:"buy",score:70,
+ why:"<b>Tom Lee's thematic ETF that's actually beaten the market.</b> Equal-weight large-caps at the intersection of Fundstrat's 7 themes; up 13.7% vs 7.8% for MSCI USA Large Cap since inception. $4.4B AUM, fast inflows. Catch: 0.75% fee, AI-tilted at highs.",
+ kpis:["Since incep <b>+13.7% vs 7.8%</b>","AUM <b>$4.4B</b>","Fee <b>0.75% ⚠️</b>","Rating <b>Buy</b>"],
+ chk:["✅ <b>Strategy:</b> multi-theme intersection, equal-weight, quarterly rebalance — disciplined","✅ <b>Performance:</b> beat MSCI USA Large Cap ~2x since Nov-2024 inception","✅ <b>Flows:</b> $4.4B AUM, among fastest-growing active ETFs","⚠️ <b>Cost/Risk:</b> 0.75% fee is steep; top holds Robinhood/Oracle/AMD tilt momentum + AI at record highs"]},
 {t:"TSLA",q:"TSLA",n:"Tesla",sig:"avoid",score:36,
- why:"<b>Blowout deliveries, worst day in a year — now a modest robotaxi relief bounce.</b> Q2 hit a record 480,126 deliveries (+25%, 74K above consensus) yet the stock closed −7.5% at $393.45; today it's +1.4% to ~$399 on the Miami robotaxi launch (posted on X), off an intraday high near $438. At ~173x forward earnings, the Jul 22 margin line still decides everything.",
- kpis:["Q2 <b>480K (+25%) ✅</b>","Fwd P/E <b>~173x ❌</b>","Target <b>$423 (+6%)</b>","Robotaxi <b>Miami live</b>"],
+ why:"<b>Blowout deliveries, then a +6.7% rip — the robotaxi pivot bought a rally.</b> Q2 hit a record 480,126 deliveries (+25%, 74K above consensus); after a −7.5% delivery-day drop to $393.45, the stock rebounded ~6.7% to ~$420 on the Miami robotaxi launch (posted on X). At ~180x forward earnings, the Jul 22 margin line still decides everything.",
+ kpis:["Q2 <b>480K (+25%) ✅</b>","Fwd P/E <b>~180x ❌</b>","Target <b>$423 (+1%)</b>","Robotaxi <b>Miami live</b>"],
  chk:["✅ <b>Demand:</b> beat by 74K; new six-seat Model Y L; robotaxi now in Miami","❌ <b>Margins:</b> beat likely bought with price cuts — profit −37% ttm","⚠️ <b>Risk:</b> fatal FSD crash → manslaughter charge; Michael Burry disclosed a fresh TSLA short ('beginning of the end')","🎯 <b>Event:</b> Jul 22 earnings — did volume cost the margin?"]},
 {t:"SPCX",q:"SPCX",n:"SpaceX",sig:"avoid",score:40,
  why:"<b>Index day arrives — a mechanical bid, not a fundamental one.</b> SpaceX enters the Nasdaq-100 effective Tue Jul 7; QQQ and other trackers must buy ~$4.3B of SPCX today whether they like the ~$158 price or not. A real short-term floor — but the business is unchanged: ~$2.1T at ~107x revenue with a −$9.4B loss. History says added names fade (−3.4% avg over 5 days) once forced demand clears.",
@@ -654,41 +659,37 @@ updateCardPrices();
 renderCustomCards();
 
 /* ============ NEWS ============ */
-const ANALYSIS_AT='Jul 6, 2026 · 1:15pm ET';
+const ANALYSIS_AT='Jul 7, 2026 · 4:05am ET';
 document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('analysisAt');if(e)e.textContent='· as of '+ANALYSIS_AT+' · re-analyzed hourly';});
 const NEWS=[
-{s:"Reuters · Barron's · CNBC · SemiAnalysis",h:"🤖 Chip rebound, round two: a Broadcom–Apple pact lights the fuse — but NVDA is the black sheep",
- what:"The semis snapped back hard: the PHLX Semiconductor Index (SOX) jumped 4.2% mid-morning after two losing sessions. Two catalysts stacked — Broadcom and Apple extended their custom-chip partnership through 2031 to develop and supply a range of Apple ASICs (AVGO +4.8% to ~$378), landing on top of Foxconn's record Q2 (revenue +39.8% y/y, June +52.1%); Micron rode the memory read-through +3.5% to ~$1,009. The tell inside the rally: Nvidia lagged, up just 0.6% to ~$196 — barely ~3% YTD versus AMD +171% and Micron +305% — after SemiAnalysis reported its next-gen Kyber NVL144 rack has slipped to 2028 on a circuit-board manufacturing snag. Goldman used the dip to reiterate Buy, calling NVDA 'cheap.'",
- means:"Signal vs. noise: the bid is broad (SOX +4.2%) but selective — capital is paying up for picks-and-shovels and custom silicon (AVGO, the memory complex) while docking the market-cap king for a roadmap slip. Second-order: the Broadcom–Apple deal is a structural read-through, not a one-day pop — it wires Apple's in-house AI-silicon roadmap to Broadcom's ASIC franchise through 2031 and hands the 'custom accelerators eat merchant-GPU share' thesis a marquee reference, widening the exact wedge in Nvidia's story that the Kyber delay just opened. Materiality: NVDA underperformance is now a multi-quarter divergence, not a session — until it re-accelerates its release cadence, the money keeps rotating around it inside the same AI trade.",
- chips:[["bull","AVGO / custom silicon"],["bear","NVDA cadence risk"],["watch","Memory + SOX breadth"]]},
-{s:"TheStreet · Substack (@michaeljburry) · Reuters",h:"🐻 Burry vs. the bounce: 'The beginning of the end' — and he's short NVDA, TSLA, MU",
- what:"On the same reopen the AI names are rallying, Michael Burry posted a blunt four-word verdict on the trade — 'the beginning of the end' — timed to the Samsung/SK Hynix Korea chip-hub announcement. His disclosed book: shorts in Nvidia, Tesla, Micron (entered ~$1,051.87), Applied Materials, Caterpillar and the SOXX semiconductor ETF, with the thesis that the AI complex is a reflexive loop — chips rise because hyperscalers spend, equipment makers rise because chipmakers add capacity, and every new capex plan is read as proof of demand. He flags 30%+ drawdowns in prior semis over-extensions.",
- means:"Signal vs. noise: this is the explicit bear case to Foxconn's bull print, and both can be true at once — the assembler's order book is real AND the multiple stack financing it is circular. Second-order: Burry's short list overlaps the exact names doing the heavy lifting into the mega-cap prints (NVDA, TSLA), so his call is less a forecast than a marker of where the pain trade sits if this week's guides disappoint. Materiality: one contrarian's Substack doesn't move a $4T complex, but it hands the bears a framework and a 30% number right as the tape re-rates chips up on a single supplier beat — the two views collide at the Jul earnings wave, not before.",
- chips:[["bear","AI reflexivity risk"],["bear","NVDA / TSLA / MU shorts"],["watch","Guides must validate capex"]]},
-{s:"CNBC · BLS · Reuters",h:"🪙 Soft jobs meet the Warsh Fed: Wednesday's minutes are the week's real test",
- what:"June payrolls landed at just +57K — well under consensus — with unemployment at 4.2% and ISM manufacturing still holding 53.3% (data released Jul 2); Monday's ISM services print is the next macro tell. U.S. markets reopen after the Jul 3–4 holiday into Wednesday's 2pm ET June FOMC minutes: the first documented read on the Kevin Warsh-led Fed. OPEC+ and a NATO summit round out the calendar.",
- means:"Signal vs. noise: a cooling-but-not-collapsing labor market is the fuel a record tape wants — it hands a new Fed room to ease without an inflation scare, and that, not earnings, is why the Dow just tagged 53,000 for the first time ever. The second-order risk sits inside Wednesday's minutes: the market has never seen how a Warsh committee talks, and the tail nobody is pricing is language that keeps 2026 rate hikes on the table. Soft jobs already rotated money out of cyclicals and chips into rate-sensitives and defensives (McDonald's bid off its lows is the tell); hawkish minutes repriced that entire relief trade at once.",
- chips:[["bull","Rate-cut relief trade"],["watch","Warsh minutes Wed 2pm"],["bear","Hawkish minutes = repricing"]]},
-{s:"CNBC · Nasdaq · J.P. Morgan",h:"🔔 SpaceX's index day: ~$4.3B of forced buying lands AFTER today's close",
- what:"SpaceX joins the Nasdaq-100 effective Tuesday, Jul 7, so QQQ and every NDX tracker must buy SPCX after today's close — J.P. Morgan pegs QQQ's mandated demand at ~$4.3B, with up to ~$27B across all Nasdaq-100 and Russell trackers combined. SPCX IPO'd at $135 on Jun 12 (~$1.75T cap) and qualified in just 15 trading days under Nasdaq's new top-40 fast-track rule; it sits near ~$158.",
- means:"Index-inclusion buying is price-insensitive by mandate — the one flow that shows up regardless of a ~107x-sales valuation — and it funds itself by forcing those same ETFs to trim a slice of everything else in the index (the Mag-7 are the involuntary funding source). Materiality: the bid is real for ~48 hours, but history says added names fade (−3.4% avg over five days) once the mechanical demand clears. Watch breadth — if the Nasdaq-100 sags while SPCX pops, that's the rebalance draining the rest of the tape.",
- chips:[["bull","SPCX into Jul 7"],["bear","Mag-7 as funding source"],["watch","Post-inclusion fade"]]},
-{s:"CNBC · FactSet · Delta IR",h:"📈 Earnings season opens: Delta + PepsiCo test a market priced for +24% growth",
- what:"Q2 reporting opens with PepsiCo (Thu Jul 9) and Delta Air Lines (Fri Jul 10) — the first hard read on consumer spending and corporate margins before the mega-cap wave later in July. Consensus has S&P 500 earnings growing over 24% year-on-year, a steep bar into a tape already at records.",
- means:"Signal vs. noise: at 53,000 on the Dow the market has pre-paid for a blowout, so the asymmetry is negative — beats are expected, misses get punished. Delta is the cleaner tell than Pepsi: airlines price discretionary demand in real time, so its guide either confirms the soft-jobs 'slowdown-but-not-recession' story or breaks it. Second-order: if early cyclicals guide down, the rotation out of chips accelerates into defensives and the rate-cut trade — not into 'value.'",
- chips:[["watch","Delta guide = consumer read"],["bear","Priced for +24% EPS"],["bull","Beats extend the melt-up"]]},
-{s:"Reuters · Barron's · X (@Tesla_Robotaxi)",h:"🚗 Tesla bounces +4.3% — the robotaxi pivot buys a day, Jul 22 still owns the story",
- what:"After its worst day in nearly a year — a −7.5% Jul 2 close to $393.45 despite record Q2 deliveries of 480,126 (+25%, ~74K above consensus) — TSLA is rebounding a more muted +1.4% to ~$399 today, well off an intraday spike near $438. The proximate catalyst is autonomy optics: Tesla's Robotaxi account posted on X, 'What's up with Miami? Robotaxi now available in Miami,' pushing the driverless service into Waymo's turf. Tesla also capped employee AI spend at $200/week (effective today) and faces a manslaughter charge tied to a fatal FSD crash in Texas.",
- means:"The bounce is a relief trade, not a re-rating: a single-city robotaxi expansion announced on X doesn't move the earnings model, and at ~179x forward earnings the only number that matters is Q2 automotive gross margin on Jul 22. The Miami launch is the deliberate pivot — get the market to price autonomy optionality instead of a shrinking-margin car business — but the Texas manslaughter case is a live reminder of the liability tail sitting under that same bet. Three delivery-day drops before today say the burden of proof is still on management.",
- chips:[["bear","TSLA into Jul 22"],["watch","Q2 auto gross margin"],["bull","Robotaxi optionality"]]},
-{s:"Reuters · Barron's · CNBC · Nikkei",h:"🍎 Broadcom locks in through 2031 — Apple breaks to a record just as it hits a 'hundred-year' memory flood",
- what:"Apple is up to ~$314 — a record-zone print — after Broadcom said it will develop and supply a range of custom ASIC silicon for Apple through 2031 (AVGO +4.8%), a vote of confidence in Apple's in-house AI-chip roadmap. It stacks on last week's Nikkei report of at least five new iPhones through early 2027 (foldable output doubled to 10M). The offsets: CEO Tim Cook calls the memory-price squeeze a 'hundred-year flood' forcing mid-cycle price hikes (MacBook Air to $1,299), and a Tata Electronics leak exposed unreleased iPhone 18 Pro documents.",
- means:"The Broadcom pact is the higher-quality signal than the iPhone count: it hard-wires Apple's silicon supply and its custom-AI ambitions to a proven ASIC partner for six years, and it's the same 'custom accelerators over merchant GPUs' theme pressuring Nvidia today — Apple sits on the winning side of it. But the stock is already AT its $315 consensus target (~1% upside), so the product and partnership news is largely priced; the swing factor is whether the memory-cost flood shows up in the Jul 30 margin line. The Tata leak is second-order but real — supply-chain security is now a competitive vulnerability, not an IT footnote.",
- chips:[["bull","Broadcom silicon pact"],["bear","Memory cost squeeze"],["watch","Jul 30 margins"]]},
-{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ Reopen fades the rally: BTC slips under $62K as July opens with another ETF outflow",
- what:"The holiday rally lost its bid when cash equities reopened risk-on: Bitcoin opened ~$63.6K then slid under $62K to ~$61.7K (−1.6%), while Ether eased to ~$1,738 from a $1,784 open. The flow turn is already on trial — spot BTC ETFs opened July with a −$296M redemption day, undercutting last week's fragile back-to-back inflows (~+$224M Sat / +$221M Thu, first since May) that had snapped a record −$4.1B June. The one intact signal: ~166K ETH (biggest since Mar '23) left Binance Jul 5, and Vitalik unveiled a multi-year 'Lean Ethereum' redesign.",
- means:"This is the reopen doing exactly what the weekend masked: the marginal risk dollar rotated into semis (SOX +4%) and drained crypto's 'only game open' bid the moment stocks came back. The flow turn the complex waited weeks for did not survive full-liquidity tape — a −$296M day is the tell that two green sessions were holiday thinness, not a trend. June was BTC's worst ETF month on record (−$4.1B). BTC holding $60K on a daily close is now the whole thesis; lose it and StanChart's $4K ETH year-end call goes with it. ETH's record exchange outflow is the lone constructive read — coins to cold storage, not sale.",
- chips:[["bull","ETH supply squeeze"],["bear","July opens −$296M ETF"],["watch","$60K must hold on close"]]}
+{s:"CNBC · Nasdaq · J.P. Morgan · CoinDesk",h:"🔔 SpaceX's index day is here — ~$4.3B of forced buying, then history says it fades",
+ what:"SpaceX officially joins the Nasdaq-100 before Tuesday's open. QQQ and NDX trackers must buy ~$4.3B of SPCX (up to ~$27B across all index and Russell funds), against a 3–5% float near ~$160.",
+ means:"Index buying is price-insensitive — the one bid that ignores a ~107x-sales, −$9.4B-loss business. But added names fall −3.4% on average over five days once forced demand clears. Watch NDX breadth: the Mag-7 are the involuntary funding source.",
+ chips:[["bull","SPCX forced bid"],["bear","Mag-7 funding source"],["watch","Post-inclusion fade"]]},
+{s:"CNBC · Reuters · Korea JoongAng",h:"🌏 Asia cracks: Kospi −5%, Samsung −7.7% despite a record-profit blowout",
+ what:"Asian tech tumbled Tuesday — South Korea's Kospi led losses down ~5%, and Samsung fell 7.7% even after operating profit surged on AI-memory demand. A classic 'sell the news' after a parabolic Korean chip run.",
+ means:"The reaction, not the print, is the signal: when record profit can't hold the stock, positioning is stretched. It's the reflexive-AI risk Burry flagged ('the beginning of the end') showing up first where the trade ran hottest — a caution flag for US chips.",
+ chips:[["bear","Korea chip unwind"],["bear","AI positioning stretched"],["watch","US semi contagion"]]},
+{s:"Reuters · Barron's · CNBC",h:"🍎 Broadcom–Apple lock in through 2031 — Apple hits a record as the SOX rebounds",
+ what:"Apple printed a record ~$316 after Broadcom (+3.7%) extended its custom-ASIC pact through 2031, powering Apple's in-house AI-silicon roadmap. The SOX snapped back ~4% off two losing sessions; Foxconn's record Q2 (+39.8% y/y) added fuel.",
+ means:"The deal is structural, not a pop: it hard-wires the 'custom silicon over merchant GPUs' theme pressuring Nvidia (+0.4%, ~3% YTD). But Apple already sits at its ~$315 target — the Jul 30 margin line, amid a memory-cost 'flood,' owns the next leg.",
+ chips:[["bull","Broadcom / custom silicon"],["bear","NVDA cadence lag"],["watch","Jul 30 Apple margins"]]},
+{s:"CNBC · Federal Reserve · CME FedWatch",h:"🏛 Wednesday's Warsh-Fed minutes are the week's real test",
+ what:"June payrolls at +57K cooled the labor market; core PCE runs 3.3%. Wednesday 2pm ET brings the first minutes from Kevin Warsh's Fed. The committee split 9–9 on a 2026 hike; September odds ~50%, down from 66% before the jobs miss.",
+ means:"Soft jobs are why the Dow tagged 53,000 — room to ease without an inflation scare. The tail nobody prices: hawkish minutes revealing how a Warsh committee talks, which could reprice the rate-cut relief trade and the rotation into defensives at once.",
+ chips:[["bull","Rate-cut relief trade"],["watch","Warsh minutes Wed 2pm"],["bear","Hawkish tone = repricing"]]},
+{s:"CNBC · Reuters · X (@Tesla_Robotaxi)",h:"🚗 Tesla rips +6.7% on record deliveries — but Jul 22 margins still own the story",
+ what:"TSLA jumped ~6.7% Monday to ~$420, cheering record Q2 deliveries of 480,126 (+25%, ~74K above consensus) and a robotaxi expansion into Miami (posted on X). It reverses a −7.5% delivery-day drop on Jul 2.",
+ means:"The rally prices autonomy optionality over a shrinking-margin car business — the deliberate pivot. But at ~180x forward earnings only Q2 automotive gross margin (Jul 22) matters, and a Texas manslaughter charge over a fatal FSD crash is a live liability tail.",
+ chips:[["bull","Robotaxi optionality"],["bear","TSLA into Jul 22"],["watch","Q2 auto gross margin"]]},
+{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ Reopen fades the rally: BTC back near $62.5K as July ETF flows wobble",
+ what:"Bitcoin slid from a ~$63.6K weekend high to ~$62.5K; Ether eased to ~$1,765. Spot BTC ETFs opened July with a −$296M redemption day, undercutting last week's fragile back-to-back inflows — the first since May, after a record −$4.1B June.",
+ means:"The reopen drained crypto's 'only-game-open' bid as dollars rotated into semis. Two green sessions look like holiday thinness, not a trend. BTC holding $60K on a daily close is the whole thesis; ETH's record Binance outflow is the lone constructive tell.",
+ chips:[["bull","ETH supply squeeze"],["bear","July opens −$296M ETF"],["watch","$60K must hold"]]},
+{s:"CNBC · FactSet · Delta IR",h:"📈 Earnings season opens Thursday: Delta + PepsiCo test a market priced for +24%",
+ what:"Q2 reporting kicks off with PepsiCo (Thu Jul 9) and Delta (Fri Jul 10) before the mega-cap wave. Consensus has S&P 500 earnings up 24% y/y — a steep bar into a tape sitting at records.",
+ means:"At Dow 53,000 the market has pre-paid for a blowout, so the asymmetry is negative: beats expected, misses punished. Delta is the cleaner consumer tell — its guide either confirms the soft-jobs 'slowdown-not-recession' story or breaks it and accelerates the defensive rotation.",
+ chips:[["watch","Delta = consumer read"],["bear","Priced for +24% EPS"],["bull","Beats extend melt-up"]]}
 ];
 const newsEl=document.getElementById('news');
 NEWS.forEach(n=>{

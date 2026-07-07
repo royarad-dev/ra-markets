@@ -13,10 +13,8 @@
     "LLY",
     "MCD",
     "AMZN",
-    "PLTR"
+    "PLTR",
+    "GRNY"
   ],
-  "extra": [
-    "GRNY",
-    "GNRY"
-  ]
+  "extra": []
 }
