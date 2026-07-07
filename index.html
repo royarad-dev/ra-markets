@@ -201,20 +201,20 @@
 
 <div class="mood">
   <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--hold)">MIXED</div>
-    <div class="sub">Dow record 53,056, but Nasdaq-100 futures −0.9% pre-market as Asia chips crack.</div>
+    <div class="sub">Dow record 53,056, but Nasdaq-100 futures −0.9% as the chip selloff spreads to Europe.</div>
     <div class="bar"><i style="width:50%;background:var(--hold)"></i></div></div>
   <div class="m"><div class="lbl">Index Event</div><div class="val" style="color:var(--wait)">SPCX DAY</div>
-    <div class="sub">SpaceX joins Nasdaq-100 at today's open; ~$4.3B forced QQQ buying, ~1% weight.</div>
+    <div class="sub">SpaceX joins Nasdaq-100 at today's open; ~$4.3B forced QQQ buying, up to $27B across trackers.</div>
     <div class="bar"><i style="width:60%;background:var(--wait)"></i></div></div>
-  <div class="m"><div class="lbl">Asia Tape</div><div class="val" style="color:var(--avoid)">KOSPI SIDECAR</div>
-    <div class="sub">Sell-curb tripped: Kospi −4.7%, Samsung −7.5%, SK Hynix −9% on AI-chip fear.</div>
+  <div class="m"><div class="lbl">Asia Tape</div><div class="val" style="color:var(--avoid)">KOSPI −4.9%</div>
+    <div class="sub">Seoul closed −4.9%, Nikkei −2.1%; Europe tech −1.9% as AI-chip fear spreads.</div>
     <div class="bar"><i style="width:26%;background:var(--avoid)"></i></div></div>
   <div class="m"><div class="lbl">Fed Watch</div><div class="val" style="color:var(--hold)">MINUTES WED</div>
     <div class="sub">Warsh Fed's first June minutes Wed 2pm ET. Sept hike odds ~50%, down from 66%.</div>
     <div class="bar"><i style="width:52%;background:var(--hold)"></i></div></div>
-  <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--wait)">SOFTENING</div>
-    <div class="sub">BTC ~$62.5K, ETH ~$1,765; July ETFs opened −$296M after a record −$4.1B June.</div>
-    <div class="bar"><i style="width:44%;background:var(--wait)"></i></div></div>
+  <div class="m"><div class="lbl">Crypto</div><div class="val" style="color:var(--wait)">FLOW TURN</div>
+    <div class="sub">BTC ~$64K; spot ETF flipped +$47M after a record −$4.1B June. Fear index 23.</div>
+    <div class="bar"><i style="width:50%;background:var(--wait)"></i></div></div>
 </div>
 
 <div class="tabs">
@@ -257,7 +257,7 @@
 </div>
 
 <footer>
-  <b>RA Markets</b> · refreshed Tuesday, July 7, 2026 · 4:12am ET (pre-market) for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 6 closing marks until the live tape connects; crypto and gold are early July 7. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
+  <b>RA Markets</b> · refreshed Tuesday, July 7, 2026 · 5:10am ET (pre-market) for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 6 closing marks until the live tape connects; crypto and gold are early July 7. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
   <br>Sources: <a href="https://finance.yahoo.com">Yahoo Finance</a> ·
   <a href="https://fortune.com/2026/07/05/nvidia-supplier-hon-hai-foxconn-sales-earnings-report-ai-demand/">Fortune · Foxconn Q2</a> ·
   <a href="https://www.reuters.com/technology/broadcom-apple-extend-chip-partnership-through-2031-2026-07-06/">Reuters · Broadcom–Apple 2031</a> ·
@@ -290,7 +290,7 @@ const Q={
   TSLA:{n:"Tesla",p:419.80,c:6.70},
   SPCX:{n:"SpaceX",p:161.50,c:2.20},
   TKO:{n:"TKO Group",p:196.50,c:0.22},
-  "BTC-USD":{n:"Bitcoin",p:62500,c:-0.55},
+  "BTC-USD":{n:"Bitcoin",p:64034,c:0.76},
   "ETH-USD":{n:"Ethereum",p:1765,c:-0.40},
   META:{n:"Meta",p:588.50,c:0.60},
   SN:{n:"SharkNinja",p:150.80,c:-0.28},
@@ -617,10 +617,10 @@ const CARDS=[
  why:"<b>Index day arrives — a mechanical bid, not a fundamental one.</b> SpaceX enters the Nasdaq-100 effective Tue Jul 7; QQQ and other trackers must buy ~$4.3B of SPCX today whether they like the ~$158 price or not. A real short-term floor — but the business is unchanged: ~$2.1T at ~107x revenue with a −$9.4B loss. History says added names fade (−3.4% avg over 5 days) once forced demand clears.",
  kpis:["Nasdaq-100 <b>eff. Jul 7</b>","Forced buy <b>~$4.3B today</b>","P/Sales <b>~107x ❌</b>","Net loss <b>−$9.4B</b>"],
  chk:["✅ <b>Business:</b> launch monopoly + Starlink revenue +33%/yr","⚙️ <b>Technical:</b> index inclusion forces ETF buying — a floor into Jul 7, then back to fundamentals","❌ <b>Valuation:</b> ~107x sales, −$9.4B loss; index membership doesn't fix that","🎯 <b>Wait for:</b> first earnings Aug 17 + insider lockup expiry"]},
-{t:"BTC",q:"BTC-USD",n:"Bitcoin",sig:"wait",score:45,
- why:"<b>The reopen fades the weekend rally — the flow turn is already on trial.</b> BTC opened ~$63.6K then slipped under $62K to ~$61.7K as the equity session pulled the marginal dollar into chips. Spot BTC ETFs opened July with a −$296M day, undercutting last week's fragile back-to-back inflows (~+$224M Sat / +$221M Thu, first since May) that had snapped a record −$4.1B June. Two green days did not survive contact with full liquidity. $60K is now the line. Citi target $82K.",
- kpis:["~$61.7K <b>(−1.6%)</b>","ETF <b>−$296M day ❌</b>","Support <b>$60K on trial</b>","Citi target <b>$82K</b>"],
- chk:["⚠️ <b>Trend:</b> weekend bid faded on the reopen; the two-day inflow turn already met a July outflow day","⚠️ <b>Support:</b> holding above $60K is the only thing keeping the rally structure intact","🎯 <b>Buy signal:</b> ETF flows must flip green again AND $60K has to hold on a daily close","⚠️ <b>Context:</b> June was BTC's worst ETF month on record at −$4.1B"]},
+{t:"BTC",q:"BTC-USD",n:"Bitcoin",sig:"wait",score:48,
+ why:"<b>Flows flip green just as June capitulated.</b> BTC recovered to ~$64K (+0.8%) after spot ETFs logged +$46.6M — building on Jul 2's +$222M that snapped a 10-day, −$2.7B streak. June was a record −$4.1B outflow month. Fear & Greed still 23 (extreme fear). Two builds are not yet a trend; $60K on a daily close remains the whole thesis. Citi target $82K.",
+ kpis:["~$64K <b>(+0.8%)</b>","ETF <b>+$46.6M ✅</b>","Support <b>$60K holds</b>","Citi target <b>$82K</b>"],
+ chk:["✅ <b>Flows:</b> spot ETFs turned +$46.6M, second net-inflow day after a −$2.7B, 10-day streak","⚠️ <b>Sentiment:</b> Fear & Greed at 23 — extreme fear even on the bounce","🎯 <b>Buy signal:</b> ETF inflows must persist AND $60K has to hold on a daily close","⚠️ <b>Context:</b> June was BTC's worst ETF month on record at −$4.1B"]},
 {t:"ETH",q:"ETH-USD",n:"Ethereum",sig:"wait",score:37,
  why:"<b>Holding up better than BTC — the cleaner flow story, but the reopen is testing it too.</b> Eased to ~$1,738 from a $1,784 open, still outrunning BTC on a relative basis after spot ETH ETFs snapped a 9-day outflow with ~$44M in (BlackRock led). Supply signal intact: ~166K ETH left Binance Jul 5 (biggest exchange withdrawal since Mar '23 — accumulation tell) and Vitalik unveiled a 3–4yr 'Lean Ethereum' overhaul. StanChart sees $4K YE if ETH/BTC climbs to 0.04; Citi near target $2,240.",
  kpis:["~$1,738 <b>(−0.7%)</b>","166K ETH off Binance ✅","Citi target <b>$2,240</b>","StanChart <b>$4K YE</b>"],
@@ -659,17 +659,17 @@ updateCardPrices();
 renderCustomCards();
 
 /* ============ NEWS ============ */
-const ANALYSIS_AT='Jul 7, 2026 · 4:12am ET';
+const ANALYSIS_AT='Jul 7, 2026 · 5:10am ET';
 document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('analysisAt');if(e)e.textContent='· as of '+ANALYSIS_AT+' · re-analyzed hourly';});
 const NEWS=[
 {s:"CNBC · Nasdaq · J.P. Morgan · CoinDesk",h:"🔔 SpaceX's index day is here — ~$4.3B of forced buying, then history says it fades",
  what:"SpaceX officially joins the Nasdaq-100 before Tuesday's open. QQQ and NDX trackers must buy ~$4.3B of SPCX (up to ~$27B across all index and Russell funds), against a 3–5% float near ~$160.",
  means:"Index buying is price-insensitive — the one bid that ignores a ~107x-sales, −$9.4B-loss business. But added names fall −3.4% on average over five days once forced demand clears. Watch NDX breadth: the Mag-7 are the involuntary funding source.",
  chips:[["bull","SPCX forced bid"],["bear","Mag-7 funding source"],["watch","Post-inclusion fade"]]},
-{s:"CNBC · Bloomberg · Korea JoongAng",h:"🌏 Kospi trips its sell-side sidecar: −4.7%, Samsung −7.5%, SK Hynix −9%",
- what:"Korea Exchange activated a sidecar sell-curb Tuesday morning after Kospi 200 futures fell 5.1%; the index sat ~−4.7% near 7,600. Samsung −7.5% and SK Hynix −9% led, with SMIC −11% in Hong Kong and Nikkei chip names (Kioxia −13%) dragging.",
- means:"The reaction, not the print, is the signal: record AI-memory profit can't hold the stock, so positioning is stretched. The Meta-cloud 'disciplined hyperscaler capex' fear is hitting hardest where the trade ran hottest — a live contagion flag for US semis at Tuesday's open.",
- chips:[["bear","Korea chip unwind"],["bear","Hyperscaler capex fear"],["watch","US semi contagion"]]},
+{s:"CNBC · Bloomberg · Reuters",h:"🌏 Chip rout spreads: Kospi closes −4.9%, now hits European semis",
+ what:"Asia's AI-chip selloff deepened Tuesday: Kospi closed −4.91%, Nikkei −2.12%, with Samsung and SK Hynix leading. It rolled into Europe at the open — Stoxx 600 Tech −1.9%, ASML/STMicro/Infineon −4%+, Soitec −10%.",
+ means:"The reaction, not the print, is the signal: record AI-memory profit can't hold the stock. The 'disciplined hyperscaler capex' fear is now a two-continent unwind, and Nasdaq-100 futures −0.9% say it's coming for US semis at the open — while the Dow's defensives hold.",
+ chips:[["bear","Asia+Europe chip unwind"],["bear","Hyperscaler capex fear"],["watch","US semi open −0.9%"]]},
 {s:"Reuters · Barron's · CNBC",h:"🍎 Broadcom–Apple lock in through 2031 — Apple hits a record as the SOX rebounds",
  what:"Apple printed a record ~$316 after Broadcom (+3.7%) extended its custom-ASIC pact through 2031, powering Apple's in-house AI-silicon roadmap. The SOX snapped back ~4% off two losing sessions; Foxconn's record Q2 (+39.8% y/y) added fuel.",
  means:"The deal is structural, not a pop: it hard-wires the 'custom silicon over merchant GPUs' theme pressuring Nvidia (+0.4%, ~3% YTD). But Apple already sits at its ~$315 target — the Jul 30 margin line, amid a memory-cost 'flood,' owns the next leg.",
@@ -682,10 +682,10 @@ const NEWS=[
  what:"TSLA jumped ~6.7% Monday to ~$420, cheering record Q2 deliveries of 480,126 (+25%, ~74K above consensus) and a robotaxi expansion into Miami (posted on X). It reverses a −7.5% delivery-day drop on Jul 2.",
  means:"The rally prices autonomy optionality over a shrinking-margin car business — the deliberate pivot. But at ~180x forward earnings only Q2 automotive gross margin (Jul 22) matters, and a Texas manslaughter charge over a fatal FSD crash is a live liability tail.",
  chips:[["bull","Robotaxi optionality"],["bear","TSLA into Jul 22"],["watch","Q2 auto gross margin"]]},
-{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ Reopen fades the rally: BTC back near $62.5K as July ETF flows wobble",
- what:"Bitcoin slid from a ~$63.6K weekend high to ~$62.5K; Ether eased to ~$1,765. Spot BTC ETFs opened July with a −$296M redemption day, undercutting last week's fragile back-to-back inflows — the first since May, after a record −$4.1B June.",
- means:"The reopen drained crypto's 'only-game-open' bid as dollars rotated into semis. Two green sessions look like holiday thinness, not a trend. BTC holding $60K on a daily close is the whole thesis; ETH's record Binance outflow is the lone constructive tell.",
- chips:[["bull","ETH supply squeeze"],["bear","July opens −$296M ETF"],["watch","$60K must hold"]]},
+{s:"CoinGecko · Yahoo Finance · The Block",h:"₿ Flows flip green: BTC recovers to ~$64K as ETFs turn +$47M",
+ what:"Bitcoin climbed to ~$64K (+0.8% on the day); Ether lagged near ~$1,765. Spot BTC ETFs logged a +$46.6M inflow, building on Jul 2's +$222M that snapped a 10-day, −$2.7B streak — the first real turn after a record −$4.1B June.",
+ means:"Two builds are not a trend, but the flow line stopped bleeding just as June's outflows marked capitulation — Fear & Greed still 23 (extreme fear). ETH remains the laggard under ETF pressure. $60K holding on a daily close is still the whole thesis.",
+ chips:[["bull","BTC ETF +$47M"],["bear","ETH ETF pressure"],["watch","$60K daily close"]]},
 {s:"CNBC · FactSet · Delta IR",h:"📈 Earnings season opens Thursday: Delta + PepsiCo test a market priced for +24%",
  what:"Q2 reporting kicks off with PepsiCo (Thu Jul 9) and Delta (Fri Jul 10) before the mega-cap wave. Consensus has S&P 500 earnings up 24% y/y — a steep bar into a tape sitting at records.",
  means:"At Dow 53,000 the market has pre-paid for a blowout, so the asymmetry is negative: beats expected, misses punished. Delta is the cleaner consumer tell — its guide either confirms the soft-jobs 'slowdown-not-recession' story or breaks it and accelerates the defensive rotation.",
