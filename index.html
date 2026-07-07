@@ -16,15 +16,15 @@
       radial-gradient(900px 500px at 85% -5%, rgba(59,130,246,.14), transparent 60%),
       radial-gradient(700px 400px at 0% 0%, rgba(139,92,246,.10), transparent 55%),
       var(--bg);
-    color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif;min-height:100vh}
-  .wrap{max-width:1280px;margin:0 auto;padding:0 22px 30px}
+    color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 28px 44px}
   /* ===== ticker tape ===== */
   .tape-wrap{position:sticky;top:0;z-index:50;background:rgba(7,10,18,.92);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap}
   .tape{display:inline-block;padding:9px 0;animation:scroll 55s linear infinite}
   .tape-wrap:hover .tape{animation-play-state:paused}
   @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  .ti{display:inline-flex;align-items:baseline;gap:7px;margin:0 22px;font-size:.82rem;font-weight:600}
+  .ti{display:inline-flex;align-items:baseline;gap:7px;margin:0 24px;font-size:.82rem;font-weight:600;cursor:pointer}
   .ti .sym{color:var(--text);letter-spacing:.03em}
   .ti .px{color:var(--dim);font-variant-numeric:tabular-nums}
   .ti .chg{font-variant-numeric:tabular-nums;font-weight:700}
@@ -67,7 +67,7 @@
   .hnote{font-size:.72rem;color:var(--dim);margin-top:8px}
   /* index strip */
   .idx-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0 6px}
-  .idx{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:18px;padding:16px 20px}
+  .idx{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:18px;padding:16px 20px;cursor:pointer}
   .idx .il{color:var(--dim);font-size:.62rem;letter-spacing:.12em;font-weight:800;text-transform:uppercase}
   .idx .iv{font-size:1.25rem;font-weight:800;margin-top:2px;font-variant-numeric:tabular-nums}
   .idx .ic{font-size:.75rem;font-weight:700;margin-top:1px}
@@ -80,7 +80,7 @@
   .topstory a{color:var(--text);text-decoration:none;font-size:1.05rem;font-weight:800;line-height:1.4;display:block}
   .topstory a:hover{color:var(--hold)}
   .topstory .ts-meta{color:var(--dim);font-size:.72rem;margin-top:7px;font-weight:600}
-  .brand h1{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  .brand h1{font-size:1.45rem;font-weight:800;letter-spacing:-.03em;line-height:1.1}
   .brand h1 span{background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
   .brand .sub{color:var(--dim);font-size:.8rem;margin-top:3px}
   .live{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--card);
@@ -106,18 +106,18 @@
     box-shadow:0 6px 20px rgba(99,102,241,.35)}
   .view{display:none}.view.active{display:block}
   /* ===== filters ===== */
-  .legend{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px}
+  .legend{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}
   .legend button{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border);
     border-radius:999px;padding:7px 15px;font-size:.76rem;color:var(--dim);cursor:pointer;font-weight:700;font-family:inherit}
   .legend button.on{color:var(--text);border-color:var(--border2);background:#16203241}
   .swatch{width:9px;height:9px;border-radius:50%}
   /* ===== cards ===== */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:16px}
   .card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:20px;padding:22px;position:relative;overflow:hidden;transition:transform .13s,border-color .13s;display:flex;flex-direction:column}
   .card:hover{transform:translateY(-3px);border-color:var(--border2)}
   .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--sig)}
   .chead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-  .tick{font-size:1.25rem;font-weight:800;letter-spacing:-.01em}
+  .tick{font-size:1.2rem;font-weight:800;letter-spacing:-.02em;cursor:pointer}
   .name{color:var(--dim);font-size:.72rem;margin-top:1px}
   .prc{font-size:.85rem;font-weight:700;margin-top:6px;font-variant-numeric:tabular-nums}
   .prc small{font-weight:700;margin-left:6px}
@@ -129,7 +129,7 @@
   .why{font-size:.8rem;color:var(--dim);line-height:1.6;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
   .why b{color:var(--text)}
   .kpis{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-  .kpi{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:4px 9px;font-size:.69rem;color:var(--dim)}
+  .kpi{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:5px 10px;font-size:.69rem;color:var(--dim)}
   .kpi b{color:var(--text)}
   details{margin-top:auto;padding-top:14px}
   summary{cursor:pointer;font-size:.77rem;color:var(--blue);font-weight:700;list-style:none}
@@ -302,6 +302,18 @@ const Q={
   GRNY:{n:"Granny Shots ETF",p:27.96,c:1.42},
   "GC=F":{n:"Gold",p:4180.00,c:0.20}
 };
+/* click any symbol -> Google Finance */
+const EXCH={AAPL:'NASDAQ',GOOGL:'NASDAQ',GOOG:'NASDAQ',TSLA:'NASDAQ',META:'NASDAQ',AMZN:'NASDAQ',PLTR:'NASDAQ',SPCX:'NASDAQ',NVDA:'NASDAQ',TKO:'NYSE',SN:'NYSE',LLY:'NYSE',MCD:'NYSE',GRNY:'NYSEARCA'};
+const IDXGF={'^GSPC':'.INX:INDEXSP','^DJI':'.DJI:INDEXDJX','^IXIC':'.IXIC:INDEXNASDAQ','^RUT':'RUT:INDEXRUSSELL','^VIX':'VIX:INDEXCBOE'};
+function gfin(sym){
+  let u;
+  if(sym.endsWith('-USD')) u='https://www.google.com/finance/quote/'+sym;
+  else if(IDXGF[sym]) u='https://www.google.com/finance/quote/'+IDXGF[sym];
+  else if(sym==='GC=F') u='https://www.google.com/finance/quote/GCW00:COMEX';
+  else if(EXCH[sym]) u='https://www.google.com/finance/quote/'+sym+':'+EXCH[sym];
+  else u='https://www.google.com/finance?q='+encodeURIComponent(sym);
+  window.open(u,'_blank','noopener');
+}
 const fmt=(v)=> v>=1000? v.toLocaleString('en-US',{maximumFractionDigits:0}) : v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
 /* ============ CUSTOM TICKERS (saved on this device) ============ */
@@ -337,7 +349,7 @@ function renderCustomCards(){
     grid.insertAdjacentHTML('beforeend',
     `<div class="card custom" data-f="all" data-sym="${s}" style="--sig:#64748b">
       ${rm}
-      <div class="chead"><div><div class="tick">${s}</div><div class="name">${q.repo?'Queued for rating':'Added by you'}</div>
+      <div class="chead"><div><div class="tick" onclick="gfin('${s}')" title="Open in Google Finance">${s}</div><div class="name">${q.repo?'Queued for rating':'Added by you'}</div>
       <div class="prc" data-psym="${s}">${q.p?'$'+fmt(q.p):'…'}</div></div>
       <span class="badge">${badge}</span></div>
       <div class="score-row"><div class="ring" style="--p:0"><b>—</b></div>
@@ -353,7 +365,7 @@ function renderTape(){
     const cls=q.c==null?'neu':(q.c>=0?'pos':'neg');
     const chg=q.c==null?'—':(q.c>=0?'▲ +':'▼ ')+q.c.toFixed(2)+'%';
     const px=q.p?('$'+fmt(q.p)):'…';
-    return `<span class="ti"><span class="sym">${s.replace('-USD','').replace('^','').replace('=F','')}</span><span class="px">${px}</span><span class="chg ${cls}">${chg}</span></span>`;
+    return `<span class="ti" onclick="gfin('${s}')" title="Open in Google Finance"><span class="sym">${s.replace('-USD','').replace('^','').replace('=F','')}</span><span class="px">${px}</span><span class="chg ${cls}">${chg}</span></span>`;
   }).join('');
   document.getElementById('tape').innerHTML=items+items;
   renderIdx(); /* duplicated for seamless loop */
@@ -369,7 +381,7 @@ function renderIdx(){
   el.innerHTML=IDX.filter(([s])=>Q[s]).map(([s,l])=>{
     const q=Q[s];const cls=q.c==null?'neu':(q.c>=0?'pos':'neg');
     const chg=q.c==null?'—':(q.c>=0?'▲ +':'▼ ')+q.c.toFixed(2)+'%';
-    return `<div class="idx"><div class="il">${l}</div><div class="iv">${q.p?fmt(q.p):'…'}</div><div class="ic ${cls}">${chg}</div></div>`;
+    return `<div class="idx" onclick="gfin('${s}')" title="Open in Google Finance"><div class="il">${l}</div><div class="iv">${q.p?fmt(q.p):'…'}</div><div class="ic ${cls}">${chg}</div></div>`;
   }).join('');
 }
 renderIdx();
@@ -632,7 +644,7 @@ CARDS.forEach((c,i)=>{
   const s=SIG[c.sig];
   cardsEl.insertAdjacentHTML('beforeend',
   `<div class="card" data-f="${c.sig}" style="--sig:${s.c}">
-    <div class="chead"><div><div class="tick">${c.t}</div><div class="name">${c.n}</div>
+    <div class="chead"><div><div class="tick" onclick="gfin('${c.q||c.t}')" title="Open in Google Finance">${c.t}</div><div class="name">${c.n}</div>
     <div class="prc" id="prc-${i}"></div></div>
     <span class="badge">${s.l}</span></div>
     <div class="score-row"><div class="ring" style="--p:${c.score}"><b>${c.score}</b></div><div class="why">${c.why}</div></div>
