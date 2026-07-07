@@ -14,9 +14,8 @@
     "MCD",
     "AMZN",
     "PLTR",
-    "GRNY"
-  ],
-  "extra": [
+    "GRNY",
     "BIIB"
-  ]
+  ],
+  "extra": []
 }
