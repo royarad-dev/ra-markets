@@ -52,6 +52,9 @@
   .addbar .msg{font-size:.74rem;color:var(--dim)}
   .card .rm{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--dim);cursor:pointer;font-size:1rem;line-height:1}
   .card .rm:hover{color:var(--avoid)}
+  .reqbtn{display:inline-block;margin-top:10px;color:#fff;background:linear-gradient(90deg,#3b82f6,#8b5cf6);
+    padding:7px 14px;border-radius:10px;font-weight:800;text-decoration:none;font-size:.72rem;letter-spacing:.02em}
+  .reqbtn:hover{opacity:.88}
   /* live headlines */
   .hsec{margin:4px 0 22px}
   .hsec h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);margin-bottom:10px;font-weight:800}
@@ -344,8 +347,8 @@ function renderCustomCards(){
     if(!q.custom)return;
     const rm=q.repo?'':`<button class="rm" onclick="removeTicker('${s}')" title="Remove">✕</button>`;
     const badge=q.repo?'RATING SOON':'UNRATED';
-    const why=q.repo?'In the rating queue — gets a full RA checklist window on the next hourly update.'
-                    :'Live price only (this device). For a permanent rated window, use the tickers.json link above.';
+    const why=q.repo?'In the rating queue — the analyst rates it on the next hourly update.'
+                    :`Live price on this device. Want the full analyst window (rating, checklist, news)?<br><a class="reqbtn" href="https://github.com/royarad-dev/ra-markets/issues/new?title=RATE:+${s}&body=Please+add+${s}+to+the+rated+watchlist." target="_blank" rel="noopener">⚡ Send to analyst</a>`;
     grid.insertAdjacentHTML('beforeend',
     `<div class="card custom" data-f="all" data-sym="${s}" style="--sig:#64748b">
       ${rm}
