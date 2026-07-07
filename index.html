@@ -322,9 +322,9 @@ const fmt=(v)=> v>=1000? v.toLocaleString('en-US',{maximumFractionDigits:0}) : v
 /* ============ CUSTOM TICKERS (saved on this device) ============ */
 let CUSTOM={};
 try{CUSTOM=JSON.parse(localStorage.getItem('ra_custom')||'{}');}catch(e){}
-Object.entries(CUSTOM).forEach(([s,q])=>{ if(!Q[s]) Q[s]={n:s+' (yours)',p:q.p||0,c:q.c??null,custom:true}; });
+Object.entries(CUSTOM).forEach(([s,q])=>{ if(!Q[s]) Q[s]={n:s+' (yours)',p:q.p||0,c:q.c??null,custom:true,repo:q.repo||false}; });
 function saveCustom(){
-  const out={}; Object.entries(Q).forEach(([s,q])=>{ if(q.custom) out[s]={p:q.p,c:q.c}; });
+  const out={}; Object.entries(Q).forEach(([s,q])=>{ if(q.custom) out[s]={p:q.p,c:q.c,repo:q.repo||false}; });
   localStorage.setItem('ra_custom',JSON.stringify(out));
 }
 function addTicker(){
@@ -337,6 +337,23 @@ function addTicker(){
   msg.textContent=s+' added — fetching live price…';
   refreshQuotes(true);
 }
+const ISSUE_TOKEN='__ISSUE_TOKEN__';
+async function sendToAnalyst(s,btn){
+  if(btn){btn.textContent='Sending…';btn.style.pointerEvents='none';}
+  if(ISSUE_TOKEN && !ISSUE_TOKEN.startsWith('__')){
+    try{
+      const r=await fetch('https://api.github.com/repos/royarad-dev/ra-markets/issues',{
+        method:'POST',
+        headers:{'Authorization':'Bearer '+ISSUE_TOKEN,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+        body:JSON.stringify({title:'RATE: '+s,body:'Requested from the RA Markets dashboard.'})
+      });
+      if(r.ok||r.status===201){ if(Q[s]){Q[s].repo=true;saveCustom();} renderCustomCards(); return; }
+    }catch(e){}
+  }
+  /* fallback: open the pre-filled request */
+  window.open('https://github.com/royarad-dev/ra-markets/issues/new?title=RATE:+'+encodeURIComponent(s),'_blank','noopener');
+  if(btn){btn.textContent='⚡ Send to analyst';btn.style.pointerEvents='';}
+}
 function removeTicker(s){
   delete Q[s]; saveCustom(); renderTape(); renderCustomCards();
 }
@@ -348,7 +365,7 @@ function renderCustomCards(){
     const rm=q.repo?'':`<button class="rm" onclick="removeTicker('${s}')" title="Remove">✕</button>`;
     const badge=q.repo?'RATING SOON':'UNRATED';
     const why=q.repo?'In the rating queue — the analyst rates it on the next hourly update.'
-                    :`Live price on this device. Want the full analyst window (rating, checklist, news)?<br><a class="reqbtn" href="https://github.com/royarad-dev/ra-markets/issues/new?title=RATE:+${s}&body=Please+add+${s}+to+the+rated+watchlist." target="_blank" rel="noopener">⚡ Send to analyst</a>`;
+                    :`Live price on this device. Want the full analyst window (rating, checklist, news)?<br><button class="reqbtn" style="border:none;cursor:pointer" onclick="sendToAnalyst('${s}',this)">⚡ Send to analyst</button>`;
     grid.insertAdjacentHTML('beforeend',
     `<div class="card custom" data-f="all" data-sym="${s}" style="--sig:#64748b">
       ${rm}

@@ -7,6 +7,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  issues: write
 concurrency:
   group: pages-deploy
   cancel-in-progress: true
@@ -24,3 +25,16 @@ jobs:
           path: .
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Close rating requests that are already live
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          rated=$(python3 -c "import json;print(' '.join(json.load(open('tickers.json'))['rated']))")
+          gh issue list --repo ${{ github.repository }} --state open --limit 50 --json number,title \
+            --jq '.[] | select(.title|startswith("RATE:")) | "\(.number)|\(.title)"' | \
+          while IFS='|' read -r num title; do
+            sym=$(echo "$title" | sed 's/^RATE:[[:space:]]*//' | tr -cd 'A-Z0-9.^=-')
+            if [ -n "$sym" ] && echo " $rated " | grep -q " $sym "; then
+              gh issue close "$num" --repo ${{ github.repository }} --comment "✅ $sym is rated and live on the dashboard." || true
+            fi
+          done
