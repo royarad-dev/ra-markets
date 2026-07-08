@@ -204,22 +204,21 @@
 
 <div class="mood">
   <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--avoid)">RISK-OFF</div>
-    <div class="sub">Futures slip after US strikes Iran: S&amp;P −0.1%, Nasdaq −0.2%, Dow −0.1% pre-open.</div>
-    <div class="bar"><i style="width:34%;background:var(--avoid)"></i></div></div>
-  <div class="m"><div class="lbl">Iran War</div><div class="val" style="color:var(--avoid)">US STRIKES</div>
-    <div class="sub">US struck Iran late Tue after Hormuz tanker attacks; WTI +2.7% to $72, Brent ~$74.</div>
-    <div class="bar"><i style="width:72%;background:var(--avoid)"></i></div></div>
-  <div class="m"><div class="lbl">Chip Rout</div><div class="val" style="color:var(--avoid)">NASDAQ −1.2%</div>
-    <div class="sub">Memory in a bear market: Micron, SK Hynix, Samsung drag SMH −3%; rout day 2.</div>
+    <div class="sub">Dow futures −705 (−1.3%), S&amp;P −1%, Nasdaq −1% pre-open after Trump kills the Iran deal.</div>
     <div class="bar"><i style="width:28%;background:var(--avoid)"></i></div></div>
+  <div class="m"><div class="lbl">Iran War</div><div class="val" style="color:var(--avoid)">DEAL OVER</div>
+    <div class="sub">Trump at NATO summit calls the Iran MOU 'over'; renewed strikes reignite the war.</div>
+    <div class="bar"><i style="width:80%;background:var(--avoid)"></i></div></div>
+  <div class="m"><div class="lbl">Oil Shock</div><div class="val" style="color:var(--avoid)">BRENT +6%</div>
+    <div class="sub">Brent ~$78.5, WTI ~$74.8 on Hormuz risk; energy is the only green sector.</div>
+    <div class="bar"><i style="width:82%;background:var(--avoid)"></i></div></div>
   <div class="m"><div class="lbl">Fed Watch</div><div class="val" style="color:var(--hold)">MINUTES 2PM</div>
-    <div class="sub">June FOMC minutes today 2pm ET; nine dots still see a 2026 hike — week's test.</div>
+    <div class="sub">June FOMC minutes today 2pm ET; nine dots see a 2026 hike, Warsh withheld his.</div>
     <div class="bar"><i style="width:50%;background:var(--hold)"></i></div></div>
   <div class="m"><div class="lbl">Havens</div><div class="val" style="color:var(--wait)">GOLD $4,110</div>
-    <div class="sub">Muted haven bid: gold −1.1%, VIX just 16.1, BTC ~$63.7K even with the Iran war.</div>
+    <div class="sub">Muted haven bid: gold −1.1%, VIX 16.1, BTC ~$63.7K even as the Iran war reignites.</div>
     <div class="bar"><i style="width:48%;background:var(--wait)"></i></div></div>
 </div>
-
 <div class="tabs">
   <button class="active" onclick="show('signals',this)">📊 Signals</button>
   <button onclick="show('newsview',this)">🗞 News Decoded</button>
@@ -260,7 +259,7 @@
 </div>
 
 <footer>
-  <b>RA Markets</b> · refreshed Wednesday, July 8, 2026 · 3:29am ET for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 7 closing marks (chip rout day 2, Nasdaq −1.16%); crypto, oil and gold are July 8 pre-market. US struck Iran overnight after Hormuz tanker attacks; Fed minutes land today 2pm ET. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
+  <b>RA Markets</b> · refreshed Wednesday, July 8, 2026 · 7:18am ET for Roy Arad. U.S. markets are pre-open — equity fallback figures are July 7 closing marks (chip rout day 2, Nasdaq −1.16%); crypto, oil and gold are July 8 pre-market. Trump declared the Iran ceasefire 'over' at the NATO summit — Brent +6% to ~$78.5, Dow futures −705; Fed minutes land today 2pm ET. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
   <br>Sources: <a href="https://finance.yahoo.com">Yahoo Finance</a> ·
   <a href="https://247wallst.com/investing/2026/07/07/micron-sandisk-and-western-digital-sink-7-as-samsung-earnings-spark-a-memory-selloff/">24/7 Wall St · Memory selloff</a> ·
   <a href="https://www.benzinga.com/trading-ideas/movers/26/07/60302152/nvidia-stock-drops-on-reports-that-deepseek-is-quietly-developing-its-own-ai-chip">Benzinga · DeepSeek chip</a> ·
@@ -300,7 +299,7 @@ const Q={
   SPCX:{n:"SpaceX",p:149.47,c:-6.83},
   TKO:{n:"TKO Group",p:198.10,c:0.46},
   "BTC-USD":{n:"Bitcoin",p:63670,c:-0.13},
-  "ETH-USD":{n:"Ethereum",p:1776,c:-0.30},
+  "ETH-USD":{n:"Ethereum",p:1787,c:0.60},
   META:{n:"Meta",p:575.30,c:-0.96},
   SN:{n:"SharkNinja",p:149.20,c:-0.60},
   LLY:{n:"Eli Lilly",p:1210.40,c:0.40},
@@ -702,32 +701,32 @@ updateCardPrices();
 renderCustomCards();
 
 /* ============ NEWS ============ */
-const ANALYSIS_AT='Jul 8, 2026 · 3:29am ET';
+const ANALYSIS_AT='Jul 8, 2026 · 7:18am ET';
 document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('analysisAt');if(e)e.textContent='· as of '+ANALYSIS_AT+' · re-analyzed hourly';});
 const NEWS=[
-{s:"CNBC · Yahoo Finance · CENTCOM",h:"🛢 US strikes Iran after Hormuz tanker attacks — the war is back on, crude +2.7%",
- what:"US forces launched a 'series of powerful strikes' on Iran late Tue Jul 7, retaliating for attacks on three vessels in the Strait of Hormuz; Treasury had already revoked Iran's oil-export license. WTI +2.7% to $72, Brent ~$74. A fragile June ceasefire is now tested.",
- means:"Geopolitics reprices the tape: an energy bid returns as tech sells off — a clean rotation lane into oil majors and defensives. The tail is a re-closed Hormuz (~20% of world oil), which would swamp the soft-landing rate story the market is leaning on.",
- chips:[["bull","Energy / oil majors"],["bear","Airlines, transports"],["watch","Hormuz closure"]]},
-{s:"24/7 Wall St · CNBC · Yahoo Finance",h:"🔻 Chip rout runs a second day — Micron −4.7%, SMH −3%, Nasdaq −1.2%",
- what:"Samsung's record ~$58B profit still couldn't lift memory: Micron closed −4.7%, with KLA, Marvell, Broadcom and AMD lower and SMH off ~3%, dragging the Nasdaq −1.16% to 25,818 Tuesday. A Reuters report on DeepSeek's in-house inference chip added to Nvidia pressure.",
+{s:"CNBC · Bloomberg · CBS News",h:"🛢 Trump declares the Iran ceasefire 'over' at NATO summit — Brent +6%, futures tumble",
+ what:"Trump told the NATO summit in Ankara Wed Jul 8 the Iran MOU is 'over' but talks can continue. Brent +5.9% to $78.54, WTI +6% to $74.75; Dow futures −705 (−1.3%), S&P −1%, Europe's Stoxx 600 −1.8%.",
+ means:"The energy bid is back and broadening: oil &amp; gas is the only green sector while duration-sensitive tech leads the drop. The real tail is Hormuz (~20% of world oil) re-closing — that swamps the soft-landing rate story the tape leans on.",
+ chips:[["bull","Energy / oil majors"],["bear","Airlines, transports, tech"],["watch","Hormuz closure"]]},
+{s:"CNBC · TradingView · CME FedWatch",h:"🏛 Hawkish-leaning June Fed minutes hit today 2pm ET — the week's real test",
+ what:"FOMC minutes from the June 16–17 meeting drop Wed Jul 8, 2pm ET. The Fed held at 3.50–3.75% and dropped prior cut hints; nine of eighteen dots pencil a 2026 hike and Warsh withheld his. Dec hike odds ~40%, Sept ~50–55%.",
+ means:"With an oil shock now stoking inflation risk, hawkish minutes would land a double blow — repricing the rate-cut hope and the defensive rotation at once. Soft June payrolls (+57K) are the only cushion keeping the Dow near 53K.",
+ chips:[["watch","Minutes 2pm ET"],["bear","Hawkish + oil = repricing"],["bull","Dovish nuance = relief"]]},
+{s:"24/7 Wall St · CNBC · Yahoo Finance",h:"🔻 Memory bear market persists — Micron −4.7%, SMH −3%, Nasdaq −1.2%",
+ what:"Samsung's record ~$58B profit still couldn't lift memory: Micron closed −4.7% Tue Jul 7, with KLA, Marvell, Broadcom and AMD lower and SMH off ~3%, dragging the Nasdaq −1.16% to 25,818. A Reuters report on DeepSeek's in-house inference chip added to Nvidia pressure.",
  means:"A valuation reset, not a broken cycle — a record beat can't lift multiples already priced for perfection. Memory is the funding source as money rotates to energy and defensives. Dip-buyers get their tell only once the hardest-hit names stop bleeding.",
  chips:[["bear","Memory −5–10%"],["bull","AI capex intact"],["watch","Multiple compression"]]},
-{s:"CNBC · TechTimes · CME FedWatch",h:"🏛 Today's Warsh-Fed minutes at 2pm ET are the week's real test",
- what:"FOMC minutes from the June 16–17 meeting drop Wed Jul 8 at 2pm ET. Chair Warsh withheld his own dot, leaving the transcript as the only on-record read; nine officials still pencil at least one 2026 hike. June payrolls ran +57K, core PCE 3.3%.",
- means:"Soft jobs are why the Dow holds ~53K — room to ease without an inflation scare. The tail nobody prices: hawkish minutes revealing how a Warsh committee debates, which could reprice the rate-cut relief trade and the defensive rotation at the same moment.",
- chips:[["watch","Minutes 2pm ET"],["bear","Hawkish tone = repricing"],["bull","Dovish = relief rally"]]},
-{s:"CoinGecko · Yahoo Finance · Farside",h:"₿ Crypto tracks the risk-off tape — BTC ~$62.7K, ETH near $1,770",
- what:"Bitcoin opened Jul 7 firm ~$64K but faded with equities to ~$63.7K; Ether near $1,776. Spot BTC ETFs had added +$46.6M and +$222M earlier in the week, snapping a 10-day, −$2.7B streak after a record ~$4.5B June outflow.",
- means:"A few inflow days don't erase June, and crypto is tracking the risk-off tape rather than leading it. With an oil shock and Fed minutes ahead, price needs flows to confirm. A daily BTC close under $60K would gate the whole complex.",
- chips:[["bear","Risk-off drag"],["bull","ETF inflows resume"],["watch","$60K BTC close"]]},
-{s:"Yahoo Finance · CNBC · TIKR",h:"🔔 SpaceX drops below its debut price as the index bid vanishes — SPCX −6.8%",
- what:"SPCX fell 6.8% to ~$149 Tue Jul 7, slipping under its $161 IPO-day close (still above the $135 offer) as Nasdaq-100 trackers finished ~$4.3B of price-insensitive buying and early holders sold into the funds.",
+{s:"CoinGecko · Yahoo Finance · Farside",h:"₿ Crypto shrugs at the oil shock — BTC ~$63.7K, ETH near $1,790",
+ what:"Bitcoin held ~$63.7K (−0.1%) and Ether firmed near $1,788 (+5% on the week) even as the Iran deal collapsed. Spot BTC ETFs had added +$46.6M and +$222M earlier this week, snapping a 10-day, −$2.7B streak after a record ~$4.5B June outflow.",
+ means:"Crypto is tracking the risk tape, not leading it — resilient, but flow-dependent with an oil shock and Fed minutes ahead. A daily BTC close under $60K would gate the whole complex; holding $63K keeps the ETF-inflow thesis alive.",
+ chips:[["bull","ETF inflows resume"],["bear","Risk-off drag"],["watch","$60K BTC close"]]},
+{s:"Yahoo Finance · CNBC · TIKR",h:"🔔 SpaceX stays below its debut price as the index bid fades — SPCX −6.8%",
+ what:"SPCX fell 6.8% to ~$149 Tue Jul 7, under its $161 IPO-day close (still above the $135 offer) as Nasdaq-100 trackers finished ~$4.3B of price-insensitive buying and early holders sold into the funds.",
  means:"Textbook 'buy the rumour, sell the news': index buying ignored a ~107x-sales, −$9.4B-loss business, so once forced demand cleared fundamentals took over. Street stays bullish (JPM $225, MS $300), but Aug 6 earnings and the lockup are the real tests.",
  chips:[["bear","Post-inclusion fade"],["bull","Street targets $225–300"],["watch","Aug 6 earnings + lockup"]]},
-{s:"CNBC · FactSet · Delta IR",h:"📈 Earnings season opens: PepsiCo Thu, Delta Fri test a market priced for +24%",
- what:"Q2 reporting kicks off with PepsiCo (Thu Jul 9) and Delta (Fri Jul 10) before the mega-cap wave. Consensus has S&P 500 earnings up ~24% y/y — a steep bar into a tape sitting near records with an oil shock now in the mix.",
- means:"At Dow ~53K the market has pre-paid for a blowout, so the asymmetry is negative: beats expected, misses punished. Delta is the cleaner consumer tell — its guide confirms the 'slowdown-not-recession' story or breaks it and accelerates the rotation.",
+{s:"CNBC · FactSet · Delta IR",h:"📈 Earnings open into an oil shock: PepsiCo Thu, Delta Fri test a +24% bar",
+ what:"Q2 reporting starts with PepsiCo (Thu Jul 9) and Delta (Fri Jul 10) before the mega-cap wave. Consensus has S&P 500 earnings up ~24% y/y — a steep bar into a tape near records now facing a fresh energy shock.",
+ means:"The market has pre-paid for a blowout, so the asymmetry is negative: beats expected, misses punished. Delta is the cleaner consumer tell — jet-fuel costs plus its guide either confirm 'slowdown-not-recession' or accelerate the rotation.",
  chips:[["watch","Delta = consumer read"],["bear","Priced for +24% EPS"],["bull","Beats extend melt-up"]]}
 ];
 
