@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RA Markets — Signal Dashboard</title>
+<style>
+  :root{
+    --bg:#070a12; --card:#101623; --card2:#0c111c; --border:#1e2939; --border2:#2b3a52;
+    --text:#f1f5fb; --dim:#8fa0b8;
+    --buy:#22c55e; --hold:#f59e0b; --avoid:#ef4444; --wait:#aeb7c4; --blue:#3b82f6; --violet:#8b5cf6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:
+      radial-gradient(900px 500px at 85% -5%, rgba(59,130,246,.14), transparent 60%),
+      radial-gradient(700px 400px at 0% 0%, rgba(139,92,246,.10), transparent 55%),
+      var(--bg);
+    color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 28px 44px}
+  /* ===== ticker tape ===== */
+  .tape-wrap{position:sticky;top:0;z-index:50;background:rgba(7,10,18,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap}
+  .tape{display:inline-block;padding:9px 0;animation:scroll 55s linear infinite}
+  .tape-wrap:hover .tape{animation-play-state:paused}
+  @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .ti{display:inline-flex;align-items:baseline;gap:7px;margin:0 24px;font-size:.82rem;font-weight:600;cursor:pointer}
+  .ti .sym{color:var(--text);letter-spacing:.03em}
+  .ti .px{color:var(--dim);font-variant-numeric:tabular-nums}
+  .ti .chg{font-variant-numeric:tabular-nums;font-weight:700}
+  .pos{color:var(--buy)} .neg{color:var(--avoid)} .neu{color:var(--hold)}
+  /* ===== header ===== */
+  header{display:flex;align-items:center;gap:18px;padding:36px 0 10px;flex-wrap:wrap}
+  .logo{width:64px;height:64px;flex:none;filter:drop-shadow(0 6px 22px rgba(99,102,241,.5))}
+  .logo .trace{stroke-dasharray:90;stroke-dashoffset:90;animation:draw 3.2s ease-in-out infinite}
+  .logo .tip{animation:blink 3.2s ease-in-out infinite}
+  @keyframes draw{0%{stroke-dashoffset:90}55%,80%{stroke-dashoffset:0}100%{stroke-dashoffset:0;opacity:0}}
+  @keyframes blink{0%,45%{opacity:0}60%,85%{opacity:1}100%{opacity:0}}
+  .refresh{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border);
+    border-radius:999px;padding:7px 15px;font-size:.75rem;font-weight:800;color:var(--dim);cursor:pointer;font-family:inherit}
+  .refresh:hover{color:var(--text);border-color:var(--border2)}
+  .refresh svg{width:14px;height:14px}
+  .refresh.spin svg{animation:rot .8s linear infinite}
+  @keyframes rot{to{transform:rotate(360deg)}}
+  /* add ticker */
+  .addbar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+  .addbar input{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 15px;
+    color:var(--text);font-family:inherit;font-size:.85rem;font-weight:700;width:190px;text-transform:uppercase;outline:none}
+  .addbar input:focus{border-color:var(--blue)}
+  .addbar button{background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:none;color:#fff;font-weight:800;
+    padding:10px 20px;border-radius:12px;cursor:pointer;font-family:inherit;font-size:.85rem}
+  .addbar .msg{font-size:.74rem;color:var(--dim)}
+  .card .rm{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--dim);cursor:pointer;font-size:1rem;line-height:1}
+  .card .rm:hover{color:var(--avoid)}
+  .reqbtn{display:inline-block;margin-top:10px;color:#fff;background:linear-gradient(90deg,#3b82f6,#8b5cf6);
+    padding:7px 14px;border-radius:10px;font-weight:800;text-decoration:none;font-size:.72rem;letter-spacing:.02em}
+  .reqbtn:hover{opacity:.88}
+  /* live headlines */
+  .hsec{margin:4px 0 22px}
+  .hsec h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);margin-bottom:10px;font-weight:800}
+  .hsec h2 em{color:var(--buy);font-style:normal}
+  .hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+  .hcard{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:12px 14px}
+  .hcard .hsym{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:.8rem;margin-bottom:7px}
+  .hcard .hsym button{background:none;border:none;color:var(--dim);cursor:pointer;font-size:.85rem}
+  .hcard .hsym button:hover{color:var(--avoid)}
+  .hcard a{display:block;color:#c5d1e2;text-decoration:none;font-size:.76rem;line-height:1.45;padding:5px 0;border-top:1px solid rgba(30,41,57,.6)}
+  .hcard a:hover{color:var(--text)}
+  .hcard time{display:block;color:var(--dim);font-size:.64rem;margin-top:2px}
+  .hnote{font-size:.72rem;color:var(--dim);margin-top:8px}
+  /* index strip */
+  .idx-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:24px 0 6px}
+  .idx{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:18px;padding:16px 20px;cursor:pointer}
+  .idx .il{color:var(--dim);font-size:.62rem;letter-spacing:.12em;font-weight:800;text-transform:uppercase}
+  .idx .iv{font-size:1.25rem;font-weight:800;margin-top:2px;font-variant-numeric:tabular-nums}
+  .idx .ic{font-size:.75rem;font-weight:700;margin-top:1px}
+  /* top story banner */
+  .topstory{position:relative;border:1px solid rgba(245,158,11,.55);border-radius:16px;padding:16px 20px;margin-bottom:14px;
+    background:linear-gradient(135deg,rgba(245,158,11,.16),rgba(236,72,153,.08) 60%,transparent);overflow:hidden}
+  .topstory .ts-tag{display:inline-flex;align-items:center;gap:7px;font-size:.68rem;font-weight:900;letter-spacing:.12em;
+    color:var(--hold);text-transform:uppercase;margin-bottom:8px}
+  .ts-dot{width:8px;height:8px;border-radius:50%;background:var(--hold);animation:pulse 2s infinite}
+  .topstory a{color:var(--text);text-decoration:none;font-size:1.05rem;font-weight:800;line-height:1.4;display:block}
+  .topstory a:hover{color:var(--hold)}
+  .topstory .ts-meta{color:var(--dim);font-size:.72rem;margin-top:7px;font-weight:600}
+  .brand h1{font-size:1.45rem;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+  .brand h1 span{background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand .sub{color:var(--dim);font-size:.8rem;margin-top:3px}
+  .live{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--card);
+    border:1px solid var(--border);border-radius:999px;padding:7px 15px;font-size:.75rem;font-weight:700;color:var(--dim)}
+  .pulse{width:9px;height:9px;border-radius:50%;background:var(--hold)}
+  .live.on .pulse{background:var(--buy);box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:pulse 2s infinite}
+  .live.on{color:var(--buy)}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 9px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+  /* ===== mood ===== */
+  .mood{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;margin:28px 0 34px}
+  .m{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:20px;padding:22px;display:flex;flex-direction:column;min-height:200px}
+  .m .lbl{color:var(--dim);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px;font-weight:700}
+  .m .val{font-size:1.15rem;font-weight:800}
+  .m .sub{font-size:.75rem;color:var(--dim);margin-top:7px;line-height:1.65;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+  .bar{height:5px;border-radius:5px;background:#1c2635;margin-top:10px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:5px}
+  .m .bar{margin-top:auto}
+  /* ===== tabs ===== */
+  .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .tabs button{background:var(--card);color:var(--dim);border:1px solid var(--border);padding:11px 22px;border-radius:12px;
+    font-size:.9rem;font-weight:700;cursor:pointer;transition:.15s;font-family:inherit}
+  .tabs button.active{background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:#fff;border-color:transparent;
+    box-shadow:0 6px 20px rgba(99,102,241,.35)}
+  .view{display:none}.view.active{display:block}
+  /* ===== filters ===== */
+  .legend{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}
+  .legend button{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border);
+    border-radius:999px;padding:7px 15px;font-size:.76rem;color:var(--dim);cursor:pointer;font-weight:700;font-family:inherit}
+  .legend button.on{color:var(--text);border-color:var(--border2);background:#16203241}
+  .swatch{width:9px;height:9px;border-radius:50%}
+  /* ===== cards ===== */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:16px}
+  .card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:20px;padding:22px;position:relative;overflow:hidden;transition:transform .13s,border-color .13s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-3px);border-color:var(--border2)}
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--sig)}
+  .chead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .tick{font-size:1.2rem;font-weight:800;letter-spacing:-.02em;cursor:pointer}
+  .name{color:var(--dim);font-size:.72rem;margin-top:1px}
+  .prc{font-size:.85rem;font-weight:700;margin-top:6px;font-variant-numeric:tabular-nums}
+  .prc small{font-weight:700;margin-left:6px}
+  .badge{font-size:.7rem;font-weight:900;letter-spacing:.08em;padding:6px 13px;border-radius:999px;color:#070a12;background:var(--sig);flex:none}
+  .score-row{display:flex;align-items:center;gap:13px;margin:13px 0 0}
+  .ring{--p:50;width:62px;height:62px;border-radius:50%;flex:none;display:grid;place-items:center;
+    background:conic-gradient(var(--sig) calc(var(--p)*1%), #1c2635 0)}
+  .ring b{width:48px;height:48px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:.92rem}
+  .why{font-size:.8rem;color:var(--dim);line-height:1.6;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+  .why b{color:var(--text)}
+  .kpis{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .kpi{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:5px 10px;font-size:.69rem;color:var(--dim)}
+  .kpi b{color:var(--text)}
+  details{margin-top:auto;padding-top:14px}
+  summary{cursor:pointer;font-size:.77rem;color:var(--blue);font-weight:700;list-style:none}
+  summary::before{content:"▸ "} details[open] summary::before{content:"▾ "}
+  .chk{margin-top:8px;font-size:.75rem;color:var(--dim);line-height:1.5}
+  .chk div{padding:5px 0;border-bottom:1px solid rgba(30,41,57,.6)}
+  .chk b{color:var(--text)}
+  /* ===== news ===== */
+  .news{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+  .ncard{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:18px;padding:18px}
+  .ncard h3{font-size:.98rem;font-weight:800;margin-bottom:10px;line-height:1.35}
+  .nrow{margin-bottom:10px}
+  .nrow .t{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:3px;font-weight:800}
+  .nrow p{font-size:.81rem;line-height:1.6;color:#c5d1e2;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+  .src{font-size:.66rem;color:var(--dim);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+  .sigchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+  .sc{font-size:.7rem;font-weight:800;padding:4px 11px;border-radius:999px}
+  .sc.bull{background:rgba(34,197,94,.13);color:var(--buy);border:1px solid rgba(34,197,94,.35)}
+  .sc.bear{background:rgba(239,68,68,.13);color:var(--avoid);border:1px solid rgba(239,68,68,.35)}
+  .sc.watch{background:rgba(245,158,11,.13);color:var(--hold);border:1px solid rgba(245,158,11,.35)}
+  footer{margin-top:30px;color:var(--dim);font-size:.71rem;border-top:1px solid var(--border);padding-top:14px;line-height:1.7}
+  footer a{color:var(--blue);text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- ===== RUNNING TICKER TAPE ===== -->
+<div class="tape-wrap"><div class="tape" id="tape"></div></div>
+
+<div class="wrap">
+<header>
+  <!-- RA chip logo: a microprocessor with a live price-line trace — gadgets meet markets -->
+  <svg class="logo" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#60a5fa"/><stop offset=".55" stop-color="#8b5cf6"/><stop offset="1" stop-color="#ec4899"/>
+      </linearGradient>
+    </defs>
+    <!-- chip pins -->
+    <g stroke="#3b4b66" stroke-width="3" stroke-linecap="round">
+      <line x1="22" y1="2" x2="22" y2="9"/><line x1="36" y1="2" x2="36" y2="9"/><line x1="50" y1="2" x2="50" y2="9"/>
+      <line x1="22" y1="63" x2="22" y2="70"/><line x1="36" y1="63" x2="36" y2="70"/><line x1="50" y1="63" x2="50" y2="70"/>
+      <line x1="2" y1="22" x2="9" y2="22"/><line x1="2" y1="36" x2="9" y2="36"/><line x1="2" y1="50" x2="9" y2="50"/>
+      <line x1="63" y1="22" x2="70" y2="22"/><line x1="63" y1="36" x2="70" y2="36"/><line x1="63" y1="50" x2="70" y2="50"/>
+    </g>
+    <!-- chip body -->
+    <rect x="9" y="9" width="54" height="54" rx="12" fill="#0d1320" stroke="url(#lg)" stroke-width="2.5"/>
+    <!-- RA monogram -->
+    <text x="36" y="34" text-anchor="middle" font-family="-apple-system,'Segoe UI',sans-serif"
+      font-size="19" font-weight="900" letter-spacing="-0.5" fill="url(#lg)">RA</text>
+    <!-- animated price trace -->
+    <polyline class="trace" points="15,52 24,46 30,50 39,38 46,43 57,30"
+      fill="none" stroke="url(#lg)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle class="tip" cx="57" cy="30" r="3" fill="#ec4899"/>
+  </svg>
+  <div class="brand">
+    <h1>RA <span>MARKETS</span></h1>
+    <div class="sub" id="stamp">Roy Arad · Signal Desk · <span id="subDate"></span></div>
+  </div>
+  <div class="live" id="liveBadge" style="margin-left:auto"><span class="pulse"></span><span id="liveTxt">WEEKEND · FRIDAY AUG 14 CLOSE</span></div>
+  <button class="refresh" id="refreshBtn" onclick="manualRefresh()" title="Refresh prices now">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/>
+    </svg>REFRESH
+  </button>
+</header>
+
+<div class="idx-strip" id="idxStrip"></div>
+
+<div class="mood">
+  <div class="m"><div class="lbl">Market Mood</div><div class="val" style="color:var(--hold)">SPLIT TAPE</div>
+    <div class="sub">S&amp;P 500 eased 0.17% off Thursday&#39;s record to 7,785.76 while the Russell 2000 rose 0.51% to a record 3,068.42. VIX 14.35.</div>
+    <div class="bar"><i style="width:66%;background:var(--hold)"></i></div></div>
+  <div class="m"><div class="lbl">The Consumer</div><div class="val" style="color:var(--avoid)">BLINKED</div>
+    <div class="sub">July retail sales &minus;0.6% vs +0.1% expected — first drop in 9 months; UMich sentiment 51.0 vs 54.5, with 1-yr inflation expectations at 4.3%.</div>
+    <div class="bar"><i style="width:76%;background:var(--avoid)"></i></div></div>
+  <div class="m"><div class="lbl">Fed Watch</div><div class="val" style="color:var(--buy)">HIKE PRICED OUT</div>
+    <div class="sub">Sept hike odds ~29–31%, from 35% Thursday and ~67% on Jul 31. Held 3.50–3.75% Jul 29 with three dissents FOR a hike. Minutes Aug 19.</div>
+    <div class="bar"><i style="width:70%;background:var(--buy)"></i></div></div>
+  <div class="m"><div class="lbl">AI Credit</div><div class="val" style="color:var(--avoid)">NEW FAULT LINE</div>
+    <div class="sub">Broadcom &minus;5.94% (~$105B erased) after BofA modelled up to $370B of senior debt in XPV, its off-balance-sheet AI-rack financing vehicle.</div>
+    <div class="bar"><i style="width:72%;background:var(--avoid)"></i></div></div>
+  <div class="m"><div class="lbl">Hormuz</div><div class="val" style="color:var(--avoid)">MONTH SIX</div>
+    <div class="sub">Two ADNOC tankers attacked Aug 13; Bessent floated an indefinite blockade of Iran. Crude +~5% on the week (WTI ~$82, Brent ~$88.5).</div>
+    <div class="bar"><i style="width:78%;background:var(--avoid)"></i></div></div>
+</div>
+<div class="tabs">
+  <button class="active" onclick="show('signals',this)">📊 Signals</button>
+  <button onclick="show('newsview',this)">🗞 News Decoded</button>
+</div>
+
+<div id="signals" class="view active">
+  <div class="addbar">
+    <input id="newTick" placeholder="Add ticker  e.g. NVDA" maxlength="10"
+      onkeydown="if(event.key==='Enter')addTicker()">
+    <button onclick="addTicker()">+ Add</button>
+    <span class="msg" id="addMsg">Adds live price + tape instantly (this device). For the full rated window &amp; news decode, <a href="https://github.com/royarad-dev/ra-markets/edit/main/tickers.json" target="_blank" rel="noopener" style="color:var(--blue)">open the watchlist file</a> and put the symbol inside "extra": [&quot;XYZ&quot;] — I rate it on the next hourly run.</span>
+  </div>
+  <div class="legend" id="filters">
+    <button class="on" data-f="all">All</button>
+    <button data-f="buy"><span class="swatch" style="background:var(--buy)"></span>BUY</button>
+    <button data-f="hold"><span class="swatch" style="background:var(--hold)"></span>HOLD</button>
+    <button data-f="avoid"><span class="swatch" style="background:var(--avoid)"></span>AVOID</button>
+    <button data-f="wait"><span class="swatch" style="background:var(--wait)"></span>WAIT</button>
+  </div>
+  <div class="grid" id="cards"></div>
+</div>
+
+<div id="newsview" class="view">
+  <div class="addbar">
+    <input id="newsTick" placeholder="Add stock to news  e.g. NVDA" maxlength="10"
+      onkeydown="if(event.key==='Enter')addNewsTicker()">
+    <button onclick="addNewsTicker()">+ Track news</button>
+    <span class="msg" id="newsMsg">Live wires from WSJ, CNBC &amp; Yahoo Finance + per-stock headlines — auto-refresh every 15 min or via REFRESH.</span>
+  </div>
+  <div class="hsec">
+    <h2>📡 Live headlines <em id="hstamp"></em></h2>
+    <div id="topstory"></div>
+    <div class="hgrid" id="headlines"></div>
+    <div class="hnote" id="hnote"></div>
+  </div>
+  <div class="hsec"><h2>🧠 RA analysis — today's stories decoded <em id="analysisAt"></em></h2></div>
+  <div class="news" id="news"></div>
+</div>
+
+<footer>
+  <b>RA Markets</b> · refreshed Saturday, August 15, 2026 · 5:00am ET for Roy Arad. Markets are shut for the weekend — every level below is Friday&#39;s close. Friday was a split tape, and the split is the story: the S&amp;P 500 slipped 0.17% to 7,785.76 and the Nasdaq 0.28% to 26,729.16, while the Russell 2000 rose 0.51% to a record 3,068.42. Two data points did it. July retail sales fell <b>0.6%</b> against +0.1% expected — the first decline in nine months and the largest in fourteen, with the control group at &minus;0.4% versus +0.3% — and then the University of Michigan&#39;s August preliminary sentiment landed at <b>51.0</b> versus 54.5 expected, down from 55.2, with one-year inflation expectations rising to 4.3%. A consumer that has stopped spending while still expecting 4%-plus inflation is a stagflationary shape, and it finished off the September rate-hike trade: odds fell to roughly 29–31% from 35% on Thursday and about 67% at the end of July. Remember the 2026 debate is hike-versus-hold, not when to cut — the Fed held at 3.50–3.75% on Jul 29 with Hammack, Kashkari and Logan all dissenting <i>for</i> a hike, the most early dissents against a new chair (Kevin Warsh) since 1970. Small caps took that relief; mega-cap tech did not. Broadcom fell <b>5.94% to $392.99</b>, erasing about $105B and acting as the single largest drag on both indices, after BofA published on XPV — Broadcom&#39;s off-balance-sheet vehicle for financing AI racks — estimating up to $370B of senior debt by mid-2029. Applied Materials beat and raised guidance and still fell ~5% on a flat gross margin. The 10-yr ended at 4.69%; reports differ on whether it finished up or down ~5bp, because the data-driven rally faded into the close as crude firmed — and this came a day after the $25B 30-year auction stopped at ~5.22%, the highest at auction since 2001. Crude rose ~5% on the week (WTI ~$82, Brent ~$88.5) after two ADNOC tankers were attacked in the Strait of Hormuz on Aug 13 and Treasury Secretary Bessent floated an indefinite naval blockade of Iran. Gold ~$4,373, bitcoin $62.8K, ether $1,878 — US spot bitcoin ETFs bled ~$385M on the week, giving back much of the prior week&#39;s $853M rebound. For the week: S&amp;P +0.36% and Nasdaq +0.14%, a third straight weekly gain and the longest run since early April; Russell +1.11%; Dow &minus;0.56%. Q2 season is 88% done with blended earnings growth of 50.4%. Ahead: Home Depot and Reddit&#39;s S&amp;P 500 entry on Aug 18, Target plus the FOMC minutes Aug 19, Walmart Aug 20, then Nvidia and July PCE together on Aug 26 and Jackson Hole Aug 27–29 with Warsh&#39;s first keynote as chair. Prices auto-refresh every 15 minutes from Yahoo Finance &amp; CoinGecko while the page is open — or instantly via the REFRESH button (green LIVE dot = feed connected; amber = fallback snapshot). Custom tickers are saved in your browser. Signals = a fundamentals checklist (business, growth, cash flow, health, management, valuation) turned into a simple label — analysis, not personal investment advice.
+  <br>Sources: <a href="https://investinglive.com/stocks/us-stocks-end-the-week-mixed-russell-2000-closes-at-a-record/">InvestingLive · Aug 14 closing levels, Russell record</a> ·
+  <a href="https://www.fool.com/coverage/stock-market-today/2026/08/14/stock-market-today-aug-14-stocks-slip-as-consumer-data-disappoints-broadcom-falls-6/">Motley Fool · Aug 14 close, Broadcom &minus;5.94%</a> ·
+  <a href="https://www.kiplinger.com/investing/stocks/s-and-p-500-nasdaq-extend-weekly-win-streaks-stock-market-today">Kiplinger · third weekly win streak, AMAT &minus;5.1%</a> ·
+  <a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-14-2026">TheStreet · Russell 2000 record close</a> ·
+  <a href="https://www.census.gov/retail/marts/www/marts_current.pdf">Census · July advance retail sales (&minus;0.6%)</a> ·
+  <a href="https://investinglive.com/news/us-august-prelim-umich-consumer-sentiment-51-0-vs-54-5-expected/">InvestingLive · UMich August prelim 51.0</a> ·
+  <a href="https://finance.yahoo.com/economy/article/us-consumers-sour-on-economy-as-inflation-concerns-remain-in-focus-umich-survey-says-144047259.html">Yahoo · UMich detail, 4.3% 1-yr expectations</a> ·
+  <a href="https://www.barchart.com/story/news/3853878/dollar-falls-on-weak-us-retail-sales-and-consumer-sentiment-reports">Barchart · Sept hike odds 35% → 29%</a> ·
+  <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm">Fed · Jul 29 statement (9–3, three dissents to hike)</a> ·
+  <a href="https://www.usnews.com/news/top-news/articles/2026-07-29/early-dissents-versus-fed-chief-warsh-are-the-most-since-1970">US News · most early dissents against a new chair since 1970</a> ·
+  <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm">Fed · FOMC calendar (Sept 15–16)</a> ·
+  <a href="https://www.investing.com/news/economy-news/us-treasuries-decline-after-retail-salesdriven-rally-fades-93CH-4861506">Investing.com · 10-yr 4.69%, rally fades</a> ·
+  <a href="https://fortune.com/2026/08/13/us-debt-treasury-30-year-highest-25-years/">Fortune · 30-yr auction at highest yield since 2001</a> ·
+  <a href="https://www.crfb.org/blogs/treasury-auction-yield-hits-highest-25-years">CRFB · auction yield, deficit context</a> ·
+  <a href="https://www.benzinga.com/markets/prediction-markets/26/08/61219624/broadcom-ai-financing-370-billion">Benzinga · BofA on Broadcom&#39;s XPV, $370B</a> ·
+  <a href="https://247wallst.com/investing/2026/08/14/broadcom-sinks-6-as-bofa-flags-370b-in-ai-debt-amd-climbs-4-on-bairds-1250-call/">24/7 Wall St · Broadcom &minus;6%, AMD +4%</a> ·
+  <a href="https://finance.yahoo.com/markets/stocks/articles/applied-materials-stock-falls-earnings-121600075.html">Yahoo · Applied Materials FQ3 beat, stock falls</a> ·
+  <a href="https://www.benzinga.com/markets/tech/26/08/61202230/why-is-sandisk-stock-surging-friday">Benzinga · SanDisk investor-day targets</a> ·
+  <a href="https://www.benzinga.com/markets/tech/26/08/61174354/ai-boom-chipflation-memory-prices-iphone">Benzinga · memory &#39;chipflation&#39;, DRAM +400%</a> ·
+  <a href="https://finance.yahoo.com/energy/articles/oil-set-weekly-gains-us-110155136.html">Yahoo/Reuters · oil weekly gain, ADNOC tankers attacked</a> ·
+  <a href="https://www.aljazeera.com/economy/2026/8/12/oil-prices-rise-as-attacks-dent-hopes-for-strait-of-hormuz-reopening">Al Jazeera · Hormuz reopening hopes fade</a> ·
+  <a href="https://tradingeconomics.com/commodity/crude-oil">TradingEconomics · WTI</a> ·
+  <a href="https://tradingeconomics.com/commodity/gold">TradingEconomics · gold</a> ·
+  <a href="https://finance.yahoo.com/markets/stocks/articles/reddit-stock-jumps-p-500-113703282.html">Yahoo · Reddit joins the S&amp;P 500 Aug 18</a> ·
+  <a href="https://www.axios.com/2026/08/14/silver-lake-workday-take-private">Axios · Silver Lake / Workday, nothing signed</a> ·
+  <a href="https://insight.factset.com/sp-500-earnings-season-update-august-7-2026">FactSet · Q2 season 88% done, +50.4% blended</a> ·
+  <a href="https://farside.co.uk/btc/">Farside · spot BTC ETF flows</a> ·
+  <a href="https://farside.co.uk/eth/">Farside · spot ETH ETF flows</a> ·
+  <a href="https://cryptoslate.com/bitcoins-etf-rebound-just-lost-38-of-its-gains-in-four-sessions-as-btc-fell-below-63000/">CryptoSlate · BTC ETF rebound gives back 38%</a> ·
+  <a href="https://www.fool.com/coverage/stock-market-today/2026/08/14/crypto-market-today-aug-14-bitcoin-slips-as-tokenization-regulation-stalls/">Motley Fool · BTC/ETH Aug 14, tokenization rules stall</a> ·
+  <a href="https://s206.q4cdn.com/479360582/files/doc_financials/2026/q2/2026q2-alphabet-earnings-release.pdf">Alphabet · Q2 2026 release</a> ·
+  <a href="https://www.prnewswire.com/news-releases/meta-reports-second-quarter-2026-results-302838214.html">Meta · Q2 2026 results</a> ·
+  <a href="https://www.bloomberg.com/news/newsletters/2026-08-13/meta-faces-big-tobacco-moment-in-youth-harm-trial-brought-by-ags">Bloomberg · Meta youth-harm trial</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm">Amazon · Q2 2026 8-K</a> ·
+  <a href="https://finance.yahoo.com/technology/articles/apple-proposes-15-cut-purchases-145448010.html">Yahoo · Apple&#39;s proposed App Store commissions (Aug 14)</a> ·
+  <a href="https://247wallst.com/investing/2026/08/14/apple-is-testing-its-fundamental-floor/">24/7 Wall St · Apple at 32x, memory cost risk</a> ·
+  <a href="https://www.businesswire.com/news/home/20260802523449/en/Palantir-Reports-Q2-2026-U.S.-Comm-Revenue-Growth-of-149-YY-and-Revenue-Growth-of-93-YY-Raises-FY-2026-Revenue-Guidance-to-82-YY-Growth-and-U.S.-Comm-Revenue-Guidance-to-134-YY-Crushing-Consensus-Expectations">Palantir · Q2 2026 release</a> ·
+  <a href="https://electrek.co/2026/07/22/tesla-tsla-q2-2026-financial-results/">Electrek · Tesla Q2 margin collapse</a> ·
+  <a href="https://fortune.com/2026/08/04/spacex-revenue-surges-92-to-7-8-billion-blowing-past-wall-street-expectations-by-nearly-1-billion/">Fortune · SpaceX Q2 (+92%)</a> ·
+  <a href="https://investor.lilly.com/news-releases/news-release-details/lilly-reports-second-quarter-2026-financial-results-raises-full">Lilly · Q2 2026 release + guidance table</a> ·
+  <a href="https://qz.com/eli-lilly-foundayo-weight-loss-pill-uk-approval-081126">Quartz · Foundayo approved in the UK (Aug 11)</a> ·
+  <a href="https://www.prnewswire.com/news-releases/lilly-calls-on-online-platforms-payment-companies-and-regulators-to-shut-down-the-illegal-retatrutide-black-market-302849551.html">Lilly · retatrutide black-market suits (Aug 12)</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/875045/000087504526000073/exhibit991-q22026pressrele.htm">Biogen · Q2 2026 release (SEC)</a> ·
+  <a href="https://investors.biogen.com/news-releases/news-release-details/fda-approves-leqembi-iqlikr-lecanemab-irmb-subcutaneous">Biogen · Leqembi Iqlik initiation dose (Jul 13)</a> ·
+  <a href="https://www.prnewswire.com/news-releases/mcdonalds-reports-second-quarter-2026-results-302841703.html">McDonald&#39;s · Q2 2026 results</a> ·
+  <a href="https://kfgo.com/2026/08/11/for-mcdonalds-and-rivals-cheap-deals-no-longer-do-the-trick/">Reuters · cheap deals no longer do the trick (Aug 11)</a> ·
+  <a href="https://www.stocktitan.net/news/SN/shark-ninja-reports-second-quarter-2026-e384dzr000be.html">SharkNinja · Q2 2026 + $247.1M refund</a> ·
+  <a href="https://www.investing.com/news/transcripts/sharkninja-at-canaccord-genuitys-46th-annual-growth-conference-broad-growth-93CH-4852026">SharkNinja · Canaccord transcript (Aug 11)</a> ·
+  <a href="https://investor.tkogrp.com/news/news-details/2026/TKO-Reports-Second-Quarter-2026-Results/default.aspx">TKO · Q2 2026 results</a> ·
+  <a href="https://grannyshots.com/fundstrat-granny-shots-us-large-cap-etf/">Fundstrat · GRNY fund page</a> ·
+  <a href="https://stockanalysis.com">stockanalysis.com · closes, targets, forward multiples</a>
+</footer>
+</div>
+
+<script>
+/* ============ QUOTE DATA (fallback = Friday Aug 14, 2026 CLOSE — the last completed session; markets shut for the weekend. Live feed overrides while page is open.) ============ */
+const Q={
+  "^GSPC":{n:"S&P 500",p:7785.76,c:-0.17},
+  "^DJI":{n:"DOW",p:53732.41,c:-0.20},
+  "^IXIC":{n:"NASDAQ",p:26729.16,c:-0.28},
+  "^RUT":{n:"Russell 2000",p:3068.42,c:0.51},
+  "^VIX":{n:"VIX",p:14.35,c:-1.92},
+  AAPL:{n:"Apple",p:305.93,c:0.22},
+  GOOGL:{n:"Alphabet A",p:345.90,c:-0.13},
+  GOOG:{n:"Alphabet C",p:343.54,c:-0.12},
+  TSLA:{n:"Tesla",p:342.27,c:0.68},
+  SPCX:{n:"SpaceX",p:140.00,c:-0.91},
+  TKO:{n:"TKO Group",p:201.28,c:0.80},
+  "BTC-USD":{n:"Bitcoin",p:62826,c:-1.02},
+  "ETH-USD":{n:"Ethereum",p:1877.78,c:-0.53},
+  META:{n:"Meta",p:589.85,c:-0.86},
+  SN:{n:"SharkNinja",p:185.10,c:-1.85},
+  LLY:{n:"Eli Lilly",p:1180.16,c:-2.39},
+  MCD:{n:"McDonald's",p:272.83,c:0.21},
+  AMZN:{n:"Amazon",p:262.65,c:-0.94},
+  PLTR:{n:"Palantir",p:174.04,c:-2.78},
+  NVDA:{n:"Nvidia",p:225.16,c:-0.06},
+  GRNY:{n:"Granny Shots ETF",p:28.12,c:-0.32},
+  BIIB:{n:"Biogen",p:209.83,c:-0.39},
+  /* gold = spot, Aug 14; sources put the day's move between +0.2% and +0.9% and no COMEX settle was verifiable */
+  "GC=F":{n:"Gold",p:4373.48,c:0.24}
+};
+/* click any symbol -> Google Finance */
+const EXCH={AAPL:'NASDAQ',GOOGL:'NASDAQ',GOOG:'NASDAQ',TSLA:'NASDAQ',META:'NASDAQ',AMZN:'NASDAQ',PLTR:'NASDAQ',SPCX:'NASDAQ',NVDA:'NASDAQ',TKO:'NYSE',SN:'NYSE',LLY:'NYSE',MCD:'NYSE',GRNY:'NYSEARCA',BIIB:'NASDAQ'};
+const IDXGF={'^GSPC':'.INX:INDEXSP','^DJI':'.DJI:INDEXDJX','^IXIC':'.IXIC:INDEXNASDAQ','^RUT':'RUT:INDEXRUSSELL','^VIX':'VIX:INDEXCBOE'};
+function gfin(sym){
+  let u;
+  if(sym.endsWith('-USD')) u='https://www.google.com/finance/quote/'+sym;
+  else if(IDXGF[sym]) u='https://www.google.com/finance/quote/'+IDXGF[sym];
+  else if(sym==='GC=F') u='https://www.google.com/finance/quote/GCW00:COMEX';
+  else if(EXCH[sym]) u='https://www.google.com/finance/quote/'+sym+':'+EXCH[sym];
+  else u='https://www.google.com/finance?q='+encodeURIComponent(sym);
+  window.open(u,'_blank','noopener');
+}
+const fmt=(v)=> v>=1000? v.toLocaleString('en-US',{maximumFractionDigits:0}) : v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+/* ============ CUSTOM TICKERS (saved on this device) ============ */
+let CUSTOM={};
+try{CUSTOM=JSON.parse(localStorage.getItem('ra_custom')||'{}');}catch(e){}
+Object.entries(CUSTOM).forEach(([s,q])=>{ if(!Q[s]) Q[s]={n:s+' (yours)',p:q.p||0,c:q.c??null,custom:true,repo:q.repo||false}; });
+function saveCustom(){
+  const out={}; Object.entries(Q).forEach(([s,q])=>{ if(q.custom) out[s]={p:q.p,c:q.c,repo:q.repo||false}; });
+  localStorage.setItem('ra_custom',JSON.stringify(out));
+}
+function addTicker(){
+  const inp=document.getElementById('newTick'), msg=document.getElementById('addMsg');
+  const s=inp.value.trim().toUpperCase().replace(/[^A-Z0-9.^=-]/g,'');
+  if(!s){return}
+  if(Q[s]){msg.textContent=s+' is already on the board.';inp.value='';return}
+  Q[s]={n:s+' (yours)',p:0,c:null,custom:true};
+  saveCustom(); renderTape(); renderCustomCards(); inp.value='';
+  msg.textContent=s+' added — fetching live price…';
+  refreshQuotes(true);
+}
+const ISSUE_TOKEN='__ISSUE_TOKEN__';
+async function sendToAnalyst(s,btn){
+  if(btn){btn.textContent='Sending…';btn.style.pointerEvents='none';}
+  if(ISSUE_TOKEN && !ISSUE_TOKEN.startsWith('__')){
+    try{
+      const r=await fetch('https://api.github.com/repos/royarad-dev/ra-markets/issues',{
+        method:'POST',
+        headers:{'Authorization':'Bearer '+ISSUE_TOKEN,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+        body:JSON.stringify({title:'RATE: '+s,body:'Requested from the RA Markets dashboard.'})
+      });
+      if(r.ok||r.status===201){ if(Q[s]){Q[s].repo=true;saveCustom();} renderCustomCards(); return; }
+    }catch(e){}
+  }
+  /* fallback: open the pre-filled request */
+  window.open('https://github.com/royarad-dev/ra-markets/issues/new?title=RATE:+'+encodeURIComponent(s),'_blank','noopener');
+  if(btn){btn.textContent='⚡ Send to analyst';btn.style.pointerEvents='';}
+}
+function removeTicker(s){
+  delete Q[s]; saveCustom(); renderTape(); renderCustomCards();
+}
+function renderCustomCards(){
+  document.querySelectorAll('.card.custom').forEach(el=>el.remove());
+  const grid=document.getElementById('cards');
+  Object.entries(Q).forEach(([s,q])=>{
+    if(!q.custom)return;
+    const rm=q.repo?'':`<button class="rm" onclick="removeTicker('${s}')" title="Remove">✕</button>`;
+    const badge=q.repo?'RATING SOON':'UNRATED';
+    const why=q.repo?'In the rating queue — the analyst rates it on the next hourly update.'
+                    :`Live price on this device. Want the full analyst window (rating, checklist, news)?<br><button class="reqbtn" style="border:none;cursor:pointer" onclick="sendToAnalyst('${s}',this)">⚡ Send to analyst</button>`;
+    grid.insertAdjacentHTML('beforeend',
+    `<div class="card custom" data-f="all" data-sym="${s}" style="--sig:#64748b">
+      ${rm}
+      <div class="chead"><div><div class="tick" onclick="gfin('${s}')" title="Open in Google Finance">${s}</div><div class="name">${q.repo?'Queued for rating':'Added by you'}</div>
+      <div class="prc" data-psym="${s}">${q.p?'$'+fmt(q.p):'…'}</div></div>
+      <span class="badge">${badge}</span></div>
+      <div class="score-row"><div class="ring" style="--p:0"><b>—</b></div>
+      <div class="why">${why}</div></div>
+    </div>`);
+  });
+}
+/* repo-level watchlist: tickers.json "extra" symbols join the tape now and get rated windows on the next scheduled run */
+refreshRepoList().then(()=>refreshQuotes());
+/* ============ TICKER TAPE ============ */
+function renderTape(){
+  const items=Object.entries(Q).map(([s,q])=>{
+    const cls=q.c==null?'neu':(q.c>=0?'pos':'neg');
+    const chg=q.c==null?'—':(q.c>=0?'▲ +':'▼ ')+q.c.toFixed(2)+'%';
+    const px=q.p?('$'+fmt(q.p)):'…';
+    return `<span class="ti" onclick="gfin('${s}')" title="Open in Google Finance"><span class="sym">${s.replace('-USD','').replace('^','').replace('=F','')}</span><span class="px">${px}</span><span class="chg ${cls}">${chg}</span></span>`;
+  }).join('');
+  document.getElementById('tape').innerHTML=items+items;
+  renderIdx(); /* duplicated for seamless loop */
+}
+/* auto-date the header (never stale, never noisy) */
+document.getElementById('subDate').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+/* main indexes strip */
+if(!Q['^RUT'])Q['^RUT']={n:'Russell 2000',p:0,c:null};
+if(!Q['^VIX'])Q['^VIX']={n:'VIX',p:0,c:null};
+const IDX=[['^GSPC','S&P 500'],['^IXIC','Nasdaq'],['^DJI','Dow'],['^RUT','Russell 2K'],['^VIX','VIX'],['GC=F','Gold']];
+function renderIdx(){
+  const el=document.getElementById('idxStrip'); if(!el)return;
+  el.innerHTML=IDX.filter(([s])=>Q[s]).map(([s,l])=>{
+    const q=Q[s];const cls=q.c==null?'neu':(q.c>=0?'pos':'neg');
+    const chg=q.c==null?'—':(q.c>=0?'▲ +':'▼ ')+q.c.toFixed(2)+'%';
+    return `<div class="idx" onclick="gfin('${s}')" title="Open in Google Finance"><div class="il">${l}</div><div class="iv">${q.p?fmt(q.p):'…'}</div><div class="ic ${cls}">${chg}</div></div>`;
+  }).join('');
+}
+renderIdx();
+renderTape();
+
+/* ============ LIVE QUOTES (Yahoo Finance + CoinGecko) ============ */
+async function tryJson(url){const r=await fetch(url,{signal:AbortSignal.timeout(9000)});if(!r.ok)throw 0;return r.json();}
+async function refreshQuotes(){
+  let any=false;
+  /* crypto — CoinGecko allows browser requests directly */
+  try{
+    const j=await tryJson('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
+    if(j.bitcoin){Q['BTC-USD'].p=j.bitcoin.usd;Q['BTC-USD'].c=j.bitcoin.usd_24h_change;any=true;}
+    if(j.ethereum){Q['ETH-USD'].p=j.ethereum.usd;Q['ETH-USD'].c=j.ethereum.usd_24h_change;any=true;}
+  }catch(e){}
+  /* stocks (incl. your custom tickers) — Yahoo v8 chart endpoint per symbol via CORS relay (v7 quote API now requires auth) */
+  const relays=[u=>'https://corsproxy.io/?url='+encodeURIComponent(u), u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u)];
+  const syms=Object.keys(Q).filter(s=>s!=='BTC-USD'&&s!=='ETH-USD');
+  const results=await Promise.allSettled(syms.map(async s=>{
+    const u='https://query1.finance.yahoo.com/v8/finance/chart/'+encodeURIComponent(s)+'?interval=1d&range=5d';
+    for(const relay of relays){
+      try{
+        const j=await tryJson(relay(u));
+        const res0=j.chart&&j.chart.result&&j.chart.result[0];
+        const m=res0&&res0.meta;
+        if(m&&m.regularMarketPrice){
+          /* previous TRADING session close (holiday-proof): second-to-last daily close */
+          const closes=((res0.indicators&&res0.indicators.quote&&res0.indicators.quote[0]&&res0.indicators.quote[0].close)||[]).filter(x=>x!=null);
+          const prev=closes.length>=2?closes[closes.length-2]:(m.previousClose||m.chartPreviousClose);
+          Q[s].p=m.regularMarketPrice;
+          if(prev)Q[s].c=(m.regularMarketPrice-prev)/prev*100;
+          return true;
+        }
+      }catch(e){}
+    }
+    return false;
+  }));
+  if(results.some(r=>r.status==='fulfilled'&&r.value)) any=true;
+  if(any){
+    renderTape(); updateCardPrices(); saveCustom();
+    const b=document.getElementById('liveBadge');b.classList.add('on');
+    document.getElementById('liveTxt').textContent='LIVE · updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  }
+  return any;
+}
+/* full-page version check: if the hourly analysis task deployed a new build, reload to show it */
+let PAGE_SNAPSHOT=null;
+async function fetchSelf(){const r=await fetch(location.pathname+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;return r.text();}
+fetchSelf().then(t=>PAGE_SNAPSHOT=t).catch(()=>{});
+async function checkNewVersion(){
+  try{
+    const t=await fetchSelf();
+    if(PAGE_SNAPSHOT&&t!==PAGE_SNAPSHOT){location.reload();return true;}
+    PAGE_SNAPSHOT=PAGE_SNAPSHOT||t;
+  }catch(e){}
+  return false;
+}
+function refreshRepoList(){
+  return fetch('tickers.json?v='+Date.now()).then(r=>r.json()).then(t=>{
+    let added=false;
+    (t.extra||[]).forEach(s=>{ if(!Q[s]){Q[s]={n:s,p:0,c:null,custom:true,repo:true};added=true;} });
+    if(added){renderTape();renderCustomCards();}
+  }).catch(()=>{});
+}
+async function manualRefresh(){
+  const btn=document.getElementById('refreshBtn');
+  btn.classList.add('spin');
+  /* refresh EVERYTHING: repo watchlist, prices, headlines — then reload if a newer analysis build was deployed */
+  await Promise.allSettled([refreshRepoList(), refreshQuotes(true), refreshNews()]);
+  await checkNewVersion();
+  btn.classList.remove('spin');
+}
+setInterval(checkNewVersion, 15*60*1000);   /* auto-pick-up new analysis builds every 15 min */
+refreshQuotes();
+setInterval(refreshQuotes, 15*60*1000);   /* prices: every 15 minutes */
+
+/* ============ LIVE HEADLINES (Yahoo Finance RSS per stock) ============ */
+let NEWSLIST;
+try{NEWSLIST=JSON.parse(localStorage.getItem('ra_newslist'));}catch(e){}
+if(!Array.isArray(NEWSLIST)||!NEWSLIST.length) NEWSLIST=['META','TSLA','AAPL','PLTR','LLY','SPCX'];
+const saveNewsList=()=>localStorage.setItem('ra_newslist',JSON.stringify(NEWSLIST));
+const NRELAYS=[u=>'https://corsproxy.io/?url='+encodeURIComponent(u), u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u), u=>'https://api.codetabs.com/v1/proxy/?quest='+encodeURIComponent(u)];
+
+function addNewsTicker(){
+  const inp=document.getElementById('newsTick'), msg=document.getElementById('newsMsg');
+  const s=inp.value.trim().toUpperCase().replace(/[^A-Z0-9.^=-]/g,'');
+  if(!s)return;
+  if(NEWSLIST.includes(s)){msg.textContent=s+' is already tracked.';inp.value='';return}
+  if(NEWSLIST.length>=10){msg.textContent='Max 10 tracked stocks — remove one first (✕ on its card).';return}
+  NEWSLIST.push(s); saveNewsList(); inp.value='';
+  msg.textContent='Tracking '+s+' — fetching headlines…';
+  refreshNews();
+}
+function removeNewsTicker(s){
+  NEWSLIST=NEWSLIST.filter(x=>x!==s); saveNewsList(); refreshNews();
+}
+/* market wires — official RSS feeds (X.com exposes no public feed, so it can't be pulled client-side) */
+const WIRES=[
+  {n:'WSJ · Markets', u:'https://feeds.content.dowjones.io/public/rss/RSSMarketsMain'},
+  {n:'CNBC · Top News', u:'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114'},
+  {n:'Yahoo Finance', u:'https://finance.yahoo.com/news/rssindex'}
+];
+async function fetchFeed(url,count){
+  for(const relay of NRELAYS){
+    try{
+      const r=await fetch(relay(url),{signal:AbortSignal.timeout(9000)});
+      if(!r.ok)throw 0;
+      const xml=new DOMParser().parseFromString(await r.text(),'text/xml');
+      const items=[...xml.querySelectorAll('item')].slice(0,count).map(it=>({
+        t:(it.querySelector('title')||{}).textContent||'',
+        l:(it.querySelector('link')||{}).textContent||'#',
+        d:(it.querySelector('pubDate')||{}).textContent||''
+      })).filter(x=>x.t);
+      if(items.length) return items;
+    }catch(e){}
+  }
+  return null;
+}
+/* Google News first — Yahoo retired its per-ticker RSS endpoint, so it is now only a backstop */
+async function tickerNews(s){
+  const q=(NEWSQ[s]||s.replace('-USD','')+' stock');
+  const a=await fetchFeed('https://news.google.com/rss/search?q='+encodeURIComponent(q)+'&hl=en-US&gl=US&ceid=US:en',3);
+  if(a&&a.length)return a;
+  return fetchFeed(tickerFeed(s),3);
+}
+/* plain-English queries beat raw tickers on Google News (SN and TKO are hopeless as bare symbols) */
+const NEWSQ={META:'Meta Platforms stock',TSLA:'Tesla stock',AAPL:'Apple stock',PLTR:'Palantir stock',LLY:'Eli Lilly stock',SPCX:'SpaceX stock',GOOGL:'Alphabet stock',GOOG:'Alphabet stock',AMZN:'Amazon stock',MCD:'McDonald\'s stock',SN:'SharkNinja stock',TKO:'TKO Group UFC WWE stock',BIIB:'Biogen stock',GRNY:'Granny Shots ETF',NVDA:'Nvidia stock','BTC-USD':'Bitcoin price','ETH-USD':'Ethereum price'};
+const tickerFeed=s=>'https://feeds.finance.yahoo.com/rss/2.0/headline?s='+encodeURIComponent(s)+'&region=US&lang=en-US';
+function hItems(items){
+  return items? items.map(it=>{
+      const when=it.d?new Date(it.d):null;
+      const ago=when&&!isNaN(when)? when.toLocaleString([], {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+      return `<a href="${it.l}" target="_blank" rel="noopener">${it.t}<time>${ago}</time></a>`;
+    }).join('')
+    : `<a>feed unavailable right now — try REFRESH</a>`;
+}
+/* Top-Story engine — scores every fresh headline like the signal cards score stocks:
+   recency (heaviest), market-impact keywords, board-ticker mentions, hard numbers, source weight */
+const HOT=['breaking','fed','rate hike','rate cut','rates','jobs','payroll','inflation','cpi','crash','plunge','plummet','surge','soar','record','all-time','tariff','earnings','guidance','deliveries','ipo','merger','acquisition','bankruptcy','halted','sec ','lawsuit','short sell','downgrade','upgrade','recall','probe'];
+function scoreStory(it,src){
+  let s=0;
+  const age=(Date.now()-new Date(it.d).getTime())/60000;
+  if(isNaN(age)) s-=5;
+  else if(age<=15) s+=30; else if(age<=60) s+=18; else if(age<=180) s+=8; else if(age<=720) s+=2;
+  const t=(it.t||'').toLowerCase();
+  HOT.forEach(k=>{ if(t.includes(k)) s+=6; });
+  Object.entries(Q).forEach(([sym,q])=>{
+    const base=sym.replace('-USD','').toLowerCase();
+    const name=(q.n||'').split(' ')[0].toLowerCase();
+    if((base.length>2&&t.includes(base))||(name.length>3&&t.includes(name))) s+=5;
+  });
+  if(/\d+(\.\d+)?%/.test(t)) s+=6;
+  if(src.includes('WSJ')) s+=4; else if(src.includes('CNBC')) s+=3;
+  return s;
+}
+function renderTopStory(pool){
+  const el=document.getElementById('topstory');
+  if(!pool.length){el.innerHTML='';return;}
+  pool.forEach(x=>x.score=scoreStory(x.it,x.src));
+  pool.sort((a,b)=>b.score-a.score);
+  const w=pool[0];
+  const age=(Date.now()-new Date(w.it.d).getTime())/60000;
+  const fresh=!isNaN(age)&&age<=15;
+  const ago=isNaN(age)?'':(age<1?'just now':age<60?Math.round(age)+'m ago':Math.round(age/60)+'h ago');
+  el.innerHTML=`<div class="topstory">
+    <div class="ts-tag"><span class="ts-dot"></span>${fresh?'\ud83d\udd25 Top story \u2014 last 15 min':'\ud83d\udd25 Top story right now'}</div>
+    <a href="${w.it.l}" target="_blank" rel="noopener">${w.it.t}</a>
+    <div class="ts-meta">${w.src}${ago?' \u00b7 '+ago:''} \u00b7 impact score ${w.score}</div>
+  </div>`;
+}
+async function refreshNews(){
+  const grid=document.getElementById('headlines'), note=document.getElementById('hnote');
+  const [wireRes,tickRes]=await Promise.all([
+    Promise.allSettled(WIRES.map(w=>fetchFeed(w.u,4))),
+    Promise.allSettled(NEWSLIST.map(s=>tickerNews(s)))
+  ]);
+  /* pool every fetched headline for the Top-Story engine */
+  const pool=[];
+  WIRES.forEach((w,i)=>{const r=wireRes[i];if(r.status==='fulfilled'&&r.value)r.value.forEach(it=>pool.push({it,src:w.n}));});
+  NEWSLIST.forEach((s,i)=>{const r=tickRes[i];if(r.status==='fulfilled'&&r.value)r.value.forEach(it=>pool.push({it,src:s+' \u00b7 Yahoo'}));});
+  renderTopStory(pool);
+  let html='', ok=0;
+  WIRES.forEach((w,i)=>{
+    const items=wireRes[i].status==='fulfilled'?wireRes[i].value:null;
+    if(items)ok++;
+    html+=`<div class="hcard"><div class="hsym"><span>📰 ${w.n}</span></div>${hItems(items)}</div>`;
+  });
+  NEWSLIST.forEach((s,i)=>{
+    const items=tickRes[i].status==='fulfilled'?tickRes[i].value:null;
+    if(items)ok++;
+    html+=`<div class="hcard"><div class="hsym"><span>${s}</span><button onclick="removeNewsTicker('${s}')" title="Stop tracking">✕</button></div>${hItems(items)}</div>`;
+  });
+  grid.innerHTML=html;
+  document.getElementById('hstamp').textContent=ok? '· updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+  note.textContent=ok? 'Wires: WSJ Markets · CNBC Top News · Yahoo Finance (official feeds). X.com offers no public feed — the hourly RA analysis covers notable X chatter instead.'
+                     : 'Headlines couldn\'t load — some networks block the free relays this page uses. Prices are unaffected.';
+}
+refreshNews().then(()=>{ if(!document.querySelectorAll('#headlines .hcard').length) setTimeout(refreshNews,6000); });
+setInterval(refreshNews, 15*60*1000);   /* headlines: every 15 minutes */
+
+/* ============ SIGNAL CARDS ============ */
+const SIG={buy:{c:'var(--buy)',l:'BUY'},hold:{c:'var(--hold)',l:'HOLD'},avoid:{c:'var(--avoid)',l:'AVOID'},wait:{c:'var(--wait)',l:'WAIT'}};
+const CARDS=[
+{t:"GOOGL",q:"GOOGL",n:"Alphabet (also GOOG)",sig:"buy",score:82,
+ why:"<b>Cheapest mega-cap growth in the market, and it barely moved in a week that punished tech.</b> Q2 (Jul 22) revenue $119.8B +24%, Google Cloud $24.8B <b>+82%</b> with a $514B backlog (+$50B q/q). Gemini passed <b>1 billion monthly users</b> on Aug 11. At $345.90 it trades on <b>17.5x forward</b> — below the S&P — against a $428 consensus target (+24%). No company-specific news Aug 13&ndash;14, which in this tape counts as a result.",
+ kpis:["Revenue <b>+24%</b>","Cloud <b>+82%</b>","Fwd P/E <b>17.5x</b>","Target <b>$428 (+24%)</b>"],
+ chk:["&#9989; <b>Business:</b> Search + YouTube + Cloud + Waymo; Gemini at 1B MAU","&#9989; <b>Growth:</b> 12th straight double-digit quarter; cloud backlog +$50B in one quarter","&#9989; <b>Valuation:</b> 17.5x forward is the cheapest of the mega-caps and ~24% below consensus","&#9888;&#65039; <b>Cash:</b> FY26 capex guided to ~$195&ndash;205B and higher in 2027 — free cash flow is negative","&#8505;&#65039; <b>Read the EPS carefully:</b> Q2 EPS +294% is mostly unrealised marks on Anthropic and SpaceX, not operating profit"]},
+{t:"META",q:"META",n:"Meta Platforms",sig:"buy",score:74,
+ why:"<b>Still the cheapest AI mega-cap — but the courtroom calendar starts this week.</b> Q2 (Jul 29) revenue $60.8B +28% beat, EPS $6.18 <b>missed by 14%</b>, costs +55% on $2.4B of legal charges and $1.2B of severance, free cash flow $784M. At $589.85 that is <b>~18.4x forward</b> against a $754 target (+28%). The new fact is timing: the federal youth-safety case brought by state AGs opens the week of <b>Aug 17</b>, with Bloomberg calling it Meta&rsquo;s &lsquo;Big Tobacco moment&rsquo;. Score trimmed on that, not the business.",
+ kpis:["Revenue <b>+28%</b>","Fwd P/E <b>18.4x</b>","FCF <b>$784M &#9888;&#65039;</b>","Target <b>$754 (+28%)</b>"],
+ chk:["&#9989; <b>Business:</b> 3.6B daily people, ad price/ad +12%","&#9989; <b>Valuation:</b> ~18x forward is the cheapest AI mega-cap by a wide margin, though several banks have trimmed targets into the $715&ndash;750 range","&#10060; <b>Cash flow:</b> $784M FCF on $31.1B of quarterly capex; FY26 capex $130&ndash;145B","&#10060; <b>Legal:</b> federal youth-safety trial opens week of Aug 17; theoretical maximum penalties have been put near $1.4T — an unusable number, but the remedies sought could reshape the apps","&#8505;&#65039; <b>Regulatory drag is now operational:</b> 756,000 Australian accounts deactivated under the under-16 ban","&#127919; <b>Next:</b> Meta Connect Sept 23&ndash;24"]},
+{t:"LLY",q:"LLY",n:"Eli Lilly",sig:"buy",score:78,
+ why:"<b>Best growth in large-cap pharma — and the &lsquo;raised guidance&rsquo; headline is only half true.</b> Q2 (Aug 5) revenue $23.0B <b>+48%</b>, non-GAAP EPS $8.38 vs ~$6.58 expected, Mounjaro $9.94B (+91%), Zepbound $4.93B (+46%). Revenue guidance did go up to $85&ndash;87B — but non-GAAP EPS guidance was <b>narrowed downward at the top, $37.00 to $36.50</b>, so the midpoint fell. Foundayo (oral orforglipron) was approved in the <b>UK on Aug 11</b>, the first oral GLP-1 cleared in Europe. Fell 2.4% Friday to $1,180; target $1,300 (+10%).",
+ kpis:["Revenue <b>+48%</b>","Fwd P/E <b>29.6x</b>","EPS guide midpoint <b>&#8595; &#9888;&#65039;</b>","Target <b>$1,300 (+10%)</b>"],
+ chk:["&#9989; <b>Business:</b> obesity-drug duopoly with Novo; first oral GLP-1 approval in Europe (UK, Aug 11)","&#9989; <b>Growth:</b> +48% revenue, performance margin guide lifted to 49.0&ndash;50.5%","&#9888;&#65039; <b>Read the guidance carefully:</b> revenue up, but non-GAAP EPS midpoint down $36.25 &rarr; $36.00 — the press release headline says only &lsquo;raises&rsquo;","&#9888;&#65039; <b>Non-GAAP is doing work:</b> $2.8B acquired IPR&amp;D ($3.03/sh) plus $703M impairment/restructuring stripped out; with a serial-acquisition model, IPR&amp;D recurs every quarter","&#9888;&#65039; <b>Valuation:</b> only ~10% to consensus","&#127919; <b>Next:</b> retatrutide FDA submission planned Q1 2027 — the drug is still investigational and unapproved anywhere, which is exactly why Lilly sued six US sellers of black-market retatrutide on Aug 12"]},
+{t:"SN",q:"SN",n:"SharkNinja",sig:"buy",score:72,
+ why:"<b>The operating growth is real; the tariff refund is not the story it was sold as.</b> Q2 (Aug 5) sales $1.766B <b>+22.2%</b> — 13th straight quarter above 20% — adj. EPS $1.26 vs ~$1.10&ndash;1.13. FY26 sales guidance jumped from +11.5&ndash;12.5% to <b>+16&ndash;17%</b>, which is clean. Correction to last week&rsquo;s card: the <b>$247.1M CBP refund lands in Q3, not Q2</b>, and roughly half of it relates to 2025 duties and is excluded from adjusted metrics. At $185.10 vs a $205 target.",
+ kpis:["Sales <b>+22.2%</b>","Intl <b>+36.6%</b>","Refund <b>$247M (Q3) &#9888;&#65039;</b>","Target <b>$205 (+11%)</b>"],
+ chk:["&#9989; <b>Growth:</b> guidance raised to +16&ndash;17% sales and $6.45&ndash;6.55 adj. EPS; international +36.6%","&#9989; <b>Valuation:</b> ~26x forward and still below consensus — but near the top of its own 3-year range (12.8&ndash;29.3x)","&#9888;&#65039; <b>One-off:</b> ~$0.15 of adj. EPS and ~$30M of adj. EBITDA in the raise is the refund — about a third of the EPS raise is not operating improvement","&#10060; <b>Tariffs did not go away:</b> the Feb 20 Supreme Court ruling voided IEEPA duties only; Section 232 and 301 stand, and management said on Aug 11 its own tariff rate has risen from <b>10% to 12.5%</b>","&#9888;&#65039; <b>Quality:</b> GAAP EPS fell 6.1% y/y and gross margin slipped 30bp to 48.7%","&#127919; <b>Next:</b> Q3 print, where the refund actually books"]},
+{t:"TKO",q:"TKO",n:"TKO (UFC + WWE)",sig:"buy",score:70,
+ why:"<b>Contractual growth compounding — with a one-off flattering the mix.</b> Q2 (Aug 3) revenue $1.547B +18%, adj. EBITDA $650M <b>+23%</b> at a 42% margin, FY26 guidance raised to $5.775&ndash;5.825B. UFC +29%, WWE +12%, IMG +16% — but <b>IMG&rsquo;s number is inflated by FIFA World Cup 2026 hospitality</b>, which does not repeat in 2027. Removing the UFC double paywall is working: 200M+ hours on Paramount+ through mid-year. $201.28, target $232 (+16%).",
+ kpis:["Revenue <b>+18%</b>","EBITDA <b>+23%</b>","Fwd P/E <b>37x</b>","Target <b>$232 (+16%)</b>"],
+ chk:["&#9989; <b>Business:</b> monopoly-grade live sport; Paramount UFC and ESPN WWE economics now in the numbers","&#9989; <b>Capital returns:</b> >$1B still authorised of the $3B buyback as of Aug 3, plus a $0.79 quarterly dividend","&#9888;&#65039; <b>One-off:</b> World Cup hospitality lifts IMG — do not extrapolate that segment&rsquo;s growth rate","&#9888;&#65039; <b>Earnings line:</b> outlets ran an &lsquo;EPS miss&rsquo; ($1.34 vs $1.53), but $1.34 is the GAAP diluted figure in TKO&rsquo;s own release — the comparison may not be like-for-like, and I could not resolve it. Stockholder-litigation expense is a genuine drag on GAAP net income","&#9888;&#65039; <b>Valuation:</b> 37x forward","&#127919; <b>Next:</b> Mark Shapiro at Goldman Communacopia, Sept 8"]},
+{t:"AMZN",q:"AMZN",n:"Amazon",sig:"hold",score:66,
+ why:"<b>AWS re-accelerated to 37% — and you are financing it.</b> Q2 (Jul 30) sales $200.6B +20%; <b>AWS $42.2B +37%, the fastest in 18 quarters</b>, with a $496B backlog. The stock rose 15% the next day. Trailing free cash flow is <b>&minus;$7.6B</b> and FY26 capex was raised to ~$220B, partly on memory prices — which is the same input now squeezing Apple and Cisco. $262.65, target $326 (+24%), and not one of 60&ndash;62 analysts rates it Sell.",
+ kpis:["AWS <b>+37%</b>","Backlog <b>$496B</b>","FCF <b>&minus;$7.6B &#10060;</b>","Target <b>$326 (+24%)</b>"],
+ chk:["&#9989; <b>Business:</b> AWS at a ~$169B run rate and accelerating; op income +43%","&#10060; <b>Cash flow:</b> &minus;$7.6B trailing FCF, capex raised $200B &rarr; $220B","&#8505;&#65039; <b>EPS is not real:</b> Q2 EPS $5.75 includes $53.4B of non-operating gain on the Anthropic stake","&#9888;&#65039; <b>New risk:</b> Friday&rsquo;s retail sales print (&minus;0.6%) is a first-order negative for the retail half of the business — watch it in the Q3 guide","Verdict: hold — the cloud line is doing its job, but the bill lands on your side of the ledger"]},
+{t:"BIIB",q:"BIIB",n:"Biogen",sig:"hold",score:63,
+ why:"<b>The franchise crossed over; the Leqembi curve still has not.</b> Q2 (Jul 29) revenue $2.736B +3%, and the <b>growth portfolio ($1.061B, +24%) now exceeds the legacy MS book ($767M)</b> for the first time — a structural inflection the headlines missed. The Jul 13 approval of Leqembi Iqlik was for the <i>initiation</i> dose (maintenance was cleared back in Aug 2025), completing an all-at-home pathway; <b>US availability is expected late August</b>. But Leqembi in-market sales grew only <b>+15% y/y</b>. Cheapest forward multiple here at 15.8x; $209.83, target $238 (+13%).",
+ kpis:["Growth portfolio <b>+24%</b>","Leqembi <b>+15% y/y &#9888;&#65039;</b>","Fwd P/E <b>15.8x</b>","Target <b>$238 (+13%)</b>"],
+ chk:["&#9989; <b>Inflection:</b> growth portfolio now larger than legacy MS — the decline story has an end date","&#9989; <b>Catalyst:</b> all-subcutaneous at-home Leqembi pathway complete; initiation dose ships late August","&#9888;&#65039; <b>Read the guidance carefully:</b> reported non-GAAP EPS guide was cut to $12&ndash;13 from $14.25&ndash;15.25 — but <i>underlying</i> guidance is $15.85&ndash;16.85 and actually rose $0.60. The cut is ~$3.00 of IPR&amp;D and ~$0.85 of Apellis dilution, not operations","&#10060; <b>Franchise:</b> +15% Leqembi growth is the number that has to move, and it decelerated hard","&#127919; <b>Next:</b> Q3, the first quarter with the at-home initiation dose actually on the market"]},
+{t:"PLTR",q:"PLTR",n:"Palantir",sig:"hold",score:60,
+ why:"<b>A historic quarter the stock already spent.</b> Q2 (Aug 3) revenue $1.94B <b>+93%</b>, US commercial <b>+149%</b>, first $1B net-profit quarter, net retention 157%, Rule of 40 at 155. FY26 guide raised to +82%. But at $174.04 — down 2.8% Friday on volume 49% below average, with no news behind it — it trades on <b>91x forward earnings</b> against a $190 consensus, about 9% away. The business is extraordinary; the price has already agreed.",
+ kpis:["Revenue <b>+93%</b>","US comm <b>+149%</b>","Fwd P/E <b>91x &#10060;</b>","Target <b>$190 (+9%)</b>"],
+ chk:["&#9989; <b>Growth:</b> best in software at any scale","&#9989; <b>Quality:</b> 47% GAAP operating margin, 157% net retention, $4.5&ndash;4.7B adj. FCF guided","&#9989; <b>Demand:</b> DoD directed up to $243.9M of no-bid work through Mar 2027","&#10060; <b>Valuation:</b> 91x forward, ~9% to consensus — the multiple has priced the beat","&#9888;&#65039; <b>Tape risk:</b> the highest-multiple name in the book in a week where the market started re-pricing AI financing risk","Verdict: own it small; zero margin for error in the price"]},
+{t:"MCD",q:"MCD",n:"McDonald's",sig:"avoid",score:46,
+ why:"<b>Downgrade: Friday&rsquo;s data hit exactly the customer McDonald&rsquo;s is losing.</b> Q2 (Aug 4) US comps rose 0.8% — all price and mix, with <b>negative guest counts</b>. Then Friday: retail sales &minus;0.6%, sentiment 51.0, one-year inflation expectations 4.3%. And Reuters (Aug 11) documents the mechanism — cheap deals have stopped converting: MCD ran an under-$3 menu and a $4 breakfast deal for +1.3% global comps, while <b>Taco Bell did +7%</b> pairing tiers with menu innovation and Wingstop&rsquo;s weakness clustered in lower-income urban markets even as higher-income markets grew up to 9%. This is cohort erosion, not a cycle. $272.83, ~5% off the 52-week low; +16% to target is not payment for that.",
+ kpis:["US comps <b>+0.8%, traffic &minus; &#10060;</b>","Fwd P/E <b>20.6x</b>","Dividend <b>2.73%</b>","Target <b>$316 (+16%)</b>"],
+ chk:["&#9989; <b>Business:</b> franchise royalty model and a 2.73% yield still put a floor under it","&#10060; <b>Traffic:</b> negative US guest counts — the +0.8% comp is price, not demand","&#10060; <b>Strategy:</b> the value architecture is not converting; management blames execution and defecting loyalists rather than the playbook","&#10060; <b>Macro:</b> the low-income consumer is contracting on Friday&rsquo;s prints, and the peer evidence shows the spend going to higher-income-skewed brands","&#9888;&#65039; <b>Counter-case:</b> no forward guidance was given, and at 20.6x with a 2.7% yield near a 52-week low the downside is not obviously deep — this is a downgrade on deteriorating traffic, not a call for a collapse","&#127919; <b>Watch:</b> Q3 US guest counts, and Walmart Aug 20 for the same consumer read"]},
+{t:"AAPL",q:"AAPL",n:"Apple",sig:"hold",score:52,
+ why:"<b>The memory bill is getting worse and the App Store toll is coming down.</b> FQ3 (Jul 30) beat — revenue $109.4B +16%, iPhone +22% — but the September-quarter guide decelerated to +9&ndash;11%. On <b>Aug 14 Apple filed its proposed external-purchase commissions in the Epic case</b> — 15% standard, 10% on subscription renewals, 5% small-business — replacing the 27% external-link fee, after the Supreme Court refused to delay the proceedings. That is a direct haircut on the highest-margin line (Services $30.7B, +12%, 75.6% gross margin). Meanwhile TrendForce puts the iPhone 18 Pro BOM up ~38% y/y with memory at 34% of it. At $305.93 on <b>33x forward</b>, consensus is $322 — <b>+5.3%</b>.",
+ kpis:["Revenue <b>+16%</b>","Fwd P/E <b>33.4x &#10060;</b>","Target <b>$322 (+5.3%)</b>","BOM <b>+38% y/y &#9888;&#65039;</b>"],
+ chk:["&#9989; <b>Business:</b> best ecosystem in tech; Services $30.7B at 75.6% gross margin across 2.5B devices","&#9989; <b>Cash:</b> ~$100B/yr free cash flow","&#10060; <b>Valuation:</b> 33x forward for ~10% growth, and only 5.3% to consensus — the thinnest upside in the book","&#10060; <b>Costs:</b> management has called the memory situation a &lsquo;100-year flood&rsquo;; Apple is expected to eat margin rather than fully price it through","&#9888;&#65039; <b>New:</b> the Epic commission filing caps external-purchase economics — better than 27% for developers, worse for Apple&rsquo;s Services growth rate","&#127919; <b>Next:</b> September event (expected ~Sept 8&ndash;9) — iPhone 18 Pro and the foldable"]},
+{t:"GRNY",q:"GRNY",n:"Fundstrat Granny Shots ETF",sig:"hold",score:56,
+ why:"<b>The alpha is still front-loaded to 2025.</b> On the fund&rsquo;s own standardised numbers to Jul 31: ahead <b>since inception (+19.0% vs +15.9%)</b> but behind over <b>one year (+15.2% vs +19.6%)</b> and slightly behind <b>YTD (+9.2% vs +10.1%)</b> — while charging 0.75%. ~$4.43&ndash;4.48B AUM, near-equal weight, top holds Arista, Palantir, ServiceNow, Robinhood, GE Aerospace. Note the fund&rsquo;s YTD and third-party YTD (13.4% at Aug 12) diverge, which implies a strong first half of August; $28.12.",
+ kpis:["Since incep <b>+19.0% vs 15.9%</b>","1-yr <b>&minus;4.4pp vs S&P &#10060;</b>","AUM <b>~$4.45B</b>","Fee <b>0.75% &#9888;&#65039;</b>"],
+ chk:["&#9989; <b>Strategy:</b> multi-theme intersection, near-equal weight, quarterly rebalance — disciplined and legible","&#9989; <b>Scale:</b> ~$4.45B AUM with strong flows","&#10060; <b>Performance:</b> behind the S&P over 1-year and, on the fund&rsquo;s own July 31 basis, YTD","&#9888;&#65039; <b>Cost:</b> 0.75% against ~0.03% for an index fund needs persistent alpha that is not currently showing","&#9888;&#65039; <b>Data quality:</b> providers disagree on holdings count (43 / 45 / 46) and on YTD return — treat any single number here loosely","&#127919; <b>Next:</b> August quarterly rebalance, typically announced late Aug or early Sept"]},
+{t:"SPCX",q:"SPCX",n:"SpaceX",sig:"wait",score:47,
+ why:"<b>The business delivered; the share count is still the problem.</b> First public quarter (Aug 4): revenue $7.8B <b>+92%</b>, ~$900M above consensus, adj. EBITDA $3.5B, Starlink 12M subscribers — against <b>$18.4B of capex in a single quarter</b>, which sent the stock to an all-time low of $108 before a 30% bounce. The Aug 6 lockup released 911M shares without incident. On Aug 14 Musk claimed SpaceX AI revenue will pass rocket and Starlink revenue within a month — a claim with no disclosed numbers behind it yet. $140.00. <b>Dec 8 frees the full ~4.6B-share block.</b>",
+ kpis:["Revenue <b>+92%</b>","EBITDA <b>$3.5B</b>","Capex <b>$18.4B/qtr &#10060;</b>","Unlock <b>Dec 8 &#9888;&#65039;</b>"],
+ chk:["&#9989; <b>Business:</b> launch monopoly; Starlink revenue $4.29B +66% at 38.6% operating margin","&#9989; <b>Trajectory:</b> net loss narrowed to $541M from $1B","&#10060; <b>Cash:</b> $18.4B quarterly capex (~$73B annualised) against ~$23B of trailing revenue","&#9888;&#65039; <b>Supply:</b> the Aug 6 lockup passed quietly, but the full 180-day block (~4.6B shares) frees Dec 8, and Musk&rsquo;s ~6.4B shares in June 2027","&#9888;&#65039; <b>Take the AI claim as a claim:</b> no segment disclosure supports the &lsquo;bigger than launch and Starlink in a month&rsquo; line yet","&#127919; <b>Wait for:</b> the Q3 print and how Dec 8 is absorbed"]},
+{t:"ETH",q:"ETH-USD",n:"Ethereum",sig:"wait",score:45,
+ why:"<b>Still beating bitcoin, but the two things the buy case needed both stalled.</b> ~$1,878, down 1.6% on the week — and spot ETH ETFs were roughly <b>flat at about &minus;$3M for Aug 10&ndash;14</b>, ending the five-week inflow run, though they did buck bitcoin&rsquo;s much larger outflow. The other condition was regulatory: the SEC&rsquo;s tokenisation and crypto-rules process <b>stalled</b> rather than opening on Aug 14. Relative strength intact, catalysts are not. Still ~62% below the 2025 high.",
+ kpis:["~$1,878 <b>(&minus;1.6% wk)</b>","ETF flows <b>~flat &#9888;&#65039;</b>","vs BTC <b>outperforming</b>","&minus;62% <b>from ATH</b>"],
+ chk:["&#9989; <b>Relative strength:</b> ETH ETFs held roughly flat while BTC ETFs bled ~$385M — the ratio is still turning ETH&rsquo;s way","&#9888;&#65039; <b>Flows:</b> the five-week inflow streak ended; flat is not the same as demand","&#10060; <b>Catalyst:</b> tokenisation/crypto rulemaking stalled on Aug 14, which was the specific event this card was waiting on","&#9888;&#65039; <b>Roadmap:</b> Glamsterdam targeted Q4 2026 with no mainnet date announced","&#127919; <b>Buy signal:</b> two consecutive weeks of positive ETH ETF flows AND a concrete regulatory step forward, not a delayed one"]},
+{t:"BTC",q:"BTC-USD",n:"Bitcoin",sig:"wait",score:40,
+ why:"<b>The August rebound gave most of itself back.</b> Spot ETFs took +$853M in the Aug 3&ndash;7 week — the best since April — then ran <b>five straight sessions of outflows totalling roughly &minus;$385M</b> in Aug 10&ndash;14, surrendering a large share of that. BTC failed at $65K after the CPI print and closed Friday at <b>$62,826, &minus;1.0% on the day and &minus;2.9% on the week</b>, roughly 49% below the October 2025 high. 2026 remains net negative on ETF flows.",
+ kpis:["~$62.8K <b>(&minus;2.9% wk)</b>","ETF flows <b>&minus;$385M wk &#10060;</b>","$65K <b>rejected</b>","&minus;49% <b>from ATH</b>"],
+ chk:["&#10060; <b>Flows:</b> the inflow week did not hold — a five-day outflow run immediately followed","&#10060; <b>Trend:</b> lower highs since the $65K rejection; rangebound $60&ndash;65K","&#9888;&#65039; <b>Relative:</b> losing the flow contest to ether, which is unusual and worth watching","&#8505;&#65039; <b>Note:</b> the risk-off in crypto ran the same week equities made records — this is not tracking the equity tape","&#127919; <b>Buy signal:</b> a daily close back above $65K AND a second consecutive week of net ETF inflows"]},
+{t:"TSLA",q:"TSLA",n:"Tesla",sig:"avoid",score:34,
+ why:"<b>Record revenue, collapsed margin, and a multiple that ignores both.</b> Q2 (Jul 22) revenue $28.2B +26% beat — but operating income fell 57% to $398M, <b>operating margin dropped to 1.4%</b> from 4.1%, regulatory credits shrank 67% and free cash flow went to <b>&minus;$1.09B</b>. The stock has recovered to $342.27 on the $10.1B Texas solar plant plan and robotaxi expansion into Orlando and Tampa, and TD Cowen reiterated Buy at $460 on Aug 14. It still trades at <b>~177x forward earnings</b> against a $397 consensus.",
+ kpis:["Op margin <b>1.4% &#10060;</b>","FCF <b>&minus;$1.09B &#10060;</b>","Fwd P/E <b>177x &#10060;</b>","Target <b>$397 (+16%)</b>"],
+ chk:["&#9989; <b>Demand:</b> record Q2 deliveries of 480,126 (+25%); energy storage 13.5 GWh","&#10060; <b>Margins:</b> the volume was bought — operating income &minus;57%, first cash-burn quarter since early 2024","&#9888;&#65039; <b>Robotaxi reality check:</b> paid robotaxi miles flat q/q and the unsupervised fleet shrank to ~21 cars even as Miami, Orlando and Tampa launched","&#9888;&#65039; <b>Consumer read-through:</b> Friday&rsquo;s retail sales miss is not a helpful backdrop for a discretionary big-ticket seller already discounting","&#127919; <b>Watch:</b> Q3 deliveries in early October — margin, not volume"]}
+];
+
+
+const cardsEl=document.getElementById('cards');
+CARDS.forEach((c,i)=>{
+  const s=SIG[c.sig];
+  cardsEl.insertAdjacentHTML('beforeend',
+  `<div class="card" data-f="${c.sig}" style="--sig:${s.c}">
+    <div class="chead"><div><div class="tick" onclick="gfin('${c.q||c.t}')" title="Open in Google Finance">${c.t}</div><div class="name">${c.n}</div>
+    <div class="prc" id="prc-${i}"></div></div>
+    <span class="badge">${s.l}</span></div>
+    <div class="score-row"><div class="ring" style="--p:${c.score}"><b>${c.score}</b></div><div class="why">${c.why}</div></div>
+    <div class="kpis">${c.kpis.map(k=>`<span class="kpi">${k}</span>`).join('')}</div>
+    <details><summary>Full checklist</summary><div class="chk">${c.chk.map(x=>`<div>${x}</div>`).join('')}</div></details>
+  </div>`);
+});
+function updateCardPrices(){
+  CARDS.forEach((c,i)=>{
+    const q=Q[c.q]; if(!q)return;
+    const el=document.getElementById('prc-'+i);
+    const cls=q.c==null?'neu':(q.c>=0?'pos':'neg');
+    const chg=q.c==null?'':`<small class="${cls}">${q.c>=0?'▲+':'▼'}${q.c.toFixed(2)}%</small>`;
+    el.innerHTML='$'+fmt(q.p)+chg;
+  });
+  document.querySelectorAll('[data-psym]').forEach(el=>{
+    const q=Q[el.dataset.psym]; if(!q)return;
+    const cls=q.c==null?'neu':(q.c>=0?'pos':'neg');
+    const chg=q.c==null?'':`<small class="${cls}">${q.c>=0?'▲+':'▼'}${q.c.toFixed(2)}%</small>`;
+    el.innerHTML=(q.p?'$'+fmt(q.p):'…')+chg;
+  });
+}
+updateCardPrices();
+renderCustomCards();
+
+/* ============ NEWS ============ */
+const ANALYSIS_AT='Aug 15, 2026 · 5:00am ET';
+/* Session-state badge: never claim the market is open when it is not.
+   Live feed overwrites this with 'LIVE · updated HH:MM' if/when it connects. */
+(function sessionBadge(){
+  const el=document.getElementById('liveTxt'); if(!el) return;
+  const et=new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));
+  const d=et.getDay(), m=et.getHours()*60+et.getMinutes();
+  let txt;
+  if(d===0||d===6) txt='WEEKEND · LAST CLOSE';
+  else if(m<9*60+30) txt='PRE-BELL · LAST CLOSE';
+  else if(m<16*60) txt='MARKET OPEN · LIVE TAPE';
+  else txt='POST-CLOSE · TODAY\u2019S CLOSE';
+  el.textContent=txt;
+})();
+document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('analysisAt');if(e)e.textContent='· as of '+ANALYSIS_AT+' · re-analyzed hourly';});
+const NEWS=[
+ {s:"Census · U. Michigan · Barchart",h:"📉 The consumer blinked — and it finished off the September rate hike",
+  what:"July retail sales fell <b>0.6% m/m against +0.1% expected</b> — the first decline in nine months and the largest in fourteen — with the control group at &minus;0.4% versus +0.3% and total sales of $763.6B. Hours later the University of Michigan's August preliminary sentiment printed <b>51.0 versus 54.5 expected</b>, down from 55.2, with current conditions 51.8, expectations 50.6 and one-year inflation expectations up to <b>4.3%</b>. September hike odds fell to roughly 29&ndash;31% from 35% on Thursday and about 67% on Jul 31.",
+  means:"This is a stagflationary shape, not a disinflation win: spending contracting while households still expect 4%+ inflation. It removes the hike risk that has been capping small caps and rate-sensitives — which is why the Russell 2000 made a record close on a day the S&P and Nasdaq fell — but it swaps that risk for an earnings-quality risk in anything consumer-facing. Position for the rotation, not for a cut: nobody is pricing one. Walmart on Aug 20 is the next hard read on the same cohort.",
+  chips:[["bull","Small caps, rate-sensitives"],["bear","Discretionary, low-income exposure"],["watch","FOMC minutes Aug 19, Walmart Aug 20"]]},
+ {s:"BofA · Benzinga · 24/7 Wall St",h:"🏦 Broadcom loses ~$105B as the market starts pricing AI <i>credit</i>, not AI demand",
+  what:"Broadcom closed <b>&minus;5.94% at $392.99</b>, the single largest drag on both the S&P 500 and the Nasdaq, after BofA's Tom Curcuruto published on <b>XPV</b> — Broadcom's off-balance-sheet vehicle in which investors fund racks of Broadcom chips and lease them to AI customers. He estimated XPV <b>could reach $370B of senior debt by mid-2029</b> at 20GW scale, including ~$150B of new issuance in 2027 alone. XPV launched in June 2026 with a $35B financing led by Apollo and Blackstone; Broadcom's disclosed maximum backstop exposure on the initial transaction is <b>$29B</b>. Separately, Nvidia has lined up six banks to mobilise $500B of customer AI financing.",
+  means:"Nothing here says AI demand is slowing. It says the demand is increasingly being funded with structures that sit outside the income statement, and the market has just demonstrated it will mark that risk. Expect the question to spread to every vendor doing customer financing or backstops, and expect disclosure quality to become a differentiator. Watch what Nvidia says about its own financing arrangements on Aug 26 — that is now a bigger swing factor than the revenue beat.",
+  chips:[["bear","Vendor-financed AI, backstops"],["watch","Nvidia Aug 26 financing disclosure"],["watch","Private credit spreads"]]},
+ {s:"Fortune · CRFB · Bloomberg",h:"💵 The 30-year auction stops at 5.22% — highest since 2001",
+  what:"Thursday's <b>$25B 30-year auction stopped at roughly 5.216&ndash;5.23%</b>, the highest at auction since 2001, and it tailed. Outstanding Treasuries are near <b>$31 trillion</b>, roughly double 2018, with the fiscal-year-to-date deficit at $1.17 trillion, up 15%. Treasury Secretary Bessent's guidance language shifted from evaluating &lsquo;increases&rsquo; to potential &lsquo;changes&rsquo; in long-bond supply. The 10-yr ended Friday at 4.69% after a data-driven rally faded; the 2-yr fell on the week even as the 10-yr rose.",
+  means:"The front end is being repriced by the Fed and the long end by supply — that is a bear steepener, and it is the least discussed risk in a market at record highs. If 30-year money costs 5.2% while AI capex is increasingly debt-funded (see Broadcom above), the hurdle rate on the whole build-out moves. It also caps how much good news equity duration can extract from a dovish Fed: the cut that isn't coming wouldn't fix the long end anyway.",
+  chips:[["bear","Long-duration equity, REITs"],["watch","Treasury refunding guidance"],["bull","Front-end carry"]]},
+ {s:"Yahoo · Kiplinger · Benzinga",h:"🧠 Memory chipflation: SanDisk targets 80% gross margin, Applied Materials beats and falls 5%",
+  what:"Two sides of the same trade in 48 hours. <b>SanDisk</b> rose 13.7% Thursday on investor-day 2028&ndash;30 targets of mid-to-high-teens revenue growth, <b>~80% adjusted gross margin</b> and ~50% adjusted FCF margin — it is up over 540% YTD. <b>Applied Materials</b> reported FQ3 revenue $9.12B +25% and adj. EPS $3.50 +41%, guided Q4 above consensus at ~$10.25B, raised its advanced-packaging growth forecast to &lsquo;more than 70%&rsquo; — and <b>fell ~5%</b> on a flat 50.4% gross margin and valuation. Separately, DRAM prices are estimated to rise more than 400% from the start of 2024 through end-2026, contributing an estimated 0.2&ndash;0.4pp to inflation.",
+  means:"Own the layer that <i>sells</i> memory, not the layer that buys it. The buyers — Apple, Cisco, the hyperscalers — are absorbing it in gross margin or capex; the sellers are re-rating on structurally higher margins. The second-order point is macro: memory is now large enough to show up in the CPI the Fed is fighting, which means the AI boom and the inflation problem are the same story, not two stories. Note also that beating and raising is no longer sufficient at these multiples — AMAT proved margin trajectory is what gets paid.",
+  chips:[["bull","Memory, NAND, HBM"],["bear","Device makers, networking"],["watch","Margin, not revenue, at Nvidia Aug 26"]]},
+ {s:"Reuters · Al Jazeera · TradingEconomics",h:"🛢 Tankers attacked in Hormuz as Washington floats an indefinite blockade",
+  what:"Two <b>ADNOC vessels were attacked transiting the Strait of Hormuz on Aug 13</b>, which the UAE attributed to Iran. The same day Treasury Secretary Scott Bessent said the US could maintain a naval blockade of Iran <b>&lsquo;indefinitely&rsquo;</b>. Crude closed the week up roughly 5% (WTI ~$82, Brent ~$88.5). Traffic remains far below normal — around 10 vessels crossed on Aug 10 against roughly 130 daily pre-war transits — and Iran is conditioning any reopening on reparations and sanctions relief. The crisis is in its sixth month.",
+  means:"The energy premium is no longer being sold on official reassurance the way it was mid-week — the physical event reasserted itself and crude took back the whole move. That matters beyond energy: gasoline is a direct input to the inflation expectations that just printed at 4.3%, and it is the single thing most capable of putting the September hike back on the table between now and Sept 16. Refiners and tanker rates benefit; airlines and anything with a fuel line carry the tail risk.",
+  chips:[["bull","Refiners, tankers"],["bear","Airlines, freight"],["watch","Any Oman-brokered reopening"]]},
+ {s:"S&P DJI · Reuters · Axios",h:"📈 Reddit joins the S&P 500 Tuesday; Silver Lake's Workday bid is still just talks",
+  what:"<b>RDDT enters the S&P 500 before the open on Tuesday Aug 18</b>, replacing AvalonBay, which is being bought by Equity Residential; Reddit rose roughly 12&ndash;15% Friday (sources disagree on the close — treat &lsquo;low-to-mid teens&rsquo; as the safe claim) after an intraday high of $184.28. Separately, Reuters reported Aug 13 that <b>Silver Lake is in talks to take Workday private</b>; WDAY closed Aug 13 <b>+17.78% at $206.45</b>, its biggest day since 2016, taking the market cap from ~$43B to ~$51.1B. As of Friday <b>nothing is signed, no per-share price has been reported</b>, and neither company has commented.",
+  means:"Index addition is forced buying, not a verdict — the pop happens on the announcement, and post-inclusion fade is the historical norm. The Workday story is the more useful one: if a sponsor will underwrite a ~$50B take-private of a seat-priced HR platform, the &lsquo;AI kills SaaS&rsquo; discount on the rest of the group is a valuation opportunity rather than a terminal verdict. But price the optionality honestly — talks are not a deal, and the $54B figure circulating is inferred deal math, not a reported offer.",
+  chips:[["watch","Post-inclusion fade in RDDT"],["bull","Beaten-down large-cap SaaS"],["watch","No Workday deal is signed"]]}
+ ];
+
+
+const newsEl=document.getElementById('news');
+NEWS.forEach(n=>{
+  newsEl.insertAdjacentHTML('beforeend',
+  `<div class="ncard"><div class="src">${n.s}</div><h3>${n.h}</h3>
+    <div class="nrow"><div class="t">What happened</div><p>${n.what}</p></div>
+    <div class="nrow"><div class="t">What it means</div><p>${n.means}</p></div>
+    <div class="sigchips">${n.chips.map(c=>`<span class="sc ${c[0]}">${c[0]==='bull'?'▲':c[0]==='bear'?'▼':'◉'} ${c[1]}</span>`).join('')}</div></div>`);
+});
+
+/* ============ UI ============ */
+function show(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  const f=b.dataset.f;
+  document.querySelectorAll('#cards .card').forEach(c=>c.style.display=(f==='all'||c.dataset.f===f)?'':'none');
+});
+</script>
+</body>
+</html>
